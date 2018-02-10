@@ -6,8 +6,6 @@ import ru.alvisud.votingsystem.HasId;
 import javax.persistence.*;
 
 @MappedSuperclass
-
-// http://stackoverflow.com/questions/594597/hibernate-annotations-which-is-better-field-or-property-access
 @Access(AccessType.FIELD)
 //@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public abstract class AbstractBaseEntity implements HasId {
