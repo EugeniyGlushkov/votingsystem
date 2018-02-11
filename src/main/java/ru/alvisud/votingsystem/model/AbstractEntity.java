@@ -4,27 +4,33 @@ import org.hibernate.Hibernate;
 import ru.alvisud.votingsystem.HasId;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-//@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
-public abstract class AbstractBaseEntity implements HasId {
+public abstract class AbstractEntity implements HasId{
     public static final int START_SEQ = 100000;
 
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
+    //del
     //    @Column(name = "id", unique = true, nullable = false, columnDefinition = "integer default nextval('global_seq')")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-
-//  Fixed https://hibernate.atlassian.net/browse/HHH-3718
-//  See also proxy loading when fix https://hibernate.atlassian.net/browse/HHH-12034
     protected Integer id;
 
-    protected AbstractBaseEntity() {
+    @NotBlank
+    @Size(min = 2, max = 100)
+    @Column(name = "name", nullable = false)
+    protected String name;
+
+    protected AbstractEntity() {
     }
 
-    protected AbstractBaseEntity(Integer id) {
+    protected AbstractEntity(Integer id, String name) {
         this.id = id;
+        this.name = name;
     }
 
     @Override
@@ -37,11 +43,18 @@ public abstract class AbstractBaseEntity implements HasId {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Entity %s (%s)", getClass().getName(), id);
+    public void setName(String name) {
+        this.name = name;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Entity %s (%s, '%s')", getClass().getName(), id, name);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -51,7 +64,7 @@ public abstract class AbstractBaseEntity implements HasId {
         if (o == null || !getClass().equals(Hibernate.getClass(o))) {
             return false;
         }
-        AbstractBaseEntity that = (AbstractBaseEntity) o;
+        AbstractEntity that = (AbstractEntity) o;
         return id != null && id.equals(that.id);
     }
 
