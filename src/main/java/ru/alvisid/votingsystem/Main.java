@@ -1,5 +1,7 @@
 package ru.alvisid.votingsystem;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.alvisid.votingsystem.model.*;
 
 import java.time.LocalDate;
@@ -7,7 +9,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {
+        LOG.debug("main");
+        LOG.debug("main");
+        LOG.debug("main");
+        LOG.debug("main");
+        LOG.debug("main");
+        LOG.debug("main");
+        LOG.debug("main");
+        LOG.debug("main");
+        LOG.debug("main");
+        LOG.debug("main");
+        LOG.debug("main");
         System.out.println(new Restaurant(0, "Ancor"));
         Map<String, Float> price = new HashMap<>();
         price.put("cake", 5.6F);
