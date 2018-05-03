@@ -12,7 +12,7 @@ import java.util.Map;
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {
-        log.debug("main");
+    /*    log.debug("main");
         log.debug("main");
         log.debug("main");
         log.debug("main");
@@ -32,7 +32,7 @@ public class Main {
         Menu menu = new Menu(1, new Restaurant(2, "Coma"), LocalDate.now(), price);
         System.out.println(menu);
         System.out.println(user);
-        System.out.println(new Vote(user, menu));
+        System.out.println(new Vote(user, menu));*/
         System.out.println(Utils.getVotesWithSumVotes(Utils.VOTES));
     }
 }

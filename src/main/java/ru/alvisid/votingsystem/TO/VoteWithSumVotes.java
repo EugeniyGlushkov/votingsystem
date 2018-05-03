@@ -41,7 +41,7 @@ public class VoteWithSumVotes {
                 "user=" + user +
                 " menu=" + menu +
                 " totalVotesForRestaurantADay=" + totalVotesForRestaurantADay +
-                " totalVotesForADay" + totalVotesForADay +
+                " totalVotesForADay=" + totalVotesForADay +
                 ')';
     }
 }

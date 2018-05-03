@@ -19,11 +19,16 @@ public abstract class AbsractBaseEntity {
 
     @Override
     public boolean equals(Object o) {
-        return true;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AbsractBaseEntity that = (AbsractBaseEntity) o;
+
+        return id != null ? id.equals(that.id) : that.id == null;
     }
 
     @Override
     public int hashCode() {
-        return 0;
+        return id != null ? id.hashCode() : 0;
     }
 }
