@@ -31,6 +31,7 @@ public class Menu extends AbsractBaseEntity {
     public String toString() {
         return "Menu (" +
                 "id=" + id +
+                " restaurant=" + restaurant +
                 " date=" + date +
                 " menu=" + price +
                 ')';

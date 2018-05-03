@@ -57,13 +57,19 @@ public class Utils {
 
         votes.forEach(vote -> {
                     voutesADay.merge(vote.getMenu().getDate(), 1, Integer::sum);
-                    Map<Restaurant, Integer> oldMap = voutesRestADay.get(vote.getMenu().getDate());
+                    LocalDate currDate = vote.getMenu().getDate();
+                    Map<Restaurant, Integer> oldMap = voutesRestADay.get(currDate);
                     if (oldMap == null) {
+                        oldMap = new HashMap<>();
                         oldMap.put(vote.getMenu().getRestaurant(), 1);
+                        voutesRestADay.put(currDate, oldMap);
                     } else {
-                        oldMap.merge(vote.getMenu().getRestaurant(), 1, Integer::sum);
+                        voutesRestADay.get(currDate).merge(vote.getMenu().getRestaurant(), 1, Integer::sum);
                     }
                 });
+
+        System.out.println(voutesADay);
+        System.out.println(voutesRestADay);
 
         return votes.stream().map(vote -> new VoteWithSumVotes(
                 vote.getUser(),
