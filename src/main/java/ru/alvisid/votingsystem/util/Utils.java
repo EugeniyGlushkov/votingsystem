@@ -79,7 +79,7 @@ public class Utils {
     public static List <RestaurantVotes> getRestaurantVotes(List <Menu> menus) {
         Map <LocalDate, Integer> voutesADay = new HashMap <>();
 
-        menus.forEach(menu -> voutesADay.merge(menu.getDate(), menu.getVotes() == null ? 0 : menu.getVotes().size(), Integer::sum));
+        menus.forEach(menu -> voutesADay.merge(menu.getDate(), Objects.isNull(menu.getVotes()) ? 0 : menu.getVotes().size(), Integer::sum));
 
         return menus.stream()
                 .map(menu -> new RestaurantVotes(
