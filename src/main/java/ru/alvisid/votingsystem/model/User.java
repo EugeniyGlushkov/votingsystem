@@ -4,8 +4,6 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class User extends AbstractNamedEntity {
-
-
     private Set<Role> roles;
 
     public User(Integer id, String name, Set<Role> roles) {

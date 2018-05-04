@@ -1,8 +1,8 @@
-package ru.alvisid.votingsystem.TO;
+package ru.alvisid.votingsystem.to;
 
 import java.time.LocalDate;
 
-public class VoteForRestaurant {
+public class RestaurantVotes {
     private final Integer restaurantId;
 
     private final String restaurantName;
@@ -13,7 +13,7 @@ public class VoteForRestaurant {
 
     private final int totalVotesForADay;
 
-    public VoteForRestaurant(Integer restaurantId, String restaurantName, LocalDate date, int totalVotesForRestaurantADay, int totalVotesForADay) {
+    public RestaurantVotes(Integer restaurantId, String restaurantName, LocalDate date, int totalVotesForRestaurantADay, int totalVotesForADay) {
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
         this.date = date;
@@ -46,7 +46,7 @@ public class VoteForRestaurant {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        VoteForRestaurant that = (VoteForRestaurant) o;
+        RestaurantVotes that = (RestaurantVotes) o;
 
         if (restaurantId != that.restaurantId) return false;
         return date.equals(that.date);
@@ -61,7 +61,7 @@ public class VoteForRestaurant {
 
     @Override
     public String toString() {
-        return "VoteForRestaurant (" +
+        return "RestaurantVotes (" +
                 "restaurant id=" + restaurantId +
                 " Restaurant=" + restaurantName +
                 " date=" + date +

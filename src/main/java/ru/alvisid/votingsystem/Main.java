@@ -28,6 +28,6 @@ public class Main {
         System.out.println(menu);
         System.out.println(user);
         System.out.println(new Vote(user, menu));*/
-        System.out.println(Utils.getVotesForRestaurants(Utils.VOTES));
+        System.out.println(Utils.getRestaurantVotes(Utils.MENUS));
     }
 }

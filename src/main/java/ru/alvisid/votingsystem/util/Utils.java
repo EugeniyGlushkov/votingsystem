@@ -1,6 +1,6 @@
 package ru.alvisid.votingsystem.util;
 
-import ru.alvisid.votingsystem.TO.VoteForRestaurant;
+import ru.alvisid.votingsystem.to.RestaurantVotes;
 import ru.alvisid.votingsystem.model.*;
 
 import java.time.LocalDate;
@@ -10,11 +10,20 @@ import java.util.stream.Collectors;
 
 public class Utils {
     private static AtomicInteger idCounter = new AtomicInteger(100000);
+
     public static final Map <String, Float> firstMenu = new HashMap <>();
     public static final Map <String, Float> secondMenu = new HashMap <>();
-    public static final List <Vote> VOTES;
+    public static final List <Menu> MENUS;
     public static final Restaurant rest_1 = getNewRestaurant("Ambassador");
     public static final Restaurant rest_2 = getNewRestaurant("Mandalay");
+    public static final Vote vote_1;
+    public static final Vote vote_2;
+    public static final Vote vote_3;
+    public static final Vote vote_4;
+    public static final Menu menu_1;
+    public static final Menu menu_2;
+    public static final Menu menu_3;
+    public static final Menu menu_4;
 
     static {
         firstMenu.put("cake", 12F);
@@ -24,11 +33,26 @@ public class Utils {
         secondMenu.put("rooster", 8.96F);
         secondMenu.put("eggs", 12.2F);
         secondMenu.put("rabbit", 4.3F);
-        VOTES = Arrays.asList(
-                new Vote(getNewUser("Alex", Role.ROLE_USER), getNewMenu(rest_1, LocalDate.of(2018, 5, 1), firstMenu)),
-                new Vote(getNewUser("Sindy", Role.ROLE_USER, Role.ROLE_ADMIN), getNewMenu(rest_2, LocalDate.of(2018, 5, 1), secondMenu)),
-                new Vote(getNewUser("Fox", Role.ROLE_USER), getNewMenu(rest_2, LocalDate.of(2018, 5, 1), secondMenu)),
-                new Vote(getNewUser("Fox", Role.ROLE_USER), getNewMenu(rest_2, LocalDate.of(2018, 5, 2), firstMenu))
+
+        menu_1 = getNewMenu(rest_1, LocalDate.of(2018, 5, 1), firstMenu);
+        menu_2 = getNewMenu(rest_2, LocalDate.of(2018, 5, 1), secondMenu);
+        menu_3 = getNewMenu(rest_1, LocalDate.of(2018, 5, 2), secondMenu);
+        menu_4 = getNewMenu(rest_2, LocalDate.of(2018, 5, 2), firstMenu);
+
+        vote_1 = new Vote(getNewUser("Alex", Role.ROLE_USER), menu_1);
+        vote_2 = new Vote(getNewUser("Sindy", Role.ROLE_USER, Role.ROLE_ADMIN), menu_2);
+        vote_3 = new Vote(getNewUser("Fox", Role.ROLE_USER), menu_3);
+        vote_4 = new Vote(getNewUser("Fox", Role.ROLE_USER), menu_4);
+
+        menu_1.setVotes(Arrays.asList(vote_1));
+        menu_2.setVotes(Arrays.asList(vote_2, vote_3));
+        menu_4.setVotes(Arrays.asList(vote_4));
+
+        MENUS = Arrays.asList(
+                menu_1,
+                menu_2,
+                menu_3,
+                menu_4
         );
     }
 
@@ -52,32 +76,18 @@ public class Utils {
         return new Restaurant(idCounter.incrementAndGet(), name);
     }
 
-    public static List <VoteForRestaurant> getVotesForRestaurants(List <Vote> votes) {
+    public static List <RestaurantVotes> getRestaurantVotes(List <Menu> menus) {
         Map <LocalDate, Integer> voutesADay = new HashMap <>();
-        Map <LocalDate, Map <Restaurant, Integer>> voutesRestADay = new HashMap <>();
 
-        votes.forEach(vote -> {
-            LocalDate currDate = vote.getMenu().getDate();
-            Restaurant currRest = vote.getMenu().getRestaurant();
-            Map <Restaurant, Integer> oldMap = voutesRestADay.get(currDate);
-            voutesADay.merge(currDate, 1, Integer::sum);
-            if (oldMap == null) {
-                oldMap = new HashMap <>();
-                oldMap.put(currRest, 1);
-                voutesRestADay.put(currDate, oldMap);
-            } else {
-                oldMap.merge(currRest, 1, Integer::sum);
-            }
-        });
+        menus.forEach(menu -> voutesADay.merge(menu.getDate(), menu.getVotes() == null ? 0 : menu.getVotes().size(), Integer::sum));
 
-        return votes.stream()
-                .map(vote -> new VoteForRestaurant(
-                        vote.getMenu().getRestaurant().getId(),
-                        vote.getMenu().getRestaurant().getName(),
-                        vote.getMenu().getDate(),
-                        voutesRestADay.get(vote.getMenu().getDate()).get(vote.getMenu().getRestaurant()),
-                        voutesADay.get(vote.getMenu().getDate())))
-                .distinct()
+        return menus.stream()
+                .map(menu -> new RestaurantVotes(
+                        menu.getRestaurant().getId(),
+                        menu.getRestaurant().getName(),
+                        menu.getDate(),
+                        Objects.isNull(menu.getVotes()) ? 0 : menu.getVotes().size(),
+                        voutesADay.get(menu.getDate())))
                 .collect(Collectors.toList());
     }
 }

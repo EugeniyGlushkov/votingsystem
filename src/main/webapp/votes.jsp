@@ -18,7 +18,7 @@
     </tr>
     </thead>
     <c:forEach items="${votes}" var="vote">
-        <jsp:useBean id="vote" scope="page" type="ru.alvisid.votingsystem.TO.VoteForRestaurant"/>
+        <jsp:useBean id="vote" scope="page" type="ru.alvisid.votingsystem.to.RestaurantVotes"/>
         <tr>
             <fmt:parseDate value="${vote.date}" pattern="yyyy-MM-dd" var="parsedDate" type="both" />
             <td>

@@ -1,12 +1,14 @@
 package ru.alvisid.votingsystem.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public class Menu extends AbsractBaseEntity {
     private final Restaurant restaurant;
     private final LocalDate date;
     private final Map<String, Float> price;
+    protected List<Vote> votes;
 
     public Menu(Integer id, Restaurant restaurant, LocalDate date, Map<String, Float> menu) {
         super(id);
@@ -25,6 +27,14 @@ public class Menu extends AbsractBaseEntity {
 
     public Map<String, Float> getMenu() {
         return price;
+    }
+
+    public List <Vote> getVotes() {
+        return votes;
+    }
+//del
+    public void setVotes(List <Vote> votes) {
+        this.votes = votes;
     }
 
     @Override
