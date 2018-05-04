@@ -1,7 +1,6 @@
 package ru.alvisid.votingsystem.util;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-import ru.alvisid.votingsystem.TO.VoteWithSumVotes;
+import ru.alvisid.votingsystem.TO.VoteForRestaurant;
 import ru.alvisid.votingsystem.model.*;
 
 import java.time.LocalDate;
@@ -53,7 +52,7 @@ public class Utils {
         return new Restaurant(idCounter.incrementAndGet(), name);
     }
 
-    public static List <VoteWithSumVotes> getVotesWithSumVotes(List <Vote> votes) {
+    public static List <VoteForRestaurant> getVotesForRestaurants(List <Vote> votes) {
         Map <LocalDate, Integer> voutesADay = new HashMap <>();
         Map <LocalDate, Map <Restaurant, Integer>> voutesRestADay = new HashMap <>();
 
@@ -71,11 +70,14 @@ public class Utils {
             }
         });
 
-        return votes.stream().map(vote -> new VoteWithSumVotes(
-                vote.getUser(),
-                vote.getMenu(),
-                voutesRestADay.get(vote.getMenu().getDate()).get(vote.getMenu().getRestaurant()),
-                voutesADay.get(vote.getMenu().getDate())
-        )).collect(Collectors.toList());
+        return votes.stream()
+                .map(vote -> new VoteForRestaurant(
+                        vote.getMenu().getRestaurant().getId(),
+                        vote.getMenu().getRestaurant().getName(),
+                        vote.getMenu().getDate(),
+                        voutesRestADay.get(vote.getMenu().getDate()).get(vote.getMenu().getRestaurant()),
+                        voutesADay.get(vote.getMenu().getDate())))
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

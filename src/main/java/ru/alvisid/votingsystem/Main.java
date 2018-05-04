@@ -2,12 +2,7 @@ package ru.alvisid.votingsystem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.alvisid.votingsystem.model.*;
 import ru.alvisid.votingsystem.util.Utils;
-
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
@@ -33,6 +28,6 @@ public class Main {
         System.out.println(menu);
         System.out.println(user);
         System.out.println(new Vote(user, menu));*/
-        System.out.println(Utils.getVotesWithSumVotes(Utils.VOTES));
+        System.out.println(Utils.getVotesForRestaurants(Utils.VOTES));
     }
 }
