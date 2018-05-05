@@ -2,7 +2,7 @@ package ru.alvisid.votingsystem.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.alvisid.votingsystem.util.Utils;
+import ru.alvisid.votingsystem.util.MenuUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +18,7 @@ public class VoteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("getAll");
-        request.setAttribute("votes", Utils.getRestaurantVotes(Utils.MENUS));
+        request.setAttribute("votes", MenuUtils.getRestaurantVotes(MenuUtils.MENUS));
         request.getRequestDispatcher("/votes.jsp").forward(request, response);
     }
 }

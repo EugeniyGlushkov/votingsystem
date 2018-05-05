@@ -10,6 +10,12 @@ public class Menu extends AbsractBaseEntity {
     private final Map<String, Float> price;
     protected List<Vote> votes;
 
+    public Menu(Restaurant restaurant, LocalDate date, Map<String, Float> price) {
+        this.restaurant = restaurant;
+        this.date = date;
+        this.price = price;
+    }
+
     public Menu(Integer id, Restaurant restaurant, LocalDate date, Map<String, Float> menu) {
         super(id);
         this.restaurant = restaurant;
@@ -32,7 +38,7 @@ public class Menu extends AbsractBaseEntity {
     public List <Vote> getVotes() {
         return votes;
     }
-//del
+
     public void setVotes(List <Vote> votes) {
         this.votes = votes;
     }

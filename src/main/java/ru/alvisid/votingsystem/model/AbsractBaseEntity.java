@@ -5,6 +5,10 @@ import java.util.Objects;
 public abstract class AbsractBaseEntity {
     protected Integer id;
 
+    public AbsractBaseEntity() {
+
+    }
+
     public AbsractBaseEntity(Integer id) {
         this.id = id;
     }
@@ -15,6 +19,10 @@ public abstract class AbsractBaseEntity {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public boolean isNew() {
+        return Objects.isNull(id);
     }
 
     @Override

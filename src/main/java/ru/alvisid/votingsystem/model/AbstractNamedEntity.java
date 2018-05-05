@@ -3,6 +3,10 @@ package ru.alvisid.votingsystem.model;
 public abstract class AbstractNamedEntity extends AbsractBaseEntity {
     protected String name;
 
+    public AbstractNamedEntity(String name) {
+        this.name = name;
+    }
+
     public AbstractNamedEntity(Integer id, String name) {
         super(id);
         this.name = name;

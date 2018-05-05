@@ -6,6 +6,15 @@ import java.util.Set;
 public class User extends AbstractNamedEntity {
     private Set<Role> roles;
 
+    public User(String name, Set<Role> roles) {
+        super(name);
+        this.roles = roles;
+    }
+
+    public User(String name, Role role, Role... roles) {
+        this(name, EnumSet.of(role, roles));
+    }
+
     public User(Integer id, String name, Set<Role> roles) {
         super(id, name);
         this.roles = roles;
