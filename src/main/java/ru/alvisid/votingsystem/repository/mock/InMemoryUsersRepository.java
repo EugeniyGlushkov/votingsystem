@@ -13,8 +13,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-public class InMemoryUserRepository implements UserRepository {
-    private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepository.class);
+public class InMemoryUsersRepository implements UserRepository {
+    private static final Logger log = LoggerFactory.getLogger(InMemoryUsersRepository.class);
     private Map<Integer, User> userRepository = new ConcurrentHashMap<>();
 
     {

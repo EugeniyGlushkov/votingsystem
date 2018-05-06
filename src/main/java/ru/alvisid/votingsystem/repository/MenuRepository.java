@@ -12,7 +12,7 @@ public interface MenuRepository {
     // false if menu with id is not in the repository
     boolean delete(int id);
 
-    // false if menu with id is not in the repository
+    // null if menu with id is not in the repository
     Menu get(int id);
 
     // ORDERED dateTime desc

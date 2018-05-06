@@ -4,9 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.alvisid.votingsystem.model.Role;
 import ru.alvisid.votingsystem.repository.UserRepository;
-import ru.alvisid.votingsystem.repository.mock.InMemoryUserRepository;
+import ru.alvisid.votingsystem.repository.mock.InMemoryMenusRepository;
+import ru.alvisid.votingsystem.repository.mock.InMemoryUsersRepository;
 import ru.alvisid.votingsystem.util.MenuUtils;
 import ru.alvisid.votingsystem.util.UserUtils;
+
+import java.time.LocalDate;
 
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
@@ -32,8 +35,9 @@ public class Main {
         System.out.println(menu);
         System.out.println(user);
         System.out.println(new Vote(user, menu));*/
+        System.out.println(new InMemoryMenusRepository().getBetween(LocalDate.MIN, LocalDate.MAX));
         System.out.println(MenuUtils.getRestaurantVotes(MenuUtils.MENUS));
-        UserRepository userRepository = new InMemoryUserRepository();
+        UserRepository userRepository = new InMemoryUsersRepository();
         System.out.println(userRepository.save(UserUtils.user_1));
         System.out.println(userRepository.save(UserUtils.getNewUser("Gonzo", Role.ROLE_USER)));
         System.out.println(userRepository.delete(100007));

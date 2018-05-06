@@ -14,13 +14,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class InMemoryMenuRepository implements MenuRepository {
-    private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepository.class);
+public class InMemoryMenusRepository implements MenuRepository {
+    private static final Logger log = LoggerFactory.getLogger(InMemoryMenusRepository.class);
     private Map<Integer, Menu> menuRepository = new ConcurrentHashMap<>();
+
+    {
+        MenuUtils.MENUS.forEach(menu -> menuRepository.put(menu.getId(), menu));
+    }
 
     @Override
     public Menu save(Menu menu) {
         log.info("save {}", menu);
+
         if (menu.isNew()) {
             menu.setId(MenuUtils.getIdCounter().incrementAndGet());
             menuRepository.put(menu.getId(), menu);
@@ -38,11 +43,13 @@ public class InMemoryMenuRepository implements MenuRepository {
 
     @Override
     public Menu get(int id) {
+        log.info("get {}", id);
         return menuRepository.get(id);
     }
 
     @Override
     public List<Menu> getAll() {
+        log.info("getAll {}");
         return menuRepository.values().stream()
                 .sorted(Comparator.comparing(Menu::getDate).thenComparing(menu -> menu.getRestaurant().getName()))
                 .collect(Collectors.toList());
@@ -50,6 +57,7 @@ public class InMemoryMenuRepository implements MenuRepository {
 
     @Override
     public List<Menu> getBetween(LocalDate startDate, LocalDate endDate) {
+        log.info("getBetween {} - {}", startDate, endDate);
         return getAllFiltered(menu -> DateTimeUtil.isBetween(menu.getDate(), startDate, endDate));
     }
 
