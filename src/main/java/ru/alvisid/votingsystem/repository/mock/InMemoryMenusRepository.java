@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 import ru.alvisid.votingsystem.model.Menu;
-import ru.alvisid.votingsystem.repository.MenuRepository;
+import ru.alvisid.votingsystem.repository.MenusRepository;
 import ru.alvisid.votingsystem.util.DateTimeUtil;
 import ru.alvisid.votingsystem.util.MenuUtils;
 
@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class InMemoryMenusRepository implements MenuRepository {
+public class InMemoryMenusRepository implements MenusRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryMenusRepository.class);
     private Map<Integer, Menu> menuRepository = new ConcurrentHashMap<>();
 

@@ -4,7 +4,8 @@ import ru.alvisid.votingsystem.model.User;
 
 import java.util.List;
 
-public interface UserRepository {
+public interface UsersRepository {
+    // null if updated user is not in the repository
     User save(User user);
 
     //false if not found

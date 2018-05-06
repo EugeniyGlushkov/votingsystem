@@ -3,7 +3,7 @@ package ru.alvisid.votingsystem.repository.mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.alvisid.votingsystem.model.User;
-import ru.alvisid.votingsystem.repository.UserRepository;
+import ru.alvisid.votingsystem.repository.UsersRepository;
 import ru.alvisid.votingsystem.util.MenuUtils;
 import ru.alvisid.votingsystem.util.UserUtils;
 
@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-public class InMemoryUsersRepository implements UserRepository {
+public class InMemoryUsersRepository implements UsersRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryUsersRepository.class);
     private Map<Integer, User> userRepository = new ConcurrentHashMap<>();
 

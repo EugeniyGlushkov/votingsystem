@@ -3,7 +3,7 @@ package ru.alvisid.votingsystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.alvisid.votingsystem.model.Role;
-import ru.alvisid.votingsystem.repository.UserRepository;
+import ru.alvisid.votingsystem.repository.UsersRepository;
 import ru.alvisid.votingsystem.repository.mock.InMemoryMenusRepository;
 import ru.alvisid.votingsystem.repository.mock.InMemoryUsersRepository;
 import ru.alvisid.votingsystem.util.MenuUtils;
@@ -37,7 +37,7 @@ public class Main {
         System.out.println(new Vote(user, menu));*/
         System.out.println(new InMemoryMenusRepository().getBetween(LocalDate.MIN, LocalDate.MAX));
         System.out.println(MenuUtils.getRestaurantVotes(MenuUtils.MENUS));
-        UserRepository userRepository = new InMemoryUsersRepository();
+        UsersRepository userRepository = new InMemoryUsersRepository();
         System.out.println(userRepository.save(UserUtils.user_1));
         System.out.println(userRepository.save(UserUtils.getNewUser("Gonzo", Role.ROLE_USER)));
         System.out.println(userRepository.delete(100007));

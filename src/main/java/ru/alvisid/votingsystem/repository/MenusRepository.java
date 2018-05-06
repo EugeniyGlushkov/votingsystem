@@ -5,7 +5,7 @@ import ru.alvisid.votingsystem.model.Menu;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface MenuRepository {
+public interface MenusRepository {
     // null if updated menu is not in the repository
     Menu save(Menu menu);
 

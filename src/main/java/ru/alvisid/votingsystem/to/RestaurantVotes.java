@@ -3,6 +3,8 @@ package ru.alvisid.votingsystem.to;
 import java.time.LocalDate;
 
 public class RestaurantVotes {
+    private final Integer voteId;
+
     private final Integer restaurantId;
 
     private final String restaurantName;
@@ -13,12 +15,17 @@ public class RestaurantVotes {
 
     private final int totalVotesForADay;
 
-    public RestaurantVotes(Integer restaurantId, String restaurantName, LocalDate date, int totalVotesForRestaurantADay, int totalVotesForADay) {
+    public RestaurantVotes(Integer voteId, Integer restaurantId, String restaurantName, LocalDate date, int totalVotesForRestaurantADay, int totalVotesForADay) {
+        this.voteId = voteId;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
         this.date = date;
         this.totalVotesForRestaurantADay = totalVotesForRestaurantADay;
         this.totalVotesForADay = totalVotesForADay;
+    }
+
+    public Integer getVoteId() {
+        return voteId;
     }
 
     public Integer getRestaurantId() {
@@ -48,13 +55,14 @@ public class RestaurantVotes {
 
         RestaurantVotes that = (RestaurantVotes) o;
 
-        if (restaurantId != that.restaurantId) return false;
+        if (voteId != that.voteId || restaurantId != that.restaurantId) return false;
         return date.equals(that.date);
     }
 
     @Override
     public int hashCode() {
-        int result = restaurantId;
+        int result = voteId;
+        result = 31 * result + restaurantId;
         result = 31 * result + date.hashCode();
         return result;
     }
@@ -62,7 +70,8 @@ public class RestaurantVotes {
     @Override
     public String toString() {
         return "RestaurantVotes (" +
-                "restaurant id=" + restaurantId +
+                "vote id=" + voteId +
+                " restaurant id=" + restaurantId +
                 " Restaurant=" + restaurantName +
                 " date=" + date +
                 " totalVotesForRestaurantADay=" + totalVotesForRestaurantADay +
