@@ -2,13 +2,15 @@ package ru.alvisid.votingsystem.repository.mock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 import ru.alvisid.votingsystem.model.Vote;
 import ru.alvisid.votingsystem.repository.VotesRepository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class InMemoruVoutsRepository implements VotesRepository {
+@Repository
+public class InMemoryVoutsRepository implements VotesRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryMenusRepository.class);
     //<userId, <menuId, vote>>
     public Map <Integer, Map <Integer, Vote>> votesRepository = new ConcurrentHashMap <>();

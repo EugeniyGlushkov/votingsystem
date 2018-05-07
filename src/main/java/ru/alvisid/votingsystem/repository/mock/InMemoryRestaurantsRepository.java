@@ -2,6 +2,7 @@ package ru.alvisid.votingsystem.repository.mock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.repository.RestaurantsRepository;
 import ru.alvisid.votingsystem.util.MenuUtils;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+@Repository
 public class InMemoryRestaurantsRepository implements RestaurantsRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryRestaurantsRepository.class);
     private Map<Integer, Restaurant> restaurantsRepository = new ConcurrentHashMap<>();
