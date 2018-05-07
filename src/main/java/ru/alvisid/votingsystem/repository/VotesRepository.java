@@ -3,18 +3,16 @@ package ru.alvisid.votingsystem.repository;
 import ru.alvisid.votingsystem.model.Vote;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public interface VotesRepository {
     // null if updated vote is not in the repository
     Vote save(Vote vote);
 
     //false if not found
-    boolean delete(int menuId, int userId);
+    boolean delete( int userId,int menuId);
 
     //null if not found
-    Vote get(int id);
+    Vote get(int userId, int venuId);
 
     List<Vote> getAll();
 
