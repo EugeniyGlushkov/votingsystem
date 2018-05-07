@@ -19,7 +19,5 @@ public interface MenusRepository {
     List<Menu> getAll();
 
     // ORDERED dateTime desc
-    List<Menu> getBetween(LocalDate startDate, LocalDate endTime);
-
-
+    List<Menu> getBetween(LocalDate startDate, LocalDate endDate);
 }
