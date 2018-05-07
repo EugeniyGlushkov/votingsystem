@@ -35,13 +35,8 @@ public class Main {
         System.out.println(menu);
         System.out.println(user);
         System.out.println(new Vote(user, menu));*/
-        System.out.println(new InMemoryMenusRepository().getBetween(LocalDate.MIN, LocalDate.MAX));
+        //System.out.println(new InMemoryMenusRepository().getBetween(LocalDate.MIN, LocalDate.MAX));
         System.out.println(MenuUtils.getRestaurantVotes(MenuUtils.MENUS));
-        UsersRepository userRepository = new InMemoryUsersRepository();
-        System.out.println(userRepository.save(UserUtils.user_1));
-        System.out.println(userRepository.save(UserUtils.getNewUser("Gonzo", Role.ROLE_USER)));
-        System.out.println(userRepository.delete(100007));
-        System.out.println(userRepository.getAll());
-        System.out.println(userRepository.get(100008));
+        System.out.println(UserUtils.USERS);
     }
 }
