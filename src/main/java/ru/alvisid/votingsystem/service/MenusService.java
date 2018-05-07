@@ -5,6 +5,7 @@ import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface MenusService {
 
@@ -19,4 +20,6 @@ public interface MenusService {
     List<Menu> getAll();
 
     List<Menu> getBetween(LocalDate startDate, LocalDate endDate);
+
+    Map<String, Float> priceById(int menuId) throws NotFoundException;
 }
