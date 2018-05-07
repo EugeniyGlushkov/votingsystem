@@ -61,12 +61,13 @@ public class MenuUtils {
 
         return menus.stream()
                 .map(menu -> new RestaurantVotes(
+                        menu.getId(),
                         menu.getRestaurant().getId(),
                         menu.getRestaurant().getName(),
                         menu.getDate(),
                         Objects.isNull(menu.getVotes()) ? 0 : menu.getVotes().size(),
-                        voutesADay.get(menu.getDate())))
-                .collect(Collectors.toList());
+                        voutesADay.get(menu.getDate())
+                )).collect(Collectors.toList());
     }
 
     public static AtomicInteger getIdCounter() {
