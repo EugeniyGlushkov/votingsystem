@@ -5,7 +5,7 @@ import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
 import java.util.List;
 
-public interface RestauranrsService {
+public interface RestaurantsService {
 
     Restaurant create(Restaurant restaurant);
 
