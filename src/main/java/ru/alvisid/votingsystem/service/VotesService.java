@@ -12,9 +12,9 @@ public interface VotesService {
 
     void update(Vote vote) throws OverTimeException;
 
-    Vote get(int id) throws NotFoundException;
+    Vote get(int userId, int menuId) throws NotFoundException;
 
-    void delete(int id) throws NotFoundException, OverTimeException;
+    void delete(int userId, int menuId) throws NotFoundException, OverTimeException;
 
     List<Vote> getAll();
 

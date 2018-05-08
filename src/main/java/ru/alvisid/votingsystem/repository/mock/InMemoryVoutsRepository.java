@@ -16,8 +16,8 @@ public class InMemoryVoutsRepository implements VotesRepository {
     public Map <Integer, Map <Integer, Vote>> votesRepository = new ConcurrentHashMap <>();
 
     @Override
-    public Vote save(Vote vote) {
-        log.info("save {}", vote);
+    public Vote add(Vote vote) {
+        log.info("add {}", vote);
         int userId = vote.getUser().getId();
         int menuId = vote.getMenu().getId();
 
@@ -27,11 +27,27 @@ public class InMemoryVoutsRepository implements VotesRepository {
             Map <Integer, Vote> menuIdVotes = new ConcurrentHashMap <>();
             menuIdVotes.put(menuId, vote);
             votesRepository.put(userId, menuIdVotes);
+            return vote;
         } else {
             votesByUsId.put(menuId, vote);
         }
 
         return vote;
+    }
+
+    @Override
+    public Vote update(Vote vote) {
+        log.info("update {}", vote);
+        int userId = vote.getUser().getId();
+        int menuId = vote.getMenu().getId();
+
+        Map <Integer, Vote> votesByUsId = votesRepository.get(userId);
+
+        if (Objects.isNull(votesByUsId)) {
+            return null;
+        }
+
+        return votesByUsId.computeIfPresent(menuId, (id, oldVote) -> vote);
     }
 
     @Override

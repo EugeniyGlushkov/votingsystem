@@ -1,6 +1,7 @@
 package ru.alvisid.votingsystem.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.repository.UsersRepository;
 import ru.alvisid.votingsystem.service.UsersService;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import static ru.alvisid.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
+@Service
 public class UsersServiceImpl implements UsersService {
 
     private UsersRepository repository;

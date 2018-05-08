@@ -5,14 +5,17 @@ import ru.alvisid.votingsystem.model.Vote;
 import java.util.List;
 
 public interface VotesRepository {
-    // null if updated vote is not in the repository
-    Vote save(Vote vote);
+    // added vote
+    Vote add(Vote vote);
+
+    // null if the vote is no in the repository
+    Vote update(Vote vote);
 
     //false if not found
     boolean delete( int userId,int menuId);
 
     //null if not found
-    Vote get(int userId, int venuId);
+    Vote get(int userId, int menuId);
 
     List<Vote> getAll();
 
