@@ -10,7 +10,6 @@ import ru.alvisid.votingsystem.util.exception.OverTimeException;
 
 import java.util.List;
 
-import static ru.alvisid.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 import static ru.alvisid.votingsystem.util.ValidationUtil.checkNotFound;
 
 @Service
