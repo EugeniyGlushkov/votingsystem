@@ -13,6 +13,7 @@ import static ru.alvisid.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class RestaurantsServiceImpl implements RestaurantsService {
+
     private RestaurantsRepository repository;
 
     @Autowired
