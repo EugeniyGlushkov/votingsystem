@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import ru.alvisid.votingsystem.model.Vote;
 import ru.alvisid.votingsystem.repository.VotesRepository;
 import ru.alvisid.votingsystem.service.VotesService;
+import ru.alvisid.votingsystem.util.DateTimeUtil;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 import ru.alvisid.votingsystem.util.exception.OverTimeException;
 
 import java.util.List;
 
 import static ru.alvisid.votingsystem.util.ValidationUtil.checkNotFound;
+import static ru.alvisid.votingsystem.util.ValidationUtil.checkOverTimeVout;
 
 @Service
 public class VotesServiceImpl implements VotesService {
@@ -29,6 +31,7 @@ public class VotesServiceImpl implements VotesService {
 
     @Override
     public void update(Vote vote) throws OverTimeException {
+        checkOverTimeVout(DateTimeUtil.OVER_TIME, "You can not change your vout.");
         checkNotFound(repository.update(vote), "userId=" + vote.getUser().getId() + " and menuId=" + vote.getMenu().getId());
     }
 
@@ -39,6 +42,7 @@ public class VotesServiceImpl implements VotesService {
 
     @Override
     public void delete(int userId, int menuId) throws NotFoundException, OverTimeException {
+        checkOverTimeVout(DateTimeUtil.OVER_TIME, "You can not delete your vout.");
         checkNotFound(repository.delete(userId, menuId), "userId=" + userId + " and menuId=" + menuId);
     }
 

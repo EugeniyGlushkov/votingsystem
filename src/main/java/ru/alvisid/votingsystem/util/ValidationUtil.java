@@ -2,7 +2,9 @@ package ru.alvisid.votingsystem.util;
 
 import ru.alvisid.votingsystem.model.AbsractBaseEntity;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
+import ru.alvisid.votingsystem.util.exception.OverTimeException;
 
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class ValidationUtil {
@@ -40,6 +42,14 @@ public class ValidationUtil {
             entity.setId(id);
         } else if (entity.getId() != id) {
             throw new IllegalArgumentException(entity + " must be with id=" + id);
+        }
+    }
+
+    public static void checkOverTimeVout(LocalTime checkTime, String msg) {
+        LocalTime timeNow = LocalTime.of(11, 0);
+
+        if (timeNow.isAfter(checkTime)) {
+            throw new OverTimeException("The current time " + timeNow + " is after " + checkTime + ". " +msg);
         }
     }
 }
