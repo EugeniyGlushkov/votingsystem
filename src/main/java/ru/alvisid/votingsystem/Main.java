@@ -2,15 +2,10 @@ package ru.alvisid.votingsystem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.alvisid.votingsystem.model.Role;
-import ru.alvisid.votingsystem.repository.UsersRepository;
-import ru.alvisid.votingsystem.repository.mock.InMemoryMenusRepository;
-import ru.alvisid.votingsystem.repository.mock.InMemoryUsersRepository;
 import ru.alvisid.votingsystem.util.MenuUtils;
 import ru.alvisid.votingsystem.util.UserUtils;
 
-import java.time.LocalDate;
-
+//del
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {
