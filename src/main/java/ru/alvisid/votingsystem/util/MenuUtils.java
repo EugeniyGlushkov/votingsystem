@@ -1,5 +1,6 @@
 package ru.alvisid.votingsystem.util;
 
+import ru.alvisid.votingsystem.to.PriceTransfer;
 import ru.alvisid.votingsystem.to.RestaurantVotes;
 import ru.alvisid.votingsystem.model.*;
 
@@ -29,5 +30,9 @@ public class MenuUtils {
                         Objects.isNull(menu.getVotes()) ? 0 : menu.getVotes().size(),
                         voutesADay.get(menu.getDate())
                 )).collect(Collectors.toList());
+    }
+
+    public static PriceTransfer getPriceForTransfer(Menu menu) {
+        return new PriceTransfer(menu.getRestaurant().getName(), menu.getDate(), menu.getMenu());
     }
 }
