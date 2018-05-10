@@ -3,10 +3,10 @@ package ru.alvisid.votingsystem.repository.mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import ru.alvisid.votingsystem.TestData.MenuTestData;
+import ru.alvisid.votingsystem.TestData.UserTestData;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.repository.UsersRepository;
-import ru.alvisid.votingsystem.util.MenuUtils;
-import ru.alvisid.votingsystem.util.UserUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -20,7 +20,7 @@ public class InMemoryUsersRepository implements UsersRepository {
     private Map<Integer, User> userRepository = new ConcurrentHashMap<>();
 
     {
-        UserUtils.USERS.forEach(user -> userRepository.put(user.getId(), user));
+        UserTestData.USERS.forEach(user -> userRepository.put(user.getId(), user));
     }
 
     @Override
@@ -28,7 +28,7 @@ public class InMemoryUsersRepository implements UsersRepository {
         log.info("save {}", user);
 
         if (user.isNew()){
-            user.setId(MenuUtils.getIdCounter().incrementAndGet());
+            user.setId(MenuTestData.getIdCounter().incrementAndGet());
             userRepository.put(user.getId(), user);
             return user;
         }

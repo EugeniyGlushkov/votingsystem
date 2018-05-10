@@ -17,8 +17,5 @@ public class VoteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.info("getAll");
-        request.setAttribute("votes", MenuUtils.getRestaurantVotes(MenuUtils.MENUS));
-        request.getRequestDispatcher("/votes.jsp").forward(request, response);
     }
 }

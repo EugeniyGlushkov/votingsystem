@@ -5,6 +5,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.alvisid.votingsystem.TestData.MenuTestData;
+import ru.alvisid.votingsystem.TestData.RestaurantTestData;
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.repository.mock.InMemoryMenusRepository;
 import ru.alvisid.votingsystem.service.impl.MenusServiseImpl;
@@ -33,7 +35,7 @@ public class MenusServiceTest {
 
     @Test
     public void testCreate() {
-        service.create(MenuUtils.getNewMenu(RestaurantUtils.rest_1, LocalDate.now(), MenuUtils.firstMenu));
+        service.create(MenuUtils.getNewMenu(RestaurantTestData.rest_1, LocalDate.now(), MenuTestData.firstMenu));
     }
 
     @Test(expected = NotFoundException.class)

@@ -3,10 +3,10 @@ package ru.alvisid.votingsystem.repository.mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import ru.alvisid.votingsystem.TestData.MenuTestData;
+import ru.alvisid.votingsystem.TestData.RestaurantTestData;
 import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.repository.RestaurantsRepository;
-import ru.alvisid.votingsystem.util.MenuUtils;
-import ru.alvisid.votingsystem.util.RestaurantUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -20,7 +20,7 @@ public class InMemoryRestaurantsRepository implements RestaurantsRepository {
     private Map<Integer, Restaurant> restaurantsRepository = new ConcurrentHashMap<>();
 
     {
-        RestaurantUtils.RESTAURANTS.forEach(restaurant -> restaurantsRepository.put(restaurant.getId(), restaurant));
+        RestaurantTestData.RESTAURANTS.forEach(restaurant -> restaurantsRepository.put(restaurant.getId(), restaurant));
     }
 
     @Override
@@ -28,7 +28,7 @@ public class InMemoryRestaurantsRepository implements RestaurantsRepository {
         log.info("save {}", restaurant);
 
         if (restaurant.isNew()) {
-            restaurant.setId(MenuUtils.getIdCounter().incrementAndGet());
+            restaurant.setId(MenuTestData.getIdCounter().incrementAndGet());
             restaurantsRepository.put(restaurant.getId(), restaurant);
             return restaurant;
         }

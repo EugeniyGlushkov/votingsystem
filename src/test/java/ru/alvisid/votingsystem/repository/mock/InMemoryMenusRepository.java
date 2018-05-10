@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
+import ru.alvisid.votingsystem.TestData.MenuTestData;
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.repository.MenusRepository;
 import ru.alvisid.votingsystem.util.DateTimeUtil;
-import ru.alvisid.votingsystem.util.MenuUtils;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -21,7 +21,7 @@ public class InMemoryMenusRepository implements MenusRepository {
     private Map<Integer, Menu> menuRepository = new ConcurrentHashMap<>();
 
     {
-        MenuUtils.MENUS.forEach(menu -> menuRepository.put(menu.getId(), menu));
+        MenuTestData.MENUS.forEach(menu -> menuRepository.put(menu.getId(), menu));
     }
 
     @Override
@@ -29,7 +29,7 @@ public class InMemoryMenusRepository implements MenusRepository {
         log.info("save {}", menu);
 
         if (menu.isNew()) {
-            menu.setId(MenuUtils.getIdCounter().incrementAndGet());
+            menu.setId(MenuTestData.getIdCounter().incrementAndGet());
             menuRepository.put(menu.getId(), menu);
             return menu;
         }
