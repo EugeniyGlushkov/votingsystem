@@ -6,7 +6,7 @@ DELETE FROM prices;
 DELETE FROM votes;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
-INSERT INTO users (name) VALUES
+INSERT INTO users (name) VALUES                 /*del*/
   ('Alex'),                                     /*100000*/
   ('Sindy'),                                    /*100001*/
   ('Fox');                                      /*100002*/
