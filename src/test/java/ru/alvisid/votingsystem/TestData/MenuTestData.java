@@ -31,10 +31,10 @@ public class MenuTestData {
         secondMenu.put("eggs", 12.2F);
         secondMenu.put("rabbit", 4.3F);
 
-        menu_1 = getMenu(RestaurantTestData.rest_1, LocalDate.of(2018, 5, 1), firstMenu);
-        menu_2 = getMenu(RestaurantTestData.rest_2, LocalDate.of(2018, 5, 1), secondMenu);
-        menu_3 = getMenu(RestaurantTestData.rest_1, LocalDate.of(2018, 5, 2), secondMenu);
-        menu_4 = getMenu(RestaurantTestData.rest_2, LocalDate.of(2018, 5, 2), firstMenu);
+        menu_1 = getMenu(RestaurantTestData.rest_1, LocalDate.of(2018, 5, 9), firstMenu);
+        menu_2 = getMenu(RestaurantTestData.rest_2, LocalDate.of(2018, 5, 9), secondMenu);
+        menu_3 = getMenu(RestaurantTestData.rest_1, LocalDate.now(), secondMenu);
+        menu_4 = getMenu(RestaurantTestData.rest_2, LocalDate.now(), firstMenu);
 
         menu_1.setVotes(Arrays.asList(VoutTestData.vote_1));
         menu_2.setVotes(Arrays.asList(VoutTestData.vote_2, VoutTestData.vote_3));

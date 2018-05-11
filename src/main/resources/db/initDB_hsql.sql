@@ -51,8 +51,8 @@ CREATE TABLE prices
 CREATE TABLE vouts
 (
   user_id  INTEGER NOT NULL,
-  vote_id  INTEGER NOT NULL,
-  CONSTRAINT vouts_idx UNIQUE (user_id, vote_id),
+  menu_id  INTEGER NOT NULL,
+  CONSTRAINT vouts_idx UNIQUE (user_id, menu_id),
   FOREIGN KEY (user_id) REFERENCES users (id),
-  FOREIGN KEY (vote_id) REFERENCES vouts (id)
+  FOREIGN KEY (menu_id) REFERENCES menus (id)
 );
