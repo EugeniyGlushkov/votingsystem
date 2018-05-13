@@ -9,6 +9,10 @@ public class Vote {
         this.menu = menu;
     }
 
+    public Vote(Vote vote) {
+        this(vote.getUser(), vote.getMenu());
+    }
+
     public void setMenu(Menu menu) {
         this.menu = menu;
     }

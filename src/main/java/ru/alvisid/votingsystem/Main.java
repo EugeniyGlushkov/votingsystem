@@ -9,5 +9,6 @@ import ru.alvisid.votingsystem.util.UserUtils;
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {
+
     }
 }

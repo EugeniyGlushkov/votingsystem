@@ -1,45 +1,27 @@
 package ru.alvisid.votingsystem.service;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
+import org.springframework.test.context.junit4.SpringRunner;
 import ru.alvisid.votingsystem.TestData.MenuTestData;
-import ru.alvisid.votingsystem.TestData.RestaurantTestData;
-import ru.alvisid.votingsystem.model.Menu;
-import ru.alvisid.votingsystem.repository.mock.InMemoryMenusRepository;
-import ru.alvisid.votingsystem.service.impl.MenusServiseImpl;
-import ru.alvisid.votingsystem.util.MenuUtils;
-import ru.alvisid.votingsystem.util.RestaurantUtils;
-import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-
+@ContextConfiguration({
+        "classpath:spring/spring-app.xml",
+        "classpath:spring/spring-db.xml"
+})
+@RunWith(SpringRunner.class)
+@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MenusServiceTest {
-    private static ConfigurableApplicationContext appCtx;
-    private static MenusServiseImpl service;
 
-    @BeforeClass
-    public static void beforeClass() {
-        appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml" , "spring/mock.xml");
-        System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
-        service = appCtx.getBean(MenusServiseImpl.class);
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        appCtx.close();
-    }
+    @Autowired
+    private MenusService service;
 
     @Test
-    public void testCreate() {
-        service.create(MenuUtils.getNewMenu(RestaurantTestData.rest_1, LocalDate.now(), MenuTestData.firstMenu));
-    }
-
-    @Test(expected = NotFoundException.class)
-    public void testGet() {
-        service.get(12);
+    public void create() {
+        System.out.println(service.create(MenuTestData.new_menu));
     }
 }

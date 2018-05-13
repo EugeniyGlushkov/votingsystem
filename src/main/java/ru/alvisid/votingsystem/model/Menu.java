@@ -23,6 +23,18 @@ public class Menu extends AbsractBaseEntity {
         this.price = menu;
     }
 
+    public Menu(Integer id, Restaurant restaurant, LocalDate date, Map<String, Float> price, List<Vote> votes) {
+        super(id);
+        this.restaurant = restaurant;
+        this.date = date;
+        this.price = price;
+        this.votes = votes;
+    }
+
+    public Menu (Menu menu) {
+        this(menu.getId(), menu.getRestaurant(), menu.getDate(), menu.getMenu(), menu.getVotes());
+    }
+
     public Restaurant getRestaurant() {
         return restaurant;
     }

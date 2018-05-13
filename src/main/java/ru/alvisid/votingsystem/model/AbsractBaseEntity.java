@@ -6,7 +6,6 @@ public abstract class AbsractBaseEntity {
     protected Integer id;
 
     public AbsractBaseEntity() {
-
     }
 
     public AbsractBaseEntity(Integer id) {

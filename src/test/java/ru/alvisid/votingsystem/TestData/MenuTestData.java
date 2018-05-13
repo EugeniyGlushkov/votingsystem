@@ -2,6 +2,7 @@ package ru.alvisid.votingsystem.TestData;
 
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.model.Restaurant;
+import ru.alvisid.votingsystem.util.MenuUtils;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -22,6 +23,8 @@ public class MenuTestData {
     public static final Menu menu_3;
     public static final Menu menu_4;
 
+    public static final Menu new_menu;
+
     static {
         firstMenu.put("cake", 12F);
         firstMenu.put("fish", 5.4F);
@@ -36,9 +39,11 @@ public class MenuTestData {
         menu_3 = getMenu(RestaurantTestData.rest_1, LocalDate.now(), secondMenu);
         menu_4 = getMenu(RestaurantTestData.rest_2, LocalDate.now(), firstMenu);
 
-        menu_1.setVotes(Arrays.asList(VoutTestData.vote_1));
-        menu_2.setVotes(Arrays.asList(VoutTestData.vote_2, VoutTestData.vote_3));
-        menu_4.setVotes(Arrays.asList(VoutTestData.vote_4));
+        new_menu = MenuUtils.getNewMenu(RestaurantTestData.rest_3, LocalDate.now(), firstMenu);
+
+        menu_1.setVotes(Arrays.asList(VoteTestData.vote_1));
+        menu_2.setVotes(Arrays.asList(VoteTestData.vote_2, VoteTestData.vote_3));
+        menu_4.setVotes(Arrays.asList(VoteTestData.vote_4));
 
         MENUS = Arrays.asList(
                 menu_1,
