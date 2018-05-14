@@ -80,7 +80,8 @@ public class Menu extends AbsractBaseEntity {
                 ')';
     }
 
-    @Override
+    //del
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -100,5 +101,5 @@ public class Menu extends AbsractBaseEntity {
         result = 31 * result + date.hashCode();
         result = 31 * result + price.hashCode();
         return result;
-    }
+    }*/
 }

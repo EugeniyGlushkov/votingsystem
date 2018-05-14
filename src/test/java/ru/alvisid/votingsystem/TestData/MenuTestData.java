@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+
 public class MenuTestData {
     private static AtomicInteger idCounter = new AtomicInteger(100000);
 
@@ -57,6 +60,14 @@ public class MenuTestData {
 
     public static Menu getMenu(Restaurant restaurant, LocalDate date, Map <String, Float> menu) {
         return new Menu(idCounter.incrementAndGet(), restaurant, date, menu);
+    }
+
+    public static void assertMatch(Menu actual, Menu expected, String...ignoringFields) {
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, ignoringFields);
+    }
+
+    public static void assertMatch(Menu actual, Menu expected) {
+        assertThat(actual).isEqualTo(expected);
     }
 
     public static AtomicInteger getIdCounter() {

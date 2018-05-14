@@ -31,11 +31,11 @@ public abstract class AbsractBaseEntity {
 
         AbsractBaseEntity that = (AbsractBaseEntity) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        return id != null && id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return id != null ? id : 0;
     }
 }
