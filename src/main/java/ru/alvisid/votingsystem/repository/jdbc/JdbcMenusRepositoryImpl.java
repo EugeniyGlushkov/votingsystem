@@ -1,6 +1,7 @@
 package ru.alvisid.votingsystem.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -76,12 +77,13 @@ public class JdbcMenusRepositoryImpl implements MenusRepository {
 
     @Override
     public boolean delete(int id) {
-        return false;
+        return jdbcTemplate.update("DELETE FROM menus WHERE id=?", id) != 0;
     }
 
     @Override
     public Menu get(int id) {
-        return null;
+        List<Menu> menus = jdbcTemplate.query("SELECT * FROM menus WHERE id=?", ROW_MAPPER, id);
+        return DataAccessUtils.singleResult(menus);
     }
 
     @Override

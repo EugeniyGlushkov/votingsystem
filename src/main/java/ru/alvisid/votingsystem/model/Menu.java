@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Menu extends AbsractBaseEntity {
-    private final Restaurant restaurant;
-    private final LocalDate date;
-    private final Map<String, Float> price;
-    protected List<Vote> votes;
+    private Restaurant restaurant;
+    private LocalDate date;
+    private Map<String, Float> price;
+    private List<Vote> votes;
+
+    public Menu() {
+    }
 
     public Menu(Restaurant restaurant, LocalDate date, Map<String, Float> price) {
         this.restaurant = restaurant;
@@ -51,6 +54,18 @@ public class Menu extends AbsractBaseEntity {
         return votes;
     }
 
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setPrice(Map <String, Float> price) {
+        this.price = price;
+    }
+
     public void setVotes(List <Vote> votes) {
         this.votes = votes;
     }
@@ -63,5 +78,27 @@ public class Menu extends AbsractBaseEntity {
                 " date=" + date +
                 " menu=" + price +
                 ')';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Menu menu = (Menu) o;
+
+        if (!restaurant.equals(menu.restaurant)) return false;
+        if (!date.equals(menu.date)) return false;
+        return price.equals(menu.price);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + restaurant.hashCode();
+        result = 31 * result + date.hashCode();
+        result = 31 * result + price.hashCode();
+        return result;
     }
 }
