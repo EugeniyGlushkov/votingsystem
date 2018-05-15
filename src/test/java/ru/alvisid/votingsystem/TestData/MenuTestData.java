@@ -9,17 +9,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class MenuTestData {
-    private static AtomicInteger idCounter = new AtomicInteger(100000);
 
-    public static final Map<String, Float> firstMenu = new HashMap<>();
+    public static final Map <String, Float> firstMenu = new HashMap <>();
     public static final Map <String, Float> secondMenu = new HashMap <>();
-    public static final List<Menu> MENUS;
+    public static final List <Menu> MENUS;
 
     public static final Menu menu_1;
     public static final Menu menu_2;
@@ -56,21 +54,26 @@ public class MenuTestData {
         );
     }
 
-    private MenuTestData(){}
-
-    public static Menu getMenu(Restaurant restaurant, LocalDate date, Map <String, Float> menu) {
-        return new Menu(idCounter.incrementAndGet(), restaurant, date, menu);
+    private MenuTestData() {
     }
 
-    public static void assertMatch(Menu actual, Menu expected, String...ignoringFields) {
+    public static Menu getMenu(Restaurant restaurant, LocalDate date, Map <String, Float> menu) {
+        return new Menu(TestData.getNewId(), restaurant, date, menu);
+    }
+
+    public static void assertMatchIgnoringFields(Menu actual, Menu expected, String... ignoringFields) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, ignoringFields);
+    }
+
+    public static void assertMatchIgnoringFields(Iterable <Menu> actual, Menu... expected) {
+        assertMatchIgnoringFields(actual, Arrays.asList(expected), "restaurant", "price", "votes");
+    }
+
+    public static void assertMatchIgnoringFields(Iterable <Menu> actual, Iterable <Menu> expected, String... ignoringFields) {
+        assertThat(actual).usingElementComparatorIgnoringFields(ignoringFields).isEqualTo(expected);
     }
 
     public static void assertMatch(Menu actual, Menu expected) {
         assertThat(actual).isEqualTo(expected);
-    }
-
-    public static AtomicInteger getIdCounter() {
-        return idCounter;
     }
 }

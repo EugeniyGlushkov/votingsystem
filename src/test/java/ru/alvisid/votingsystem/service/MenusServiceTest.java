@@ -1,6 +1,5 @@
 package ru.alvisid.votingsystem.service;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,11 +10,14 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static ru.alvisid.votingsystem.TestData.MenuTestData.assertMatch;
+import static ru.alvisid.votingsystem.TestData.MenuTestData.*;
+import static ru.alvisid.votingsystem.TestData.TestData.*;
 
-import ru.alvisid.votingsystem.TestData.MenuTestData;
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
+
+import java.util.List;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -33,29 +35,35 @@ public class MenusServiceTest {
 
     @Test
     public void create() {
-        Menu expectedMenu = new Menu(MenuTestData.new_menu);
-        Menu createdMenu = service.create(MenuTestData.new_menu);
+        Menu expectedMenu = new Menu(NEW_MENU);
+        Menu createdMenu = service.create(NEW_MENU);
         expectedMenu.setId(createdMenu.getId());
-        assertThat(expectedMenu).isEqualTo(createdMenu);
+        assertMatch(createdMenu, expectedMenu);
     }
 
     @Test
     public void get() {
-        Menu expectedMenu = MenuTestData.menu_1;
-        expectedMenu.setId(100006);
+        Menu expectedMenu = MENU_1;
         Menu gotMenu = service.get(expectedMenu.getId());
-        assertThat(expectedMenu).isEqualToIgnoringGivenFields(gotMenu, "restaurant", "price", "votes");
+        assertMatchIgnoringFields(gotMenu, expectedMenu, "restaurant", "price", "votes");
 
     }
 
     @Test
     public void delete() {
-        service.delete(100006);
+        service.delete(MENU_1.getId());
+        assertMatchIgnoringFields(service.getAll(), MENU_2, MENU_3, MENU_4);
     }
 
     @Test()
     public void deleteNotFoundExc() {
         expectedException.expect(NotFoundException.class);
-        service.delete(100002);
+        service.delete(RESTAURANT_1.getId());
+    }
+
+    @Test
+    public void getAll() {
+        List<Menu> all = service.getAll();
+        assertMatchIgnoringFields(all, MENU_1, MENU_2, MENU_3, MENU_4);
     }
 }

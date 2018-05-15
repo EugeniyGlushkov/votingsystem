@@ -3,7 +3,7 @@ package ru.alvisid.votingsystem.repository.mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import ru.alvisid.votingsystem.TestData.MenuTestData;
+import ru.alvisid.votingsystem.TestData.TestData;
 import ru.alvisid.votingsystem.TestData.UserTestData;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.repository.UsersRepository;
@@ -28,7 +28,7 @@ public class InMemoryUsersRepository implements UsersRepository {
         log.info("save {}", user);
 
         if (user.isNew()){
-            user.setId(MenuTestData.getIdCounter().incrementAndGet());
+            user.setId(TestData.getNewId());
             userRepository.put(user.getId(), user);
             return user;
         }

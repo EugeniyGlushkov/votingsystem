@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.alvisid.votingsystem.TestData.MenuTestData;
 import ru.alvisid.votingsystem.TestData.RestaurantTestData;
+import ru.alvisid.votingsystem.TestData.TestData;
 import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.repository.RestaurantsRepository;
 
@@ -28,7 +29,7 @@ public class InMemoryRestaurantsRepository implements RestaurantsRepository {
         log.info("save {}", restaurant);
 
         if (restaurant.isNew()) {
-            restaurant.setId(MenuTestData.getIdCounter().incrementAndGet());
+            restaurant.setId(TestData.getNewId());
             restaurantsRepository.put(restaurant.getId(), restaurant);
             return restaurant;
         }

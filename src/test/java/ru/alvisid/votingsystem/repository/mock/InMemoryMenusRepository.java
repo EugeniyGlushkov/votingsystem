@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 import ru.alvisid.votingsystem.TestData.MenuTestData;
+import ru.alvisid.votingsystem.TestData.TestData;
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.repository.MenusRepository;
 import ru.alvisid.votingsystem.util.DateTimeUtil;
@@ -29,7 +30,7 @@ public class InMemoryMenusRepository implements MenusRepository {
         log.info("save {}", menu);
 
         if (menu.isNew()) {
-            menu.setId(MenuTestData.getIdCounter().incrementAndGet());
+            menu.setId(TestData.getNewId());
             menuRepository.put(menu.getId(), menu);
             return menu;
         }

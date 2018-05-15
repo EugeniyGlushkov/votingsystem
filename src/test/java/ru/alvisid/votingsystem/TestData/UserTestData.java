@@ -20,10 +20,10 @@ public class UserTestData {
     }
 
     public static User getUser(String name, Set <Role> roles) {
-        return new User(MenuTestData.getIdCounter().incrementAndGet(), name, roles);
+        return new User(TestData.getNewId(), name, roles);
     }
 
     public static User getUser(String name, Role role, Role... roles) {
-        return new User(MenuTestData.getIdCounter().incrementAndGet(), name, role, roles);
+        return new User(TestData.getNewId(), name, role, roles);
     }
 }

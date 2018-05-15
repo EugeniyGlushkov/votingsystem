@@ -88,7 +88,7 @@ public class JdbcMenusRepositoryImpl implements MenusRepository {
 
     @Override
     public List<Menu> getAll() {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM menus", ROW_MAPPER);
     }
 
     @Override
