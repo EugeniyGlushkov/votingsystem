@@ -61,6 +61,10 @@ public class MenuTestData {
         return new Menu(TestData.getNewId(), restaurant, date, menu);
     }
 
+    public static void assertMatchIgnoringFields(Menu actual, Menu expected) {
+        assertMatchIgnoringFields(actual, expected, "restaurant", "price", "votes");
+    }
+
     public static void assertMatchIgnoringFields(Menu actual, Menu expected, String... ignoringFields) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, ignoringFields);
     }

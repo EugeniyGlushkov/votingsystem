@@ -93,7 +93,7 @@ public class JdbcMenusRepositoryImpl implements MenusRepository {
 
     @Override
     public List<Menu> getBetween(LocalDate startDate, LocalDate endDate) {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM menus WHERE date>=? AND date<=? ",ROW_MAPPER, Date.valueOf(startDate), Date.valueOf(endDate));
     }
 
     private MapSqlParameterSource getPricesMapSqlParSrc(int menu_id, String dish, Float price) {
