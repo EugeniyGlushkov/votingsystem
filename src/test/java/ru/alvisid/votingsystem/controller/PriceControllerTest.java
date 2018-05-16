@@ -34,7 +34,7 @@ public class PriceControllerTest {
     @Test
     public void testGetPrice(){
         log.info("test GetPrice.");
-        controller.getPrice(100003);
+        controller.getPrice(100007);
     }
 
     @Test(expected = NotFoundException.class)
