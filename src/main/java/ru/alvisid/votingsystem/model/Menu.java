@@ -1,13 +1,35 @@
 package ru.alvisid.votingsystem.model;
 
+import org.hibernate.annotations.Immutable;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+@Entity
+@Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = "restaurants_id, date", name = "menus_idx")})
 public class Menu extends AbsractBaseEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurants_id")
+    @NotNull
     private Restaurant restaurant;
+
+    @Column(name = "date")
+    @NotNull
+    @Immutable
     private LocalDate date;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @MapKeyColumn(name = "dish")
+    @Column(name = "price")
+    @CollectionTable(name = "prices", joinColumns = @JoinColumn(name = "menu_id"))
     private Map<String, Float> price;
+
+    @
     private List<Vote> votes;
 
     public Menu() {

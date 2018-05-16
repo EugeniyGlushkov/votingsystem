@@ -1,7 +1,5 @@
 package ru.alvisid.votingsystem.model;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +10,7 @@ public abstract class AbstractNamedEntity extends AbsractBaseEntity {
 
     @NotBlank
     @Size(min = 2, max = 100)
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     protected String name;
 
     public AbstractNamedEntity() {
@@ -37,7 +35,7 @@ public abstract class AbstractNamedEntity extends AbsractBaseEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
+    public String toString() {
+        return String.format("Entity %s (%s, '%s')", getClass().getName(), id, name);
     }
 }
