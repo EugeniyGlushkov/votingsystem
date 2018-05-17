@@ -2,6 +2,7 @@ package ru.alvisid.votingsystem.model;
 
 import javax.persistence.*;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,6 +16,9 @@ public class User extends AbstractNamedEntity {
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     private Set <Role> roles;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Vote> votes;
 
     public User(){
         super();
@@ -44,6 +48,10 @@ public class User extends AbstractNamedEntity {
 
     public Set <Role> getRoles() {
         return roles;
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
     }
 
     @Override

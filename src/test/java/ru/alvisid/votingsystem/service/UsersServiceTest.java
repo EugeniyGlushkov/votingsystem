@@ -35,7 +35,7 @@ public class UsersServiceTest {
     public void get() {
         User expectedUser = USER_1;
         User actualUser = service.get(expectedUser.getId());
-        assertMatch(actualUser, expectedUser);
+        assertMatch(actualUser, expectedUser, "votes");
     }
 
     @Test

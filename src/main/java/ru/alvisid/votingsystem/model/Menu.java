@@ -14,7 +14,7 @@ import java.util.Map;
         uniqueConstraints = @UniqueConstraint(columnNames = {"restaurants_id", "date"}, name = "menus_idx"))
 public class Menu extends AbsractBaseEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurants_id")
     @NotNull
     private Restaurant restaurant;
@@ -24,7 +24,7 @@ public class Menu extends AbsractBaseEntity {
     @Immutable
     private LocalDate date;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @MapKeyColumn(name = "dish")
     @Column(name = "price")
     @CollectionTable(name = "prices", joinColumns = @JoinColumn(name = "menu_id"),

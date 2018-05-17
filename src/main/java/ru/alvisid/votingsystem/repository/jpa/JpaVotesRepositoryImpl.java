@@ -32,7 +32,7 @@ public class JpaVotesRepositoryImpl implements VotesRepository {
 
     @Override
     public Vote get(int userId, int menuId) {
-        return em.find(Vote.class, new VoteCompositeKey(userId, menuId));
+        return em.find(Vote.class, new Vote.VoteCompositeKey(userId, menuId));
     }
 
     @Override

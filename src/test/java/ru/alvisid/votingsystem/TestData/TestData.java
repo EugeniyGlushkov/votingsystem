@@ -47,4 +47,8 @@ public class TestData {
     public static  <T> void assertMatch(Iterable <T> actual, Iterable <T> expected, String... ignoringFields) {
         assertThat(actual).usingElementComparatorIgnoringFields(ignoringFields).isEqualTo(expected);
     }
+
+    public static  <T> void assertMatch(, Iterable <T> expected, String... ignoringFields) {
+        assertThat(actual).usingElementComparatorIgnoringFields(ignoringFields).isEqualTo(expected);
+    }
 }
