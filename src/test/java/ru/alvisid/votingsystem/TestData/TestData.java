@@ -5,8 +5,11 @@ import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.model.Vote;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestData {
     private static AtomicInteger idCounter = new AtomicInteger(100000);
@@ -36,4 +39,12 @@ public class TestData {
     public static Vote VOTE_2 = VoteTestData.vote_2;
     public static Vote VOTE_3 = VoteTestData.vote_3;
     public static Vote VOTE_4 = VoteTestData.vote_4;
+
+    public static  <T> void assertMatch(T actual, T expected, String... ignoringFields) {
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, ignoringFields);
+    }
+
+    public static  <T> void assertMatch(Iterable <T> actual, Iterable <T> expected, String... ignoringFields) {
+        assertThat(actual).usingElementComparatorIgnoringFields(ignoringFields).isEqualTo(expected);
+    }
 }

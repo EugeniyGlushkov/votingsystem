@@ -5,16 +5,22 @@ import java.util.EnumSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "users_unique_name_idx")})
+@Table(name = "users",
+        uniqueConstraints = @UniqueConstraint(columnNames = "name", name = "users_unique_name_idx"))
 public class User extends AbstractNamedEntity {
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_idx"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    private Set <Role> roles;
 
-    public User(String name, Set<Role> roles) {
+    public User(){
+        super();
+    }
+
+    public User(String name, Set <Role> roles) {
         super(name);
         this.roles = roles;
     }
@@ -23,7 +29,7 @@ public class User extends AbstractNamedEntity {
         this(name, EnumSet.of(role, roles));
     }
 
-    public User(Integer id, String name, Set<Role> roles) {
+    public User(Integer id, String name, Set <Role> roles) {
         super(id, name);
         this.roles = roles;
     }
@@ -36,7 +42,7 @@ public class User extends AbstractNamedEntity {
         this(user.getId(), user.getName(), user.getRoles());
     }
 
-    public Set<Role> getRoles() {
+    public Set <Role> getRoles() {
         return roles;
     }
 

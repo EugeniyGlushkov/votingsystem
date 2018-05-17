@@ -43,9 +43,10 @@ public class MenusServiceTest {
     @Test
     public void get() {
         Menu expectedMenu = MENU_1;
-        Menu gotMenu = service.get(expectedMenu.getId());
-        assertMatchIgnoringFields(gotMenu, expectedMenu, "restaurant", "price", "votes");
-
+        Menu actualMenu = service.get(expectedMenu.getId());
+        System.out.println(actualMenu.getRestaurant());
+        System.out.println(actualMenu.getMenu());
+        assertMatch(actualMenu, expectedMenu, "restaurant", "price", "votes");
     }
 
     @Test

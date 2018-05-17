@@ -1,6 +1,6 @@
 package ru.alvisid.votingsystem.model;
 
-import org.hibernate.annotations.Immutable;
+import org.hibernate.validator.internal.util.stereotypes.Immutable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = "restaurants_id, date", name = "menus_idx")})
+@Table(name = "menus",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"restaurants_id", "date"}, name = "menus_idx"))
 public class Menu extends AbsractBaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurants_id")
     @NotNull
     private Restaurant restaurant;
@@ -23,32 +24,34 @@ public class Menu extends AbsractBaseEntity {
     @Immutable
     private LocalDate date;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @MapKeyColumn(name = "dish")
     @Column(name = "price")
-    @CollectionTable(name = "prices", joinColumns = @JoinColumn(name = "menu_id"))
-    private Map<String, Float> price;
+    @CollectionTable(name = "prices", joinColumns = @JoinColumn(name = "menu_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"menu_id", "dish"}, name = "prices_idx"))
+    private Map <String, Float> price;
 
-    @
-    private List<Vote> votes;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    private List <Vote> votes;
 
     public Menu() {
+        super();
     }
 
-    public Menu(Restaurant restaurant, LocalDate date, Map<String, Float> price) {
+    public Menu(Restaurant restaurant, LocalDate date, Map <String, Float> price) {
         this.restaurant = restaurant;
         this.date = date;
         this.price = price;
     }
 
-    public Menu(Integer id, Restaurant restaurant, LocalDate date, Map<String, Float> menu) {
+    public Menu(Integer id, Restaurant restaurant, LocalDate date, Map <String, Float> menu) {
         super(id);
         this.restaurant = restaurant;
         this.date = date;
         this.price = menu;
     }
 
-    public Menu(Integer id, Restaurant restaurant, LocalDate date, Map<String, Float> price, List<Vote> votes) {
+    public Menu(Integer id, Restaurant restaurant, LocalDate date, Map <String, Float> price, List <Vote> votes) {
         super(id);
         this.restaurant = restaurant;
         this.date = date;
@@ -56,7 +59,7 @@ public class Menu extends AbsractBaseEntity {
         this.votes = votes;
     }
 
-    public Menu (Menu menu) {
+    public Menu(Menu menu) {
         this(menu.getId(), menu.getRestaurant(), menu.getDate(), menu.getMenu(), menu.getVotes());
     }
 
@@ -68,7 +71,7 @@ public class Menu extends AbsractBaseEntity {
         return date;
     }
 
-    public Map<String, Float> getMenu() {
+    public Map <String, Float> getMenu() {
         return price;
     }
 

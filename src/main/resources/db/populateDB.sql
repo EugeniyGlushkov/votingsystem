@@ -17,7 +17,7 @@ INSERT INTO user_roles (user_id, role) VALUES
   (100001, 'ROLE_USER'),
   (100002, 'ROLE_USER');
 
-INSERT INTO restaurants (restaurants_name) VALUES
+INSERT INTO restaurants (name) VALUES
   ('Ambassador'),                               /*100003*/
   ('Mandalay'),                                 /*100004*/
   ('Eleon');                                    /*100005*/
