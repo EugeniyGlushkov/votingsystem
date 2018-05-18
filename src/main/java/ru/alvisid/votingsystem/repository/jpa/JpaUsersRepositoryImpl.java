@@ -26,7 +26,9 @@ public class JpaUsersRepositoryImpl implements UsersRepository {
 
     @Override
     public boolean delete(int id) {
-        return false;
+        return em.createNamedQuery(User.DELETE)
+                .setParameter("id", id)
+                .executeUpdate() != 0;
     }
 
     @Override
@@ -36,6 +38,7 @@ public class JpaUsersRepositoryImpl implements UsersRepository {
 
     @Override
     public List<User> getAll() {
-        return null;
+        return em.createNamedQuery(User.ALL_SORTED, User.class)
+                .getResultList();
     }
 }

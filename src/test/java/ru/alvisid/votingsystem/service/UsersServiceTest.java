@@ -14,7 +14,6 @@ import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
-import static ru.alvisid.votingsystem.TestData.MenuTestData.assertMatchIgnoringFields;
 import static ru.alvisid.votingsystem.TestData.TestData.*;
 
 @ContextConfiguration({

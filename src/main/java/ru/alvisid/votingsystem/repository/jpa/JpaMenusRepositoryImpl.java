@@ -42,12 +42,13 @@ public class JpaMenusRepositoryImpl implements MenusRepository {
 
     @Override
     public List<Menu> getAll() {
-        return em.createNamedQuery(Menu.ALL_SORTED).getResultList();
+        return em.createNamedQuery(Menu.ALL_SORTED, Menu.class)
+                .getResultList();
     }
 
     @Override
     public List <Menu> getBetween(LocalDate startDate, LocalDate endDate) {
-        return em.createNamedQuery(Menu.ALL_BEETWEN)
+        return em.createNamedQuery(Menu.ALL_BEETWEN, Menu.class)
                 .setParameter(1, startDate)
                 .setParameter(2, endDate)
                 .getResultList();

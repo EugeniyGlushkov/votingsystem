@@ -8,13 +8,9 @@ import java.util.List;
 
 @Repository
 public class JdbcVotesRepositoryImpl implements VotesRepository {
-    @Override
-    public Vote add(Vote vote) {
-        return null;
-    }
 
     @Override
-    public Vote update(Vote vote) {
+    public Vote save(Vote vote) {
         return null;
     }
 

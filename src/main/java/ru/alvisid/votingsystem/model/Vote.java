@@ -7,11 +7,16 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@NamedQueries({
+        @NamedQuery(name = V)
+})
 @Entity
 @IdClass(Vote.VoteCompositeKey.class)
 @Table(name = "votes",
         uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "menu_id"}, name = "votes_idx"))
 public class Vote implements Serializable {
+
+    public static final String DELETE = "Vote.delete";
 
     /*@Id
     @AttributeOverrides({
@@ -52,6 +57,11 @@ public class Vote implements Serializable {
 
     public Vote(Vote vote) {
         this(vote.getUser(), vote.getMenu());
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        this.userId = user.getId();
     }
 
     public void setMenu(Menu menu) {
