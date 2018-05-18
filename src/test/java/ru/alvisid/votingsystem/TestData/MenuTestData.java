@@ -5,18 +5,15 @@ import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.util.MenuUtils;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class MenuTestData {
 
-    public static final Map <String, Float> firstMenu = new HashMap <>();
-    public static final Map <String, Float> secondMenu = new HashMap <>();
+    public static final Map <String, Float> firstMenu = new TreeMap <>();
+    public static final Map <String, Float> secondMenu = new TreeMap <>();
     public static final List <Menu> MENUS;
 
     public static final Menu menu_1;
@@ -28,17 +25,17 @@ public class MenuTestData {
 
     static {
         firstMenu.put("cake", 12F);
-        firstMenu.put("fish", 5.4F);
         firstMenu.put("cheaps", 4.56F);
+        firstMenu.put("fish", 5.4F);
+        secondMenu.put("eggs", 12.2F);
         secondMenu.put("soup", 3.86F);
         secondMenu.put("rooster", 8.96F);
-        secondMenu.put("eggs", 12.2F);
         secondMenu.put("rabbit", 4.3F);
 
         menu_1 = getMenu(RestaurantTestData.rest_1, LocalDate.of(2018, 5, 9), firstMenu);
         menu_2 = getMenu(RestaurantTestData.rest_2, LocalDate.of(2018, 5, 9), secondMenu);
-        menu_3 = getMenu(RestaurantTestData.rest_1, LocalDate.now(), secondMenu);
-        menu_4 = getMenu(RestaurantTestData.rest_2, LocalDate.now(), firstMenu);
+        menu_3 = getMenu(RestaurantTestData.rest_2, LocalDate.now(), firstMenu);
+        menu_4 = getMenu(RestaurantTestData.rest_1, LocalDate.now(), secondMenu);
 
         new_menu = MenuUtils.getNewMenu(RestaurantTestData.rest_3, LocalDate.now(), firstMenu);
 
@@ -61,7 +58,7 @@ public class MenuTestData {
         return new Menu(TestData.getNewId(), restaurant, date, menu);
     }
 
-    public static void assertMatchIgnoringFields(Menu actual, Menu expected) {
+    /*public static void assertMatchIgnoringFields(Menu actual, Menu expected) {
         assertMatchIgnoringFields(actual, expected, "restaurant", "price", "votes");
     }
 
@@ -79,5 +76,5 @@ public class MenuTestData {
 
     public static void assertMatch(Menu actual, Menu expected) {
         assertThat(actual).isEqualTo(expected);
-    }
+    }*/
 }

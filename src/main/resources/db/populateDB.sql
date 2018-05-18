@@ -19,16 +19,16 @@ INSERT INTO user_roles (user_id, role) VALUES
 
 INSERT INTO restaurants (name) VALUES
   ('Ambassador'),                               /*100003*/
-  ('Mandalay'),                                 /*100004*/
-  ('Eleon');                                    /*100005*/
+  ('Eleon'),                                    /*100004*/
+  ('Mandalay');                                 /*100005*/
 
 INSERT INTO menus (restaurants_id, date) VALUES
   (100003, '2018-05-09'),                       /*100006*/
   (100004, '2018-05-09');                       /*100007*/
 
 INSERT INTO menus (restaurants_id) VALUES
-  (100003),                                      /*100008*/
-  (100004);                                      /*100009*/
+  (100004),                                      /*100008*/
+  (100003);                                      /*100009*/
 
 INSERT INTO prices (menu_id, dish, price) VALUES
   (100006, 'cake', 12),
@@ -38,13 +38,13 @@ INSERT INTO prices (menu_id, dish, price) VALUES
   (100007, 'rooster', 8.96),
   (100007, 'eggs', 12.2),
   (100007, 'rabbit', 4.3),
-  (100008, 'soup', 3.86),
-  (100008, 'rooster', 8.96),
-  (100008, 'eggs', 12.2),
-  (100008, 'rabbit', 4.3),
-  (100009, 'cake', 12),
-  (100009, 'fish', 5.4),
-  (100009, 'cheaps', 4.56);
+  (100009, 'soup', 3.86),
+  (100009, 'rooster', 8.96),
+  (100009, 'eggs', 12.2),
+  (100009, 'rabbit', 4.3),
+  (100008, 'cake', 12),
+  (100008, 'fish', 5.4),
+  (100008, 'cheaps', 4.56);
 
 INSERT INTO votes (user_id, menu_id) VALUES
   (100000, 100006),

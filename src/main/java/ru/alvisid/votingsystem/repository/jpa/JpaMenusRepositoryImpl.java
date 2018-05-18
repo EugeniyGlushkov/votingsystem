@@ -1,6 +1,7 @@
 package ru.alvisid.votingsystem.repository.jpa;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.repository.MenusRepository;
 
@@ -16,13 +17,22 @@ public class JpaMenusRepositoryImpl implements MenusRepository {
     private EntityManager em;
 
     @Override
+    @Transactional
     public Menu save(Menu menu) {
-        return null;
+        if (menu.isNew()) {
+            em.persist(menu);
+            return menu;
+        } else {
+            return em.merge(menu);
+        }
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
-        return false;
+        return em.createNamedQuery(Menu.DELETE)
+                .setParameter("id", id)
+                .executeUpdate() != 0;
     }
 
     @Override
@@ -32,11 +42,14 @@ public class JpaMenusRepositoryImpl implements MenusRepository {
 
     @Override
     public List<Menu> getAll() {
-        return null;
+        return em.createNamedQuery(Menu.ALL_SORTED).getResultList();
     }
 
     @Override
     public List <Menu> getBetween(LocalDate startDate, LocalDate endDate) {
-        return null;
+        return em.createNamedQuery(Menu.ALL_BEETWEN)
+                .setParameter(1, startDate)
+                .setParameter(2, endDate)
+                .getResultList();
     }
 }

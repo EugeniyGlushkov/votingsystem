@@ -17,6 +17,7 @@ import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 @ContextConfiguration({
@@ -37,14 +38,14 @@ public class MenusServiceTest {
     public void create() {
         Menu expectedMenu = new Menu(NEW_MENU);
         Menu createdMenu = service.create(NEW_MENU);
-        assertMatchIgnoringFields(service.getAll(), MENU_1, MENU_2, MENU_3, MENU_4, NEW_MENU);
+        assertMatch(service.getAll(), Arrays.asList(MENU_1, MENU_2, MENU_4, MENU_3, NEW_MENU));
     }
 
     @Test
     public void get() {
-        Menu expectedMenu = MENU_1;
+        Menu expectedMenu = MENU_2;
         Menu actualMenu = service.get(expectedMenu.getId());
-        assertMatch(actualMenu, expectedMenu, "restaurant", "price", "votes");
+        assertMatch(actualMenu, expectedMenu/*, "restaurant", "price", "votes"*/);
     }
 
     @Test
@@ -56,7 +57,7 @@ public class MenusServiceTest {
     @Test
     public void delete() {
         service.delete(MENU_1.getId());
-        assertMatchIgnoringFields(service.getAll(), MENU_2, MENU_3, MENU_4);
+        assertMatch(service.getAll(), Arrays.asList(MENU_2, MENU_3, MENU_4));
     }
 
     @Test()
@@ -71,19 +72,20 @@ public class MenusServiceTest {
         Menu updateMenu = new Menu(MENU_1);
         updateMenu.setDate(LocalDate.now());
         service.update(updateMenu);
-        assertMatchIgnoringFields(service.get(MENU_1.getId()), updateMenu);
+        assertMatch(service.get(MENU_1.getId()), updateMenu);
     }
 
+    //Ignoring "votes" because in expected menu_3 field votes is null? but in actual menu_3 field voted is empty list
     @Test
     public void getAll() {
         List<Menu> all = service.getAll();
-        assertMatchIgnoringFields(all, MENU_1, MENU_2, MENU_3, MENU_4);
+        assertMatch(all, Arrays.asList(MENU_1, MENU_2, MENU_4, MENU_3), "votes");
     }
 
     @Test
     public void getBeetwen() {
         List<Menu> menusBeetwen = service.getBetween(MENU_1.getDate().minusDays(1), MENU_2.getDate().plusDays(1));
-        assertMatchIgnoringFields(menusBeetwen, MENU_1, MENU_2);
+        assertMatch(menusBeetwen, Arrays.asList(MENU_1, MENU_2)/*, "votes"*/);
     }
 
     @Test

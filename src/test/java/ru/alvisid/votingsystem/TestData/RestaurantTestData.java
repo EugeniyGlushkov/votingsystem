@@ -10,7 +10,7 @@ public class RestaurantTestData {
     public static final Restaurant rest_2 = getRestaurant("Eleon");
     public static final Restaurant rest_3 = getRestaurant("Mandalay");
 
-    public static final Restaurant rest_new = getNewRestaurant("Kazbek");
+    public static final Restaurant rest_new = getNewRestaurant("Kazbek_NEW");
 
     public static final List<Restaurant> RESTAURANTS = Arrays.asList(rest_1, rest_2);
 

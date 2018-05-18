@@ -28,13 +28,13 @@ public class Vote implements Serializable {
     /*@EmbeddedId
     VoteCompositeKey id;*/
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false, updatable = false, insertable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id", nullable = false, updatable = false, insertable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -96,8 +96,6 @@ public class Vote implements Serializable {
         return "Vote (" +
                 "userId=" + userId +
                 " menuId=" + menuId +
-                " user=" + user +
-                " menu=" + menu +
                 ')';
     }
 

@@ -1,6 +1,7 @@
 package ru.alvisid.votingsystem.model;
 
 import org.hibernate.validator.internal.util.stereotypes.Immutable;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -9,12 +10,21 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+@NamedQueries({
+        @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Menu m WHERE m.id=:id"),
+        @NamedQuery(name = Menu.ALL_SORTED, query = "SELECT m FROM Menu m ORDER BY m.date, m.restaurant.name"),
+        @NamedQuery(name = Menu.ALL_BEETWEN, query = "SELECT m FROM Menu m WHERE m.date>=?1 AND m.date<=?2")
+})
 @Entity
 @Table(name = "menus",
         uniqueConstraints = @UniqueConstraint(columnNames = {"restaurants_id", "date"}, name = "menus_idx"))
 public class Menu extends AbsractBaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    public static final String DELETE = "Menu.delete";
+    public static final String ALL_SORTED = "Menu.getAllSorted";
+    public static final String ALL_BEETWEN = "Menu.getAllBeetwen";
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurants_id")
     @NotNull
     private Restaurant restaurant;
@@ -24,14 +34,16 @@ public class Menu extends AbsractBaseEntity {
     @Immutable
     private LocalDate date;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @MapKeyColumn(name = "dish")
     @Column(name = "price")
     @CollectionTable(name = "prices", joinColumns = @JoinColumn(name = "menu_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"menu_id", "dish"}, name = "prices_idx"))
+    @OrderBy("dish")
     private Map <String, Float> price;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
+    @JoinColumn(name = "menu_id")
     private List <Vote> votes;
 
     public Menu() {
@@ -102,6 +114,7 @@ public class Menu extends AbsractBaseEntity {
                 " restaurant=" + restaurant +
                 " date=" + date +
                 " menu=" + price +
+                " votes=" + votes +
                 ')';
     }
 

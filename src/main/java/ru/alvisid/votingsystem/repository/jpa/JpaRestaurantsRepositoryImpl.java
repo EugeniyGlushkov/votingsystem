@@ -1,6 +1,7 @@
 package ru.alvisid.votingsystem.repository.jpa;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.repository.RestaurantsRepository;
 
@@ -15,6 +16,7 @@ public class JpaRestaurantsRepositoryImpl implements RestaurantsRepository {
     private EntityManager em;
 
     @Override
+    @Transactional
     public Restaurant save(Restaurant restaurant) {
         if (restaurant.isNew()) {
             em.persist(restaurant);
@@ -25,6 +27,7 @@ public class JpaRestaurantsRepositoryImpl implements RestaurantsRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return em.createNamedQuery(Restaurant.DELETE)
                 .setParameter("id", id)

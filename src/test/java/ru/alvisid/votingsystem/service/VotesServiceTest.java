@@ -31,9 +31,9 @@ public class VotesServiceTest {
 
     @Test
     public void get() {
-        Vote expectedVote = VOTE_1;
+        Vote expectedVote = VOTE_2;
         Vote actualVote = service.get(expectedVote.getUserId(), expectedVote.getMenuId());
-        assertMatch(actualVote, expectedVote, "user", "menu");
+        assertMatch(actualVote, expectedVote/*, "user", "menu"*/);
     }
 
     @Test

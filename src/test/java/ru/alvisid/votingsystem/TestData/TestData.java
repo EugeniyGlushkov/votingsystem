@@ -27,6 +27,7 @@ public class TestData {
     public static Restaurant RESTAURANT_1 = RestaurantTestData.rest_1;
     public static Restaurant RESTAURANT_2 = RestaurantTestData.rest_2;
     public static Restaurant RESTAURANT_3 = RestaurantTestData.rest_3;
+    public static Restaurant NEW_RESTAURANT = RestaurantTestData.rest_new;
 
     public static Menu MENU_1 = MenuTestData.menu_1;
     public static Menu MENU_2 = MenuTestData.menu_2;
@@ -45,10 +46,6 @@ public class TestData {
     }
 
     public static  <T> void assertMatch(Iterable <T> actual, Iterable <T> expected, String... ignoringFields) {
-        assertThat(actual).usingElementComparatorIgnoringFields(ignoringFields).isEqualTo(expected);
-    }
-
-    public static  <T> void assertMatch(, Iterable <T> expected, String... ignoringFields) {
         assertThat(actual).usingElementComparatorIgnoringFields(ignoringFields).isEqualTo(expected);
     }
 }
