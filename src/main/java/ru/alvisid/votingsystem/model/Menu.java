@@ -43,7 +43,6 @@ public class Menu extends AbsractBaseEntity {
     private Map <String, Float> price;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
-    @JoinColumn(name = "menu_id")
     private List <Vote> votes;
 
     public Menu() {
