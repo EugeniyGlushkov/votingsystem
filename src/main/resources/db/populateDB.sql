@@ -4,7 +4,8 @@ DELETE FROM restaurants;
 DELETE FROM menus;
 DELETE FROM prices;
 DELETE FROM votes;
-ALTER SEQUENCE global_seq RESTART WITH 100000;
+ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100000;
+ALTER SEQUENCE VOTE_SEQ RESTART WITH 1000;
 
 INSERT INTO users (name) VALUES                 /*del*/
   ('Alex'),                                     /*100000*/
@@ -47,7 +48,7 @@ INSERT INTO prices (menu_id, dish, price) VALUES
   (100008, 'cheaps', 4.56);
 
 INSERT INTO votes (user_id, menu_id) VALUES
-  (100000, 100006),
-  (100001, 100007),
-  (100002, 100007),
-  (100002, 100009);
+  (100000, 100006),                               /*1000*/
+  (100001, 100007),                               /*1001*/
+  (100002, 100007),                               /*1002*/
+  (100002, 100009);                               /*1003*/

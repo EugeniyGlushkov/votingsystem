@@ -13,9 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestData {
     private static AtomicInteger idCounter = new AtomicInteger(100000);
+    private static AtomicInteger voteIdCounter = new AtomicInteger(1000);
 
     public static int getNewId() {
         return idCounter.getAndIncrement();
+    }
+
+    public static int getNewVoteId() {
+        return voteIdCounter.getAndIncrement();
     }
 
     private TestData() {}

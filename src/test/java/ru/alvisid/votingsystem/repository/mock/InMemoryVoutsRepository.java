@@ -16,7 +16,7 @@ public class InMemoryVoutsRepository implements VotesRepository {
     public Map <Integer, Map <Integer, Vote>> votesRepository = new ConcurrentHashMap <>();
 
     @Override
-    public Vote add(Vote vote) {
+    public Vote save(Vote vote) {
         log.info("add {}", vote);
         int userId = vote.getUser().getId();
         int menuId = vote.getMenu().getId();
@@ -35,7 +35,7 @@ public class InMemoryVoutsRepository implements VotesRepository {
         return vote;
     }
 
-    @Override
+    /*@Override
     public Vote update(Vote vote) {
         log.info("update {}", vote);
         int userId = vote.getUser().getId();
@@ -48,21 +48,23 @@ public class InMemoryVoutsRepository implements VotesRepository {
         }
 
         return votesByUsId.computeIfPresent(menuId, (id, oldVote) -> vote);
+    }*/
+
+    @Override
+    public boolean delete(int id) {
+        /*log.info("delete userId={} - menuId={}", menuId, userId);
+        Map <Integer, Vote> votesByUsId = votesRepository.get(userId);
+
+        return votesByUsId == null ? false : votesByUsId.remove(menuId) != null;*/
+        return false;
     }
 
     @Override
-    public boolean delete(int userId, int menuId) {
-        log.info("delete userId={} - menuId={}", menuId, userId);
+    public Vote get(int id) {
+        /*log.info("get userId={} - menuId={}", userId, menuId);
         Map <Integer, Vote> votesByUsId = votesRepository.get(userId);
-
-        return votesByUsId == null ? false : votesByUsId.remove(menuId) != null;
-    }
-
-    @Override
-    public Vote get(int userId, int menuId) {
-        log.info("get userId={} - menuId={}", userId, menuId);
-        Map <Integer, Vote> votesByUsId = votesRepository.get(userId);
-        return votesByUsId == null ? null : votesByUsId.get(menuId);
+        return votesByUsId == null ? null : votesByUsId.get(menuId);*/
+        return null;
     }
 
     @Override

@@ -9,10 +9,10 @@ public interface VotesRepository {
     Vote save(Vote vote);
 
     //false if not found
-    boolean delete( int userId,int menuId);
+    boolean delete( int id);
 
     //null if not found
-    Vote get(int userId, int menuId);
+    Vote get(int id);
 
     List<Vote> getAll();
 

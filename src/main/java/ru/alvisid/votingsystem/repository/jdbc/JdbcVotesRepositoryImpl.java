@@ -15,12 +15,12 @@ public class JdbcVotesRepositoryImpl implements VotesRepository {
     }
 
     @Override
-    public boolean delete(int userId, int menuId) {
+    public boolean delete(int id) {
         return false;
     }
 
     @Override
-    public Vote get(int userId, int menuId) {
+    public Vote get(int id) {
         return null;
     }
 

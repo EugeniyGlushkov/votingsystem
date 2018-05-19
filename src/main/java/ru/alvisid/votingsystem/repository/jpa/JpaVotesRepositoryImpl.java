@@ -28,6 +28,7 @@ public class JpaVotesRepositoryImpl implements VotesRepository {
 
     @Override
     public boolean delete(int userId, int menuId) {
+
         return false;
     }
 

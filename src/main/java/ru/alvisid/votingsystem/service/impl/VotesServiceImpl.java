@@ -26,18 +26,18 @@ public class VotesServiceImpl implements VotesService {
 
     @Override
     public Vote create(Vote vote) {
-        return repository.add(vote);
+        return repository.save(vote);
     }
 
     @Override
     public void update(Vote vote) throws OverTimeException {
         checkOverTimeVout(DateTimeUtil.OVER_TIME, "You can not change your vout.");
-        checkNotFound(repository.update(vote), "userId=" + vote.getUser().getId() + " and menuId=" + vote.getMenu().getId());
+        checkNotFound(repository.save(vote), "userId=" + vote.getUser().getId() + " and menuId=" + vote.getMenu().getId());
     }
 
     @Override
-    public Vote get(int userId, int menuId) throws NotFoundException {
-        return checkNotFound(repository.get(userId, menuId), "userId=" + userId + " and menuId=" + menuId);
+    public Vote get(int id) throws NotFoundException {
+        return checkNotFound(repository.get(id), "id=" + id);
     }
 
     @Override
