@@ -3,6 +3,8 @@ package ru.alvisid.votingsystem.repository.jpa;
 import org.springframework.stereotype.Repository;
 import ru.alvisid.votingsystem.model.Vote;
 import ru.alvisid.votingsystem.repository.VotesRepository;
+import ru.alvisid.votingsystem.util.MenuUtils;
+import ru.alvisid.votingsystem.util.UserUtils;
 import ru.alvisid.votingsystem.util.VoteUtils;
 
 import javax.persistence.EntityManager;
@@ -18,7 +20,7 @@ public class JpaVotesRepositoryImpl implements VotesRepository {
 
     @Override
     public Vote save(Vote vote) {
-        if (Objects.isNull(get(vote.getUserId(), vote.getMenuId()))) {
+        if (vote.isNew()) {
             em.persist(vote);
             return vote;
         } else {
@@ -27,14 +29,23 @@ public class JpaVotesRepositoryImpl implements VotesRepository {
     }
 
     @Override
-    public boolean delete(int userId, int menuId) {
-
-        return false;
+    public boolean delete(int id) {
+        em.createNamedQuery(Vote.USER_ZERO_DELETE)
+                .setParameter("zeroId", UserUtils.getZeroUser())
+                .setParameter("id", id)
+                .executeUpdate();
+        em.createNamedQuery(Vote.MENU_ZERO_DELETE)
+                .setParameter("zeroId", MenuUtils.getZeroMenu())
+                .setParameter("id", id)
+                .executeUpdate();
+        return em.createNamedQuery(Vote.DELETE)
+                .setParameter("id", id)
+                .executeUpdate() != 0;
     }
 
     @Override
-    public Vote get(int userId, int menuId) {
-        return em.find(Vote.class, new Vote.VoteCompositeKey(userId, menuId));
+    public Vote get(int id) {
+        return em.find(Vote.class, id);
     }
 
     @Override

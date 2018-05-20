@@ -41,9 +41,9 @@ public class VotesServiceImpl implements VotesService {
     }
 
     @Override
-    public void delete(int userId, int menuId) throws NotFoundException, OverTimeException {
+    public void delete(int id) throws NotFoundException, OverTimeException {
         checkOverTimeVout(DateTimeUtil.OVER_TIME, "You can not delete your vout.");
-        checkNotFound(repository.delete(userId, menuId), "userId=" + userId + " and menuId=" + menuId);
+        checkNotFound(repository.delete(id), "id=" + id);
     }
 
     @Override

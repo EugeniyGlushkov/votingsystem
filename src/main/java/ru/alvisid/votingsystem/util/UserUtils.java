@@ -17,4 +17,8 @@ public class UserUtils {
     public static User getNewUser(String name, Role role, Role... roles) {
         return new User(name, role, roles);
     }
+
+    public static User getZeroUser() {
+        return new User(0, "zero", null);
+    }
 }

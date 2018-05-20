@@ -40,6 +40,20 @@ public class VotesServiceTest {
     @Test
     public void getNotFound() {
         expectedException.expect(NotFoundException.class);
-        service.get(MENU_1.getId(), MENU_2.getId());
+        service.get(MENU_1.getId());
+    }
+
+
+
+    @Test
+    public void delete() {
+        service.delete(VOTE_3.getId());
+        //assertMatch(service);
+    }
+
+    @Test
+    public void deleteNotFound() {
+        expectedException.expect(NotFoundException.class);
+        service.delete(999);
     }
 }

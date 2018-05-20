@@ -6,13 +6,22 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-
+@NamedQueries({
+        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id"),
+        @NamedQuery(name = Vote.USER_ZERO_DELETE, query = "UPDATE Vote v SET v.user=:zeroId WHERE v.id=:id"),
+        @NamedQuery(name = Vote.MENU_ZERO_DELETE, query = "UPDATE Vote v SET v.menu=:zeroId WHERE v.id=:id")
+})
 @Entity
 @Table(name = "votes",
         uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "menu_id"}, name = "votes_idx"))
 public class Vote extends AbsractBaseEntity {
 
     public static final String DELETE = "Vote.delete";
+    public static final String USER_ZERO_DELETE = "Vote.userZeroDelete";
+    public static final String MENU_ZERO_DELETE = "Vote.menuZeroDelete";
+    public static final String ALL_SORTED = "Vote.getAllSorted";
+    public static final String ALL_BY_USER_ID = "Vote.getAllByUserId";
+    public static final String ALL_BY_MENU_ID = "Vote.getAllByMenuId";
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false, updatable = false, insertable = false)
