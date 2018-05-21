@@ -46,7 +46,7 @@ public class ValidationUtil {
     }
 
     public static void checkOverTimeVout(LocalTime checkTime, String msg) {
-        LocalTime timeNow = LocalTime.of(11, 0);
+        LocalTime timeNow = LocalTime.now();
 
         if (timeNow.isAfter(checkTime)) {
             throw new OverTimeException("The current time " + timeNow + " is after " + checkTime + ". " +msg);

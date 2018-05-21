@@ -45,7 +45,8 @@ public class MenusServiceTest {
     public void get() {
         Menu expectedMenu = MENU_2;
         Menu actualMenu = service.get(expectedMenu.getId());
-        assertMatch(actualMenu, expectedMenu/*, "restaurant", "price", "votes"*/);
+        assertMatch(actualMenu, expectedMenu, "votes");
+        assertMatch(actualMenu.getVotes(), expectedMenu.getVotes());
     }
 
     @Test

@@ -21,4 +21,9 @@ public interface VotesRepository {
 
     //all votes of the restaurant with id
     List<Vote> getAllByRestaurantId(int restaurantId);
+
+    //del
+    /*void deleteAllByUserId(int userId);
+
+    void deleteAllByMenuId(int menuId);*/
 }

@@ -94,4 +94,15 @@ public class InMemoryVoutsRepository implements VotesRepository {
 
         return votesRestId;
     }
+
+    //del
+    /*@Override
+    public void deleteAllByUserId(int userId) {
+
+    }
+
+    @Override
+    public void deleteAllByMenuId(int menuId) {
+
+    }*/
 }

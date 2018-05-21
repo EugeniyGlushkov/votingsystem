@@ -8,8 +8,12 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries({
         @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id"),
-        @NamedQuery(name = Vote.USER_ZERO_DELETE, query = "UPDATE Vote v SET v.user=:zeroId WHERE v.id=:id"),
-        @NamedQuery(name = Vote.MENU_ZERO_DELETE, query = "UPDATE Vote v SET v.menu=:zeroId WHERE v.id=:id")
+        //del
+        /*@NamedQuery(name = Vote.DELETE_ALL_WITH_USER_ID, query = "DELETE FROM Vote v WHERE v.user.id=:userId"),
+        @NamedQuery(name = Vote.DELETE_ALL_WITH_MENU_ID, query = "DELETE FROM Vote v WHERE v.menu.id=:menuId"),*/
+        @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v ORDER BY v.menu.date, v.menu.restaurant, v.user.name"),
+        @NamedQuery(name = Vote.ALL_BY_USER_ID, query = "select v FROM Vote v WHERE v.user.id=:userId ORDER BY v.menu.date, v.menu.restaurant"),
+        @NamedQuery(name = Vote.ALL_BY_MENU_ID, query = "select v FROM Vote v WHERE v.menu.id=:menuId ORDER BY v.user.name")
 })
 @Entity
 @Table(name = "votes",
@@ -17,8 +21,9 @@ import javax.validation.constraints.NotNull;
 public class Vote extends AbsractBaseEntity {
 
     public static final String DELETE = "Vote.delete";
-    public static final String USER_ZERO_DELETE = "Vote.userZeroDelete";
-    public static final String MENU_ZERO_DELETE = "Vote.menuZeroDelete";
+    //del
+    /*public static final String DELETE_ALL_WITH_USER_ID = "Vote.deleteAllWithUserId";
+    public static final String DELETE_ALL_WITH_MENU_ID = "Vote.deleteAllWithMenuId";*/
     public static final String ALL_SORTED = "Vote.getAllSorted";
     public static final String ALL_BY_USER_ID = "Vote.getAllByUserId";
     public static final String ALL_BY_MENU_ID = "Vote.getAllByMenuId";
@@ -72,11 +77,25 @@ public class Vote extends AbsractBaseEntity {
     @Override
     public String toString() {
         return "Vote (" +
-                "userId=" + user.getId() +
+                "id=" + id +
+                " userId=" + user.getId() +
                 " menuId=" + menu.getId() +
                 ')';
     }
+
+    /*@Override
+    public boolean equals(Object o) {
+        *//*Menu expectedMenu = new Menu(((Vote)o).getMenu());
+        System.out.println("================================");
+        System.out.println(super.equals(o));
+        System.out.println(menu.getId()+ "      " +expectedMenu.getId());
+        System.out.println("==================================");
+        return !super.equals(o) ? false : menu.getId() == expectedMenu.getId();*//*
+        return true;
+    }*/
 }
+
+
 
 /*@Entity
 //@IdClass(Vote.VoteCompositeKey.class)

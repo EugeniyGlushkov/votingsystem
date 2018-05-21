@@ -38,4 +38,15 @@ public class JdbcVotesRepositoryImpl implements VotesRepository {
     public List<Vote> getAllByRestaurantId(int restaurantId) {
         return null;
     }
+
+    //del
+    /*@Override
+    public void deleteAllByUserId(int userId) {
+
+    }
+
+    @Override
+    public void deleteAllByMenuId(int menuId) {
+
+    }*/
 }

@@ -1,5 +1,7 @@
 package ru.alvisid.votingsystem.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.internal.util.stereotypes.Immutable;
 import org.springframework.lang.Nullable;
 
@@ -7,6 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +47,7 @@ public class Menu extends AbsractBaseEntity {
     private Map <String, Float> price;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
+    @Fetch(FetchMode.SUBSELECT)
     private List <Vote> votes;
 
     public Menu() {
@@ -116,6 +121,17 @@ public class Menu extends AbsractBaseEntity {
                 " votes=" + votes +
                 ')';
     }
+
+    /*@Override
+    public boolean equals(Object o) {
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        ArrayList<Vote> votes = new ArrayList <>(getVotes());
+        ArrayList<Vote> expectVotes = new ArrayList <>(((Menu)o).getVotes());
+        return votes.equals(expectVotes);
+    }*/
 
     //del
     /*@Override
