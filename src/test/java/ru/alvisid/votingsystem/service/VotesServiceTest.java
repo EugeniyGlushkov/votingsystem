@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
+import ru.alvisid.votingsystem.TestData.TestData;
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.model.Vote;
 import ru.alvisid.votingsystem.util.DateTimeUtil;
@@ -37,8 +38,14 @@ public class VotesServiceTest {
     @Autowired
     private VotesService service;
 
-    //@Test
+    @Test
+    public void create() {
+        System.out.println(TestData.NEW_VOTE);
 
+        service.create(TestData.NEW_VOTE);
+        List<Vote> atual = service.getAll();
+        assertMatch(atual, Arrays.asList(VOTE_1, VOTE_3, VOTE_2, VOTE_4, NEW_TEST_VOTE));
+    }
 
 
     @Test
@@ -60,8 +67,8 @@ public class VotesServiceTest {
     public void delete() {
         DateTimeUtil.OVER_TIME = LocalTime.now().plusHours(1);
         service.delete(VOTE_2.getId());
-        List <Vote> actual = service.getAll();
-        List <Vote> expected = Arrays.asList(VOTE_1, VOTE_3, VOTE_4);
+        List<Vote> actual = service.getAll();
+        List<Vote> expected = Arrays.asList(VOTE_1, VOTE_3, VOTE_4);
         assertMatch(actual, expected);
 
 
@@ -86,7 +93,7 @@ public class VotesServiceTest {
 
     @Test
     public void getAll() {
-        List <Vote> atual = service.getAll();
+        List<Vote> atual = service.getAll();
         assertMatch(atual, Arrays.asList(VOTE_1, VOTE_3, VOTE_2, VOTE_4));
     }
 }

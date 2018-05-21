@@ -16,11 +16,13 @@ public class MenuUtils {
         return new Menu(restaurant, date, price);
     }
 
-    public static Menu getZeroMenu() {
+
+
+    /*public static Menu getZeroMenu() {
         Menu zeroMenu = new Menu(null, null, null);
         zeroMenu.setId(0);
         return zeroMenu;
-    }
+    }*/
 
     public static List <RestaurantVotes> getRestaurantVotes(List <Menu> menus) {
         Map <LocalDate, Integer> voutesADay = new HashMap <>();

@@ -46,6 +46,9 @@ public class TestData {
     public static Vote VOTE_3 = VoteTestData.vote_3;
     public static Vote VOTE_4 = VoteTestData.vote_4;
 
+    public static Vote NEW_VOTE = VoteTestData.new_vote;
+    public static Vote NEW_TEST_VOTE = VoteTestData.new_test_vote;
+
     public static  <T> void assertMatch(T actual, T expected, String... ignoringFields) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, ignoringFields);
     }
