@@ -145,8 +145,14 @@ public class VotesServiceTest {
 
     @Test
     public void getAllByUserId() {
-        List<Vote> atual = service.getAll();
-        assertMatch(atual, Arrays.asList(VOTE_1, VOTE_3, VOTE_2, VOTE_4));
+        List<Vote> atual = service.getAllByUserId(USER_3.getId());
+        assertMatch(atual, Arrays.asList(VOTE_3, VOTE_4));
+    }
+
+    @Test
+    public void getAllByMenuId() {
+        List<Vote> atual = service.getAllByRestaurantId(RESTAURANT_2.getId());
+        assertMatch(atual, Arrays.asList(VOTE_3, VOTE_4));
     }
 
 
