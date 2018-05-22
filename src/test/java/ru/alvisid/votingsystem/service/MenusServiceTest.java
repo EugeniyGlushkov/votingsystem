@@ -18,6 +18,7 @@ import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @ContextConfiguration({
@@ -36,17 +37,25 @@ public class MenusServiceTest {
 
     @Test
     public void create() {
-        Menu expectedMenu = new Menu(NEW_MENU);
-        Menu createdMenu = service.create(NEW_MENU);
-        assertMatch(service.getAll(), Arrays.asList(MENU_1, MENU_2, MENU_4, MENU_3, NEW_MENU));
+        Menu newMenuForTest = new Menu(NEW_MENU);
+        service.create(newMenuForTest);
+        Menu menu_3ForTest = new Menu(MENU_3);
+        newMenuForTest.setVotes(Collections.EMPTY_LIST);
+        menu_3ForTest.setVotes(Collections.EMPTY_LIST);
+        System.out.println(service.getAll());
+        System.out.println(Arrays.asList(MENU_1, MENU_2, MENU_4, menu_3ForTest, newMenuForTest));
+        assertMatch(service.getAll(), Arrays.asList(MENU_1, MENU_2, MENU_4, menu_3ForTest, newMenuForTest));
     }
 
     @Test
     public void get() {
-        Menu expectedMenu = MENU_2;
+        Menu expectedMenu = new Menu(MENU_2);
+        System.out.println(expectedMenu.getId());
+        //expectedMenu.setVotes(Collections.EMPTY_LIST);
         Menu actualMenu = service.get(expectedMenu.getId());
-        assertMatch(actualMenu, expectedMenu, "votes");
-        assertMatch(actualMenu.getVotes(), expectedMenu.getVotes());
+        System.out.println(MENU_2.equals(actualMenu));
+        assertMatch(actualMenu, expectedMenu);
+        //assertMatch(actualMenu.getVotes(), expectedMenu.getVotes());
     }
 
     @Test

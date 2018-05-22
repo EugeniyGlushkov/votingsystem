@@ -70,8 +70,8 @@ public class JpaVotesRepositoryImpl implements VotesRepository {
 
     @Override
     public List <Vote> getAllByRestaurantId(int restaurantId) {
-        return em.createNamedQuery(Vote.ALL_BY_MENU_ID)
-                .setParameter("menuId", restaurantId)
+        return em.createNamedQuery(Vote.ALL_BY_RESTAURANT_ID)
+                .setParameter("restaurantId", restaurantId)
                 .getResultList();
     }
 }

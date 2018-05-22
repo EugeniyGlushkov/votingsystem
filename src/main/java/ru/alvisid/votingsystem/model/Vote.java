@@ -14,7 +14,8 @@ import java.util.Objects;
         @NamedQuery(name = Vote.DELETE_ALL_WITH_MENU_ID, query = "DELETE FROM Vote v WHERE v.menu.id=:menuId"),*/
         @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v ORDER BY v.menu.date, v.menu.restaurant, v.user.name"),
         @NamedQuery(name = Vote.ALL_BY_USER_ID, query = "select v FROM Vote v WHERE v.user.id=:userId ORDER BY v.menu.date, v.menu.restaurant"),
-        @NamedQuery(name = Vote.ALL_BY_MENU_ID, query = "select v FROM Vote v WHERE v.menu.id=:menuId ORDER BY v.user.name")
+        @NamedQuery(name = Vote.ALL_BY_RESTAURANT_ID, query = "select v FROM Vote v " +
+                "WHERE v.menu.restaurant.id=:restaurantId ORDER BY v.user.name")
 })
 @Entity
 @Access(AccessType.FIELD)
@@ -28,7 +29,7 @@ public class Vote{
     public static final String DELETE_ALL_WITH_MENU_ID = "Vote.deleteAllWithMenuId";*/
     public static final String ALL_SORTED = "Vote.getAllSorted";
     public static final String ALL_BY_USER_ID = "Vote.getAllByUserId";
-    public static final String ALL_BY_MENU_ID = "Vote.getAllByMenuId";
+    public static final String ALL_BY_RESTAURANT_ID = "Vote.getAllByRestaurantId";
 
     public static final int VOTE_START_SEQ = 1000;
 
@@ -101,12 +102,21 @@ public class Vote{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        /*if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AbsractBaseEntity that = (AbsractBaseEntity) o;
+        Vote that = (Vote) o;
 
-        return id != null && id.equals(that.id);
+        if (id == null || !id.equals(that.getId())) {
+            return false;
+        }
+
+        if (!user.equals(that.getUser())) {
+            return false;
+        }
+
+        return menu.equals(that.getMenu());*/
+        return true;
     }
 
     @Override

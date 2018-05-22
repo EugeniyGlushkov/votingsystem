@@ -62,6 +62,21 @@ public class User extends AbstractNamedEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        User that = (User) o;
+
+        if (!roles.equals(that.getRoles())) {
+            return false;
+        }
+
+        return votes == null ? that.getVotes() == null : votes.equals(that.getVotes());
+    }
+
+    @Override
     public String toString() {
         return "User (" +
                 "id=" + id +

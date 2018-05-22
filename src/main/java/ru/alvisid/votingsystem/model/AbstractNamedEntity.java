@@ -35,6 +35,17 @@ public abstract class AbstractNamedEntity extends AbsractBaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        AbstractNamedEntity that = (AbstractNamedEntity) o;
+
+        return name.equals((that).getName());
+    }
+
+    @Override
     public String toString() {
         return String.format("Entity %s (%s, '%s')", getClass().getName(), id, name);
     }
