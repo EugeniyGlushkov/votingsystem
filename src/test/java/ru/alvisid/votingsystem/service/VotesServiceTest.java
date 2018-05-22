@@ -41,7 +41,7 @@ public class VotesServiceTest {
     @Test
     public void create() {
         System.out.println(TestData.NEW_VOTE);
-
+        System.out.println(TestData.NEW_TEST_VOTE);
         service.create(TestData.NEW_VOTE);
         List<Vote> atual = service.getAll();
         assertMatch(atual, Arrays.asList(VOTE_1, VOTE_3, VOTE_2, VOTE_4, NEW_TEST_VOTE));

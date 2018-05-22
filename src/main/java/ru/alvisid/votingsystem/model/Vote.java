@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @NamedQueries({
         @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id"),
@@ -18,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "votes",
         uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "menu_id"}, name = "votes_idx"))
-public class Vote extends AbsractBaseEntity {
+public class Vote{
 
     public static final String DELETE = "Vote.delete";
     //del
@@ -27,6 +28,13 @@ public class Vote extends AbsractBaseEntity {
     public static final String ALL_SORTED = "Vote.getAllSorted";
     public static final String ALL_BY_USER_ID = "Vote.getAllByUserId";
     public static final String ALL_BY_MENU_ID = "Vote.getAllByMenuId";
+
+    public static final int VOTE_START_SEQ = 1000;
+
+    @Id
+    @SequenceGenerator(name = "vote_seq", sequenceName = "vote_seq", allocationSize = 1, initialValue = VOTE_START_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vote_seq")
+    protected Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
@@ -43,19 +51,26 @@ public class Vote extends AbsractBaseEntity {
     public Vote() {
     }
 
-    public Vote(User user, Menu menu) {
-        this.user = user;
-        this.menu = menu;
-    }
-
-    public Vote(int id, User user, Menu menu) {
-        super(id);
+    public Vote(Integer id, User user, Menu menu) {
+        this.id = id;
         this.user = user;
         this.menu = menu;
     }
 
     public Vote(Vote vote) {
-        this(vote.getUser(), vote.getMenu());
+        this(vote.getId(), vote.getUser(), vote.getMenu());
+    }
+
+    public boolean isNew() {
+        return Objects.isNull(id);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setUser(User user) {

@@ -14,7 +14,7 @@ public class VoteTestData {
     public static final Vote vote_4 = getVote(UserTestData.user_3, MenuTestData.menu_4);
 
     public static final Vote new_vote =
-            new Vote(UserTestData.user_1, MenuTestData.menu_3);
+            new Vote(null, UserTestData.user_1, MenuTestData.menu_3);
 
     public static final Vote new_test_vote = getVote(UserTestData.user_1, MenuTestData.menu_3);
 

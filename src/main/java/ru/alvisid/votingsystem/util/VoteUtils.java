@@ -10,6 +10,6 @@ public class VoteUtils {
     }
 
     public static Vote getNewVote(User user, Menu menu) {
-        return new Vote(user, menu);
+        return new Vote(null, user, menu);
     }
 }
