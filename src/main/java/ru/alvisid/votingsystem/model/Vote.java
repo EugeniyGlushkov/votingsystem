@@ -17,6 +17,7 @@ import java.util.Objects;
         @NamedQuery(name = Vote.ALL_BY_MENU_ID, query = "select v FROM Vote v WHERE v.menu.id=:menuId ORDER BY v.user.name")
 })
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "votes",
         uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "menu_id"}, name = "votes_idx"))
 public class Vote{
@@ -96,6 +97,21 @@ public class Vote{
                 " userId=" + user.getId() +
                 " menuId=" + menu.getId() +
                 ')';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AbsractBaseEntity that = (AbsractBaseEntity) o;
+
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id : 0;
     }
 
     /*@Override

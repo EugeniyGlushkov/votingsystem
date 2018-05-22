@@ -4,6 +4,8 @@ import ru.alvisid.votingsystem.model.AbsractBaseEntity;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 import ru.alvisid.votingsystem.util.exception.OverTimeException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -45,10 +47,15 @@ public class ValidationUtil {
         }
     }
 
-    public static void checkOverTimeVout(LocalTime checkTime, String msg) {
+    public static void checkOverTimeVout(LocalDateTime checkTime, LocalDate checkDate, String msg) {
+        LocalDate dateNow = LocalDate.now();
         LocalTime timeNow = LocalTime.now();
 
-        if (timeNow.isAfter(checkTime)) {
+        if (!checkDate.isEqual(dateNow)) {
+            throw new OverTimeException("The current date " + dateNow + " is not equal " + checkDate + ". " + msg );
+        }
+
+        if (timeNow.isAfter(checkTime.toLocalTime())) {
             throw new OverTimeException("The current time " + timeNow + " is after " + checkTime + ". " +msg);
         }
     }

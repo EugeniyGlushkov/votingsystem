@@ -8,6 +8,7 @@ import ru.alvisid.votingsystem.repository.VotesRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class JpaVotesRepositoryImpl implements VotesRepository {
@@ -22,8 +23,7 @@ public class JpaVotesRepositoryImpl implements VotesRepository {
             em.persist(vote);
             return vote;
         } else {
-
-            return em.merge(vote);
+            return Objects.isNull(get(vote.getId())) ? null : em.merge(vote);
         }
     }
 

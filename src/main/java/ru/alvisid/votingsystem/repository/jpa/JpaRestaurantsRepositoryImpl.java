@@ -8,6 +8,7 @@ import ru.alvisid.votingsystem.repository.RestaurantsRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class JpaRestaurantsRepositoryImpl implements RestaurantsRepository {
@@ -22,7 +23,7 @@ public class JpaRestaurantsRepositoryImpl implements RestaurantsRepository {
             em.persist(restaurant);
             return restaurant;
         } else {
-            return em.merge(restaurant);
+            return Objects.isNull(get(restaurant.getId())) ? null : em.merge(restaurant);
         }
     }
 

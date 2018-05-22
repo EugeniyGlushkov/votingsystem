@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
 
 public class DateTimeUtil {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    public static LocalTime OVER_TIME = LocalTime.of(11, 0, 0);
+    public static LocalDateTime OVER_TIME =
+            LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 0,0));
 
     private DateTimeUtil(){}
 

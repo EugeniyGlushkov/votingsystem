@@ -74,6 +74,14 @@ public class RestaurantsServiceTest {
     }
 
     @Test
+    public void updateNotFound() {
+        expectedException.expect(NotFoundException.class);
+        Restaurant expectedRestaurant = new Restaurant(RESTAURANT_1);
+        expectedRestaurant.setId(1);
+        service.update(expectedRestaurant);
+    }
+
+    @Test
     public void getAll() {
         List <Restaurant> actualRestaurants = service.getAll();
         assertMatch(actualRestaurants, Arrays.asList(RESTAURANT_1, RESTAURANT_2, RESTAURANT_3));

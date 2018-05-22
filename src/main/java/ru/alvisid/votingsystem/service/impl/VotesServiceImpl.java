@@ -30,9 +30,9 @@ public class VotesServiceImpl implements VotesService {
     }
 
     @Override
-    public void update(Vote vote) throws OverTimeException {
-        checkOverTimeVout(DateTimeUtil.OVER_TIME, "You can not change your vote.");
-        checkNotFound(repository.save(vote), "userId=" + vote.getUser().getId() + " and menuId=" + vote.getMenu().getId());
+    public void update(Vote vote) throws OverTimeException, NotFoundException {
+        checkOverTimeVout(DateTimeUtil.OVER_TIME, vote.getMenu().getDate(), "You can not change your vote.");
+        checkNotFound(repository.save(vote), "id=" + vote.getId());
     }
 
     @Override
@@ -42,7 +42,7 @@ public class VotesServiceImpl implements VotesService {
 
     @Override
     public void delete(int id) throws NotFoundException, OverTimeException {
-        checkOverTimeVout(DateTimeUtil.OVER_TIME, "You can not delete your vote.");
+        checkOverTimeVout(DateTimeUtil.OVER_TIME, get(id).getMenu().getDate(), "You can not delete your vote.");
         checkNotFound(repository.delete(id), "id=" + id);
     }
 
