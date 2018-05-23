@@ -36,7 +36,6 @@ public abstract class AbsractBaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         AbsractBaseEntity that = (AbsractBaseEntity) o;
 
         return id != null && id.equals(that.id);

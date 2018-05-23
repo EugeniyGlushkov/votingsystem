@@ -1,5 +1,7 @@
 package ru.alvisid.votingsystem.service;
 
+import org.hibernate.collection.internal.PersistentBag;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,12 +16,11 @@ import static ru.alvisid.votingsystem.TestData.MenuTestData.*;
 import static ru.alvisid.votingsystem.TestData.TestData.*;
 
 import ru.alvisid.votingsystem.model.Menu;
+import ru.alvisid.votingsystem.model.Vote;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -40,26 +41,27 @@ public class MenusServiceTest {
         Menu newMenuForTest = new Menu(NEW_MENU);
         service.create(newMenuForTest);
         Menu menu_3ForTest = new Menu(MENU_3);
-        newMenuForTest.setVotes(Collections.EMPTY_LIST);
-        menu_3ForTest.setVotes(Collections.EMPTY_LIST);
-        System.out.println(service.getAll());
-        System.out.println(Arrays.asList(MENU_1, MENU_2, MENU_4, menu_3ForTest, newMenuForTest));
-        assertMatch(service.getAll(), Arrays.asList(MENU_1, MENU_2, MENU_4, menu_3ForTest, newMenuForTest));
+        assertMatch(service.getAll(), Arrays.asList(MENU_1, MENU_2, MENU_4, menu_3ForTest, newMenuForTest), "votes");
+    }
+
+    @Test
+    public void update() {
+        //realize in future
+        Menu updateMenu = new Menu(MENU_1);
+        updateMenu.setPrice(MENU_2.getMenu());
+        service.update(updateMenu);
+        assertMatch(service.get(MENU_1.getId()), updateMenu, "votes");
     }
 
     @Test
     public void get() {
         Menu expectedMenu = new Menu(MENU_2);
-        System.out.println(expectedMenu.getId());
-        //expectedMenu.setVotes(Collections.EMPTY_LIST);
         Menu actualMenu = service.get(expectedMenu.getId());
-        System.out.println(MENU_2.equals(actualMenu));
-        assertMatch(actualMenu, expectedMenu);
-        //assertMatch(actualMenu.getVotes(), expectedMenu.getVotes());
+        assertMatch(actualMenu, expectedMenu, "votes");
     }
 
     @Test
-    public void getNotFound () {
+    public void getNotFound() {
         expectedException.expect(NotFoundException.class);
         service.get(1);
     }
@@ -67,39 +69,30 @@ public class MenusServiceTest {
     @Test
     public void delete() {
         service.delete(MENU_1.getId());
-        assertMatch(service.getAll(), Arrays.asList(MENU_2, MENU_3, MENU_4));
+        assertMatch(service.getAll(), Arrays.asList(MENU_2, MENU_4, MENU_3), "votes");
     }
 
     @Test()
-    public void deleteNotFoundExc() {
+    public void deleteNotFound() {
         expectedException.expect(NotFoundException.class);
         service.delete(RESTAURANT_1.getId());
-    }
-
-    @Test
-    public void update() {
-        //realize in future
-        Menu updateMenu = new Menu(MENU_1);
-        updateMenu.setDate(LocalDate.now());
-        service.update(updateMenu);
-        assertMatch(service.get(MENU_1.getId()), updateMenu);
     }
 
     //Ignoring "votes" because in expected menu_3 field votes is null? but in actual menu_3 field voted is empty list
     @Test
     public void getAll() {
-        List<Menu> all = service.getAll();
+        List <Menu> all = service.getAll();
         assertMatch(all, Arrays.asList(MENU_1, MENU_2, MENU_4, MENU_3), "votes");
     }
 
     @Test
     public void getBeetwen() {
-        List<Menu> menusBeetwen = service.getBetween(MENU_1.getDate().minusDays(1), MENU_2.getDate().plusDays(1));
-        assertMatch(menusBeetwen, Arrays.asList(MENU_1, MENU_2)/*, "votes"*/);
+        List <Menu> menusBeetwen = service.getBetween(MENU_1.getDate().minusDays(1), MENU_2.getDate().plusDays(1));
+        assertMatch(menusBeetwen, Arrays.asList(MENU_1, MENU_2), "votes");
     }
 
     @Test
     public void getPriceByID() {
-        // implement in future
+        Assert.assertEquals(service.getPriceById(MENU_2.getId()), service.getPriceById(MENU_2.getId()));
     }
 }

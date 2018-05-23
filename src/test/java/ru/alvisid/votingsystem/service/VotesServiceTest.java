@@ -106,13 +106,6 @@ public class VotesServiceTest {
         List<Vote> actual = service.getAll();
         List<Vote> expected = Arrays.asList(VOTE_1, VOTE_3, VOTE_2);
         assertMatch(actual, expected);
-
-
-        /*for (int i = 0, end = actual.size();i < end;i++) {
-            System.out.println(actual.get(i));
-            System.out.println(expected.get(i));
-            assertMatch(actual.get(i).getMenu(), expected.get(i).getMenu());
-        }*/
     }
 
     @Test

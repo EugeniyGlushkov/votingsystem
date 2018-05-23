@@ -135,32 +135,6 @@ public class Menu extends AbsractBaseEntity {
 
     //del
 
-    @Override
-    public boolean equals(Object o) {
-        if (!super.equals(o)) {
-            return false;
-        }
-
-        Menu that = (Menu)o;
-
-        if (!restaurant.equals(that.getRestaurant())) {
-            return false;
-        }
-
-        if (!date.equals(that.getDate())) {
-            return false;
-        }
-
-        if (!price.equals(that.getMenu())) {
-            return false;
-        }
-
-        /*ArrayList<Vote> curVotes = new ArrayList<>(votes);
-        ArrayList<Vote> expVotes = new ArrayList<>(eqMenu.getVotes());
-        return curVotes.equals(expVotes);*/
-
-        return votes == null ? that.getVotes() == null : votes.equals(that.getVotes());
-    }
 
 /*
     @Override

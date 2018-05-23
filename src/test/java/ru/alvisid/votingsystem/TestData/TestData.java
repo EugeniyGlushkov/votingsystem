@@ -28,6 +28,7 @@ public class TestData {
     public static User USER_1 = UserTestData.user_1;
     public static User USER_2 = UserTestData.user_2;
     public static User USER_3 = UserTestData.user_3;
+    public static User NEW_USER = UserTestData.new_user;
 
     public static Restaurant RESTAURANT_1 = RestaurantTestData.rest_1;
     public static Restaurant RESTAURANT_2 = RestaurantTestData.rest_2;

@@ -13,6 +13,8 @@ public class UserTestData {
     public static final User user_1 = getUser("Alex", Role.ROLE_USER);
     public static final User user_2 = getUser("Sindy", Role.ROLE_USER, Role.ROLE_ADMIN);
     public static final User user_3 = getUser("Fox", Role.ROLE_USER);
+
+    public static final User new_user = new User("New_user", Role.ROLE_USER);
     public static final List <User> USERS = Arrays.asList(user_1, user_2, user_3);
 
     private UserTestData() {

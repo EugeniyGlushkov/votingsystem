@@ -21,5 +21,5 @@ public interface MenusService {
 
     List<Menu> getBetween(LocalDate startDate, LocalDate endDate);
 
-    Map<String, Float> priceById(int menuId) throws NotFoundException;
+    Map<String, Float> getPriceById(int menuId) throws NotFoundException;
 }

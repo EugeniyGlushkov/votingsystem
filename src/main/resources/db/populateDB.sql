@@ -22,7 +22,6 @@ INSERT INTO restaurants (name) VALUES
   ('Ambassador'),                               /*100003*/
   ('Eleon'),                                    /*100004*/
   ('Mandalay');                                 /*100005*/
-
 INSERT INTO menus (restaurants_id, date) VALUES
   (100003, '2018-05-09'),                       /*100006*/
   (100004, '2018-05-09');                       /*100007*/

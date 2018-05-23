@@ -54,7 +54,7 @@ public class MenusServiseImpl implements MenusService {
     }
 
     @Override
-    public Map<String, Float> priceById(int menuId) throws NotFoundException {
+    public Map<String, Float> getPriceById(int menuId) throws NotFoundException {
         return get(menuId).getMenu();
     }
 }

@@ -14,6 +14,8 @@ import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
+import java.util.Arrays;
+
 import static ru.alvisid.votingsystem.TestData.TestData.*;
 
 @ContextConfiguration({
@@ -31,6 +33,29 @@ public class UsersServiceTest {
     private UsersService service;
 
     @Test
+    public void create() {
+        User createUser = new User(NEW_USER);
+        service.create(createUser);
+        assertMatch(service.get(createUser.getId()), createUser, "votes");
+    }
+
+    @Test
+    public void update() {
+        User updatedUser = new User(USER_1);
+        updatedUser.setName("Updated_user");
+        service.update(updatedUser);
+        assertMatch(service.get(updatedUser.getId()), updatedUser, "votes");
+    }
+
+    @Test
+    public void updateNotFound() {
+        expectedException.expect(NotFoundException.class);
+        User updatedUser = new User(USER_1);
+        updatedUser.setId(MENU_2.getId());
+        service.update(updatedUser);
+    }
+
+    @Test
     public void get() {
         User expectedUser = USER_1;
         User actualUser = service.get(expectedUser.getId());
@@ -41,5 +66,23 @@ public class UsersServiceTest {
     public void getNotFound() {
         expectedException.expect(NotFoundException.class);
         service.get(MENU_1.getId());
+    }
+
+    @Test
+    public void delete() {
+        service.delete(USER_1.getId());
+        System.out.println(service.getAll());
+        assertMatch(service.getAll(), Arrays.asList(USER_3, USER_2), "votes");
+    }
+
+    @Test
+    public void deleteNotFound() {
+        expectedException.expect(NotFoundException.class);
+        service.delete(MENU_2.getId());
+    }
+
+    @Test
+    public void getAll() {
+        assertMatch(service.getAll(), Arrays.asList(USER_1, USER_3, USER_2), "votes");
     }
 }

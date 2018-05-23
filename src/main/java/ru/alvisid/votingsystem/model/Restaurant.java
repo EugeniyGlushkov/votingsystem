@@ -31,6 +31,11 @@ public class Restaurant extends AbstractNamedEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
     public String toString() {
         return "Restaurant (" +
                 "id=" + id +

@@ -102,21 +102,12 @@ public class Vote{
 
     @Override
     public boolean equals(Object o) {
-        /*if (this == o) return true;
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Vote that = (Vote) o;
 
-        if (id == null || !id.equals(that.getId())) {
-            return false;
-        }
-
-        if (!user.equals(that.getUser())) {
-            return false;
-        }
-
-        return menu.equals(that.getMenu());*/
-        return true;
+        return id != null && id.equals(that.id);
     }
 
     @Override

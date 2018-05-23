@@ -1,5 +1,7 @@
 package ru.alvisid.votingsystem.model;
 
+import org.hibernate.annotations.IndexColumn;
+
 import javax.persistence.*;
 import java.util.EnumSet;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name")
+        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name")
 })
 @Entity
 @Table(name = "users",
@@ -24,7 +26,7 @@ public class User extends AbstractNamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set <Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<Vote> votes;
 
     public User(){
@@ -61,20 +63,6 @@ public class User extends AbstractNamedEntity {
         return votes;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (!super.equals(o)) {
-            return false;
-        }
-
-        User that = (User) o;
-
-        if (!roles.equals(that.getRoles())) {
-            return false;
-        }
-
-        return votes == null ? that.getVotes() == null : votes.equals(that.getVotes());
-    }
 
     @Override
     public String toString() {

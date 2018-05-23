@@ -1,12 +1,14 @@
 package ru.alvisid.votingsystem.repository.jpa;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.repository.UsersRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class JpaUsersRepositoryImpl implements UsersRepository {
@@ -15,16 +17,18 @@ public class JpaUsersRepositoryImpl implements UsersRepository {
     private EntityManager em;
 
     @Override
+    @Transactional
     public User save(User user) {
         if (user.isNew()) {
             em.persist(user);
             return user;
         } else {
-            return em.merge(user);
+            return Objects.isNull(get(user.getId())) ? null : em.merge(user);
         }
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return em.createNamedQuery(User.DELETE)
                 .setParameter("id", id)
