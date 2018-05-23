@@ -5,8 +5,7 @@ import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.model.Vote;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,6 +48,18 @@ public class TestData {
 
     public static Vote NEW_VOTE = VoteTestData.new_vote;
     public static Vote NEW_TEST_VOTE = VoteTestData.new_test_vote;
+
+
+    static {
+        USER_1.setVotes(VoteTestData.voteUserSet_1);
+        USER_2.setVotes(VoteTestData.voteUserSet_2);
+        USER_3.setVotes(VoteTestData.voteUserSet_3);
+
+        MENU_1.setVotes(VoteTestData.voteMenuSet_1);
+        MENU_2.setVotes(VoteTestData.voteMenuSet_2);
+        MENU_3.setVotes(VoteTestData.voteMenuSet_3);
+        MENU_4.setVotes(VoteTestData.voteMenuSet_4);
+    }
 
     public static  <T> void assertMatch(T actual, T expected, String... ignoringFields) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, ignoringFields);

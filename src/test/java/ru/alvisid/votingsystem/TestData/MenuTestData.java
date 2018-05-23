@@ -39,9 +39,9 @@ public class MenuTestData {
 
         new_menu = MenuUtils.getNewMenu(RestaurantTestData.rest_3, LocalDate.now(), firstMenu);
 
-        menu_1.setVotes(Arrays.asList(VoteTestData.vote_1));
+        /*menu_1.setVotes(Arrays.asList(VoteTestData.vote_1));
         menu_2.setVotes(Arrays.asList(VoteTestData.vote_2, VoteTestData.vote_3));
-        menu_4.setVotes(Arrays.asList(VoteTestData.vote_4));
+        menu_4.setVotes(Arrays.asList(VoteTestData.vote_4));*/
 
         MENUS = Arrays.asList(
                 menu_1,

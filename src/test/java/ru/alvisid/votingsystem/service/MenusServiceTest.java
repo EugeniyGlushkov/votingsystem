@@ -40,8 +40,8 @@ public class MenusServiceTest {
     public void create() {
         Menu newMenuForTest = new Menu(NEW_MENU);
         service.create(newMenuForTest);
-        Menu menu_3ForTest = new Menu(MENU_3);
-        assertMatch(service.getAll(), Arrays.asList(MENU_1, MENU_2, MENU_4, menu_3ForTest, newMenuForTest), "votes");
+        newMenuForTest.setVotes(Collections.emptySet());
+        assertMatch(service.getAll(), Arrays.asList(MENU_1, MENU_2, MENU_4, MENU_3, newMenuForTest)/*, "votes"*/);
     }
 
     @Test
@@ -50,14 +50,14 @@ public class MenusServiceTest {
         Menu updateMenu = new Menu(MENU_1);
         updateMenu.setPrice(MENU_2.getMenu());
         service.update(updateMenu);
-        assertMatch(service.get(MENU_1.getId()), updateMenu, "votes");
+        assertMatch(service.get(MENU_1.getId()), updateMenu/*, "votes"*/);
     }
 
     @Test
     public void get() {
         Menu expectedMenu = new Menu(MENU_2);
         Menu actualMenu = service.get(expectedMenu.getId());
-        assertMatch(actualMenu, expectedMenu, "votes");
+        assertMatch(actualMenu, expectedMenu/*, "votes"*/);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class MenusServiceTest {
     @Test
     public void delete() {
         service.delete(MENU_1.getId());
-        assertMatch(service.getAll(), Arrays.asList(MENU_2, MENU_4, MENU_3), "votes");
+        assertMatch(service.getAll(), Arrays.asList(MENU_2, MENU_4, MENU_3)/*, "votes"*/);
     }
 
     @Test()
@@ -82,17 +82,17 @@ public class MenusServiceTest {
     @Test
     public void getAll() {
         List <Menu> all = service.getAll();
-        assertMatch(all, Arrays.asList(MENU_1, MENU_2, MENU_4, MENU_3), "votes");
+        assertMatch(all, Arrays.asList(MENU_1, MENU_2, MENU_4, MENU_3)/*, "votes"*/);
     }
 
     @Test
     public void getBeetwen() {
         List <Menu> menusBeetwen = service.getBetween(MENU_1.getDate().minusDays(1), MENU_2.getDate().plusDays(1));
-        assertMatch(menusBeetwen, Arrays.asList(MENU_1, MENU_2), "votes");
+        assertMatch(menusBeetwen, Arrays.asList(MENU_1, MENU_2)/*, "votes"*/);
     }
 
     @Test
     public void getPriceByID() {
-        Assert.assertEquals(service.getPriceById(MENU_2.getId()), service.getPriceById(MENU_2.getId()));
+        assertMatch(service.getPriceById(MENU_2.getId()), service.getPriceById(MENU_2.getId()));
     }
 }

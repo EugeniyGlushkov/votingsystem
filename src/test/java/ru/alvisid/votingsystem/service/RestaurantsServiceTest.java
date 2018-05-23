@@ -1,9 +1,16 @@
 package ru.alvisid.votingsystem.service;
 
+import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.Stopwatch;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -15,10 +22,8 @@ import static ru.alvisid.votingsystem.TestData.TestData.*;
 import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -27,9 +32,35 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class RestaurantsServiceTest {
+    private static final Logger log = LoggerFactory.getLogger(RestaurantsServiceTest.class);
+
+    private static StringBuilder results = new StringBuilder();
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    @Rule
+    public Stopwatch stopwatch = new Stopwatch() {
+        @Override
+        protected void finished(long nanos, Description description) {
+            String result = String.format("\n%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
+            results.append(result);
+            log.info(result + " ms\n");
+        }
+    };
+
+    static {
+        SLF4JBridgeHandler.install();
+    }
+
+    @AfterClass
+    public static void printResult() {
+        log.info("\n---------------------------------" +
+                 "\nTest                 Duration, ms" +
+                 "\n---------------------------------" +
+                 results +
+                 "\n---------------------------------");
+    }
 
     @Autowired
     private RestaurantsService service;

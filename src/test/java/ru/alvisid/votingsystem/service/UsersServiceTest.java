@@ -15,6 +15,7 @@ import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static ru.alvisid.votingsystem.TestData.TestData.*;
 
@@ -36,7 +37,8 @@ public class UsersServiceTest {
     public void create() {
         User createUser = new User(NEW_USER);
         service.create(createUser);
-        assertMatch(service.get(createUser.getId()), createUser, "votes");
+        createUser.setVotes(Collections.emptySet());
+        assertMatch(service.get(createUser.getId()), createUser/*, "votes"*/);
     }
 
     @Test
@@ -44,7 +46,7 @@ public class UsersServiceTest {
         User updatedUser = new User(USER_1);
         updatedUser.setName("Updated_user");
         service.update(updatedUser);
-        assertMatch(service.get(updatedUser.getId()), updatedUser, "votes");
+        assertMatch(service.get(updatedUser.getId()), updatedUser/*, "votes"*/);
     }
 
     @Test
@@ -59,7 +61,7 @@ public class UsersServiceTest {
     public void get() {
         User expectedUser = USER_1;
         User actualUser = service.get(expectedUser.getId());
-        assertMatch(actualUser, expectedUser, "votes");
+        assertMatch(actualUser, expectedUser/*, "votes"*/);
     }
 
     @Test
@@ -72,7 +74,7 @@ public class UsersServiceTest {
     public void delete() {
         service.delete(USER_1.getId());
         System.out.println(service.getAll());
-        assertMatch(service.getAll(), Arrays.asList(USER_3, USER_2), "votes");
+        assertMatch(service.getAll(), Arrays.asList(USER_3, USER_2)/*, "votes"*/);
     }
 
     @Test
@@ -83,6 +85,6 @@ public class UsersServiceTest {
 
     @Test
     public void getAll() {
-        assertMatch(service.getAll(), Arrays.asList(USER_1, USER_3, USER_2), "votes");
+        assertMatch(service.getAll(), Arrays.asList(USER_1, USER_3, USER_2)/*, "votes"*/);
     }
 }

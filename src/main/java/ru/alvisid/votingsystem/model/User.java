@@ -9,7 +9,7 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name")
+        @NamedQuery(name = User.ALL_SORTED, query = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name")
 })
 @Entity
 @Table(name = "users",
@@ -27,7 +27,7 @@ public class User extends AbstractNamedEntity {
     private Set <Role> roles;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private List<Vote> votes;
+    private Set<Vote> votes;
 
     public User(){
         super();
@@ -47,22 +47,34 @@ public class User extends AbstractNamedEntity {
         this.roles = roles;
     }
 
+    public User(Integer id, String name, Set <Role> roles, Set<Vote> votes) {
+        super(id, name);
+        this.roles = roles;
+        this.votes = votes;
+    }
+
     public User(Integer id, String name, Role role, Role... roles) {
         this(id, name, EnumSet.of(role, roles));
     }
 
+
+
     public User(User user) {
-        this(user.getId(), user.getName(), user.getRoles());
+        this(user.getId(), user.getName(), user.getRoles(), user.getVotes());
+
     }
 
     public Set <Role> getRoles() {
         return roles;
     }
 
-    public List<Vote> getVotes() {
+    public Set<Vote> getVotes() {
         return votes;
     }
 
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }
 
     @Override
     public String toString() {

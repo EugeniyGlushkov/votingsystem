@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
+
+@Transactional(readOnly = true)
 public class JpaMenusRepositoryImpl implements MenusRepository {
 
     @PersistenceContext

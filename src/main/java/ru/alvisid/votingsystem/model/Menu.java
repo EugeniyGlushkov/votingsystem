@@ -4,15 +4,13 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.internal.util.stereotypes.Immutable;
 import org.springframework.lang.Nullable;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @NamedQueries({
         @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Menu m WHERE m.id=:id"),
@@ -47,8 +45,7 @@ public class Menu extends AbsractBaseEntity {
     private Map <String, Float> price;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
-    @Fetch(FetchMode.SUBSELECT)
-    private List <Vote> votes;
+    private Set<Vote> votes;
 
     public Menu() {
         super();
@@ -67,7 +64,7 @@ public class Menu extends AbsractBaseEntity {
         this.price = menu;
     }
 
-    public Menu(Integer id, Restaurant restaurant, LocalDate date, Map <String, Float> price, List <Vote> votes) {
+    public Menu(Integer id, Restaurant restaurant, LocalDate date, Map <String, Float> price, Set <Vote> votes) {
         super(id);
         this.restaurant = restaurant;
         this.date = date;
@@ -91,7 +88,7 @@ public class Menu extends AbsractBaseEntity {
         return price;
     }
 
-    public List <Vote> getVotes() {
+    public Set <Vote> getVotes() {
         return votes;
     }
 
@@ -107,7 +104,7 @@ public class Menu extends AbsractBaseEntity {
         this.price = price;
     }
 
-    public void setVotes(List <Vote> votes) {
+    public void setVotes(Set <Vote> votes) {
         this.votes = votes;
     }
 

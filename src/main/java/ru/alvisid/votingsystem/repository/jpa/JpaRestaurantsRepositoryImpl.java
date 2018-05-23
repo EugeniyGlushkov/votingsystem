@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
+@Transactional(readOnly = true)
 public class JpaRestaurantsRepositoryImpl implements RestaurantsRepository {
 
     @PersistenceContext
