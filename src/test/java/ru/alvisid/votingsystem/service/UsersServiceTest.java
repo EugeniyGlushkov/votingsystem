@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
+import static org.slf4j.LoggerFactory.getLogger;
 import static ru.alvisid.votingsystem.TestData.TestData.*;
 
 @ContextConfiguration({
@@ -34,7 +35,7 @@ import static ru.alvisid.votingsystem.TestData.TestData.*;
 @RunWith(SpringRunner.class)
 public class UsersServiceTest {
 
-    private static final Logger log = LoggerFactory.getLogger(UsersServiceTest.class);
+    private static final Logger log = getLogger("result");
 
     private static StringBuilder results = new StringBuilder();
 

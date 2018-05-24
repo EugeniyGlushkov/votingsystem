@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.slf4j.LoggerFactory.getLogger;
 import static ru.alvisid.votingsystem.TestData.TestData.*;
 
 @ContextConfiguration({
@@ -41,7 +42,7 @@ import static ru.alvisid.votingsystem.TestData.TestData.*;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class VotesServiceTest {
 
-    private static final Logger log = LoggerFactory.getLogger(VotesServiceTest.class);
+    private static final Logger log = getLogger("result");
 
     private static StringBuilder results = new StringBuilder();
 

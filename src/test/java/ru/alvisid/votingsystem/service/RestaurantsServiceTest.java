@@ -16,6 +16,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.slf4j.LoggerFactory.getLogger;
 import static ru.alvisid.votingsystem.TestData.TestData.*;
 
 import ru.alvisid.votingsystem.model.Restaurant;
@@ -31,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class RestaurantsServiceTest{
-    private static final Logger log = LoggerFactory.getLogger(RestaurantsServiceTest.class);
+    private static final Logger log = getLogger("result");
 
     private static StringBuilder results = new StringBuilder();
 
