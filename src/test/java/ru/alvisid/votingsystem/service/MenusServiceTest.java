@@ -1,11 +1,17 @@
 package ru.alvisid.votingsystem.service;
 
 import org.hibernate.collection.internal.PersistentBag;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Stopwatch;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.junit.rules.ExpectedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -21,6 +27,7 @@ import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -30,8 +37,35 @@ import java.util.*;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MenusServiceTest {
 
+    private static final Logger log = LoggerFactory.getLogger(MenusServiceTest.class);
+
+    private static StringBuilder results = new StringBuilder();
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    @Rule
+    public Stopwatch stopwatch = new Stopwatch() {
+        @Override
+        protected void finished(long nanos, Description description) {
+            String result = String.format("\n%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
+            results.append(result);
+            log.info(result + " ms\n");
+        }
+    };
+
+    static {
+        SLF4JBridgeHandler.install();
+    }
+
+    @AfterClass
+    public static void printResult() {
+        log.info("\n---------------------------------" +
+                "\nTest                 Duration, ms" +
+                "\n---------------------------------" +
+                results +
+                "\n---------------------------------");
+    }
 
     @Autowired
     private MenusService service;

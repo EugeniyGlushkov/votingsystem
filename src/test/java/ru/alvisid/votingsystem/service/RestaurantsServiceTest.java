@@ -5,7 +5,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
-import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -31,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class RestaurantsServiceTest {
+public class RestaurantsServiceTest{
     private static final Logger log = LoggerFactory.getLogger(RestaurantsServiceTest.class);
 
     private static StringBuilder results = new StringBuilder();
