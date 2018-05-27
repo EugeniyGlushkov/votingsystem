@@ -2,35 +2,19 @@ package ru.alvisid.votingsystem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.alvisid.votingsystem.model.*;
+import ru.alvisid.votingsystem.util.MenuUtils;
+import ru.alvisid.votingsystem.util.UserUtils;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+//del
 public class Main {
-    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
-        LOG.debug("main");
-        LOG.debug("main");
-        LOG.debug("main");
-        LOG.debug("main");
-        LOG.debug("main");
-        LOG.debug("main");
-        LOG.debug("main");
-        LOG.debug("main");
-        LOG.debug("main");
-        LOG.debug("main");
-        LOG.debug("main");
-        System.out.println(new Restaurant(0, "Ancor"));
-        Map<String, Float> price = new HashMap<>();
-        price.put("cake", 5.6F);
-        price.put("soup", 3.2F);
-        price.put("fish", 10.7F);
-        User user = new User(3, "Poul", Role.ROLE_ADMIN, Role.ROLE_USER);
-        Menu menu = new Menu(1, new Restaurant(2, "Coma"), LocalDate.now(), price);
-        System.out.println(menu);
-        System.out.println(user);
-        System.out.println(new Vote(user, menu));
     }
 }
