@@ -35,6 +35,7 @@
 
         <!-- Spring -->
         <spring.version>5.0.4.RELEASE</spring.version>
+        <spring-data-jpa.version>2.0.7.RELEASE</spring-data-jpa.version>
 
         <!--    Tests  -->
         <junit.version>4.12</junit.version>
@@ -43,6 +44,9 @@
         <!--ORM-->
         <hibernate.version>5.2.15.Final</hibernate.version>
         <hibernate.validator.version>6.0.8.Final</hibernate.validator.version>
+
+        <!--Pool-->
+        <tomcat.version>8.5.29</tomcat.version>
     </properties>
 
     <dependencies>
@@ -110,9 +114,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
         </dependency>
 
         <!--Test-->
@@ -150,11 +154,11 @@
             <version>${hibernate.validator.version}</version>
         </dependency>
 
+        <!--Pool-->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-            <version>1.7.25</version>
-            <scope>test</scope>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>${tomcat.version}</version>
         </dependency>
     </dependencies>
 

@@ -12,10 +12,11 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
 
+//@SuppressWarnings("JpaQlInspection")//https://jazzy.id.au/2008/10/30/list_of_suppresswarnings_arguments.html
 @NamedQueries({
         @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Menu m WHERE m.id=:id"),
         @NamedQuery(name = Menu.ALL_SORTED, query = "SELECT m FROM Menu m ORDER BY m.date, m.restaurant.name"),
-        @NamedQuery(name = Menu.ALL_BEETWEN, query = "SELECT m FROM Menu m WHERE m.date>=?1 AND m.date<=?2")
+        @NamedQuery(name = Menu.ALL_BEETWEN, query = "SELECT m FROM Menu m WHERE m.date>=?1 AND m.date<=?2 ORDER BY m.date, m.restaurant.name")
 })
 @Entity
 @Table(name = "menus",
