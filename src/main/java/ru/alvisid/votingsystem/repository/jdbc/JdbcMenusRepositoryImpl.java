@@ -102,4 +102,9 @@ public class JdbcMenusRepositoryImpl implements MenusRepository {
                 .addValue("dish", dish)
                 .addValue("price", BigDecimal.valueOf(price).setScale(2, BigDecimal.ROUND_HALF_UP));
     }
+
+    @Override
+    public List <Menu> getAllByRestaurantId(int restaurantId) {
+        return null;
+    }
 }

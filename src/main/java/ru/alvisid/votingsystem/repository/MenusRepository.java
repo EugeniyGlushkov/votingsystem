@@ -20,4 +20,7 @@ public interface MenusRepository {
 
     // ORDERED dateTime desc
     List<Menu> getBetween(LocalDate startDate, LocalDate endDate);
+
+    // ORDERED dateTime desc
+    List<Menu> getAllByRestaurantId(int restaurantId);
 }

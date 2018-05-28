@@ -19,7 +19,7 @@ public interface CrudMenusRepository extends JpaRepository<Menu,Integer> {
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Menus m WHERE m.id=:id")
+    @Query("DELETE FROM Menu m WHERE m.id=:id")
     int delete (@Param("id") int id);
 
     @Override
@@ -30,4 +30,7 @@ public interface CrudMenusRepository extends JpaRepository<Menu,Integer> {
 
     @Query("SELECT m FROM Menu m WHERE m.date>=:startDate AND m.date<=:endDate ORDER BY m.date, m.restaurant.name")
     List<Menu> findAllBetween(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate);
+
+    @Query("SELECT m FROM Menu m WHERE m.restaurant.id=:restaurantId")
+    List<Menu> findAllByRestaurantId(@Param("restaurantId") int restaurantId, Sort sort);
 }

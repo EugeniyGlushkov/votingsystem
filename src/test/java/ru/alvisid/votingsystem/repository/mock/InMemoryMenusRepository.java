@@ -72,4 +72,9 @@ public class InMemoryMenusRepository implements MenusRepository {
                         .sorted(Comparator.comparing(Menu::getDate).reversed())
                         .collect(Collectors.toList());
     }
+
+    @Override
+    public List <Menu> getAllByRestaurantId(int restaurantId) {
+        return null;
+    }
 }

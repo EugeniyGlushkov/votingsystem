@@ -55,4 +55,9 @@ public class JpaMenusRepositoryImpl implements MenusRepository {
                 .setParameter(2, endDate)
                 .getResultList();
     }
+
+    @Override
+    public List <Menu> getAllByRestaurantId(int restaurantId) {
+        return null;
+    }
 }

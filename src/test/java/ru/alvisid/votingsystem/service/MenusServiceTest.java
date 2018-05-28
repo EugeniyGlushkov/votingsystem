@@ -130,4 +130,9 @@ public class MenusServiceTest {
     public void getPriceByID() {
         assertMatch(service.getPriceById(MENU_2.getId()), service.getPriceById(MENU_2.getId()));
     }
+
+    @Test
+    public void getAllByRestaurantId() {
+        assertMatch(service.getAllByRestaurantId(RESTAURANT_1.getId()), Arrays.asList(MENU_1, MENU_4));
+    }
 }

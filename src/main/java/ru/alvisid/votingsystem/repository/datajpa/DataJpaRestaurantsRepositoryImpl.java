@@ -7,6 +7,7 @@ import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.repository.RestaurantsRepository;
 
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class DataJpaRestaurantsRepositoryImpl implements RestaurantsRepository {
@@ -17,6 +18,10 @@ public class DataJpaRestaurantsRepositoryImpl implements RestaurantsRepository {
 
     @Override
     public Restaurant save(Restaurant restaurant) {
+        if (!restaurant.isNew() && Objects.isNull(get(restaurant.getId()))) {
+            return null;
+        }
+
         return crudRepository.save(restaurant);
     }
 
