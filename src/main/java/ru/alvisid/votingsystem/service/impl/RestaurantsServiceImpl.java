@@ -1,6 +1,8 @@
 package ru.alvisid.votingsystem.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.repository.RestaurantsRepository;
@@ -22,11 +24,13 @@ public class RestaurantsServiceImpl implements RestaurantsService {
     }
 
     @Override
+    @CacheEvict(value = "restaurants", allEntries = true)
     public Restaurant create(Restaurant restaurant) {
         return repository.save(restaurant);
     }
 
     @Override
+    @CacheEvict(value = "restaurants", allEntries = true)
     public void update(Restaurant restaurant) {
         checkNotFoundWithId(repository.save(restaurant), restaurant.getId());
     }
@@ -37,10 +41,12 @@ public class RestaurantsServiceImpl implements RestaurantsService {
     }
 
     @Override
+    @CacheEvict(value = "restaurants", allEntries = true)
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
     }
 
+    @Cacheable("restaurants")
     @Override
     public List<Restaurant> getAll() {
         return repository.getAll();

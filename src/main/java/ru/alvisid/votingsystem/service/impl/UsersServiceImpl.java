@@ -1,6 +1,8 @@
 package ru.alvisid.votingsystem.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.repository.UsersRepository;
@@ -22,11 +24,13 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    @CacheEvict(value = "users", allEntries = true)
     public User create(User user) {
         return repository.save(user);
     }
 
     @Override
+    @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
         checkNotFoundWithId(repository.save(user), user.getId());
     }
@@ -37,10 +41,12 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    @CacheEvict(value = "users", allEntries = true)
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
     }
 
+    @Cacheable("users")
     @Override
     public List<User> getAll() {
         return repository.getAll();

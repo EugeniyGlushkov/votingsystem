@@ -47,6 +47,10 @@
 
         <!--Pool-->
         <tomcat.version>8.5.29</tomcat.version>
+
+        <!--Tools-->
+        <ehcache.version>3.5.2</ehcache.version>
+        <javax.cache.version>1.1.0</javax.cache.version>
     </properties>
 
     <dependencies>
@@ -82,7 +86,7 @@
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
             <exclusions>
                 <exclusion>
@@ -159,6 +163,20 @@
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
             <version>${tomcat.version}</version>
+        </dependency>
+
+        <!--Tools-->
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <scope>runtime</scope>
+            <version>${ehcache.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>${javax.cache.version}</version>
         </dependency>
     </dependencies>
 

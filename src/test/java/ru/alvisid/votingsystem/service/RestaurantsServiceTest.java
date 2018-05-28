@@ -1,6 +1,7 @@
 package ru.alvisid.votingsystem.service;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -31,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class RestaurantsServiceTest{
+public class RestaurantsServiceTest {
     private static final Logger log = getLogger("result");
 
     private static StringBuilder results = new StringBuilder();
@@ -56,14 +58,22 @@ public class RestaurantsServiceTest{
     @AfterClass
     public static void printResult() {
         log.info("\n---------------------------------" +
-                 "\nTest                 Duration, ms" +
-                 "\n---------------------------------" +
-                 results +
-                 "\n---------------------------------");
+                "\nTest                 Duration, ms" +
+                "\n---------------------------------" +
+                results +
+                "\n---------------------------------");
     }
 
     @Autowired
     private RestaurantsService service;
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Before
+    public void setUp() throws Exception {
+        cacheManager.getCache("restaurants").clear();
+    }
 
     @Test
     public void get() {
@@ -114,7 +124,7 @@ public class RestaurantsServiceTest{
 
     @Test
     public void getAll() {
-        List <Restaurant> actualRestaurants = service.getAll();
+        List<Restaurant> actualRestaurants = service.getAll();
         assertMatch(actualRestaurants, Arrays.asList(RESTAURANT_1, RESTAURANT_2, RESTAURANT_3));
     }
 }
