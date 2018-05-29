@@ -27,13 +27,7 @@ import ru.alvisid.votingsystem.util.exception.NotFoundException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@RunWith(SpringRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class RestaurantsServiceTest {
+public class RestaurantsServiceTest extends AbstractServiceTest {
     private static final Logger log = getLogger("result");
 
     private static StringBuilder results = new StringBuilder();

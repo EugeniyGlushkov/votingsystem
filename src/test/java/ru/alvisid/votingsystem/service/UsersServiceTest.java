@@ -29,13 +29,7 @@ import java.util.concurrent.TimeUnit;
 import static org.slf4j.LoggerFactory.getLogger;
 import static ru.alvisid.votingsystem.TestData.TestData.*;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@RunWith(SpringRunner.class)
-public class UsersServiceTest {
+public class UsersServiceTest extends AbstractServiceTest {
 
     private static final Logger log = getLogger("result");
 

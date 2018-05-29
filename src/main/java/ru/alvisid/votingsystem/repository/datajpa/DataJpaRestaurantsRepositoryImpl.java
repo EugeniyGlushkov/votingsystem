@@ -3,6 +3,7 @@ package ru.alvisid.votingsystem.repository.datajpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.repository.RestaurantsRepository;
 
@@ -17,6 +18,7 @@ public class DataJpaRestaurantsRepositoryImpl implements RestaurantsRepository {
     private CrudRestaurantsRepository crudRepository;
 
     @Override
+    @Transactional
     public Restaurant save(Restaurant restaurant) {
         if (!restaurant.isNew() && Objects.isNull(get(restaurant.getId()))) {
             return null;

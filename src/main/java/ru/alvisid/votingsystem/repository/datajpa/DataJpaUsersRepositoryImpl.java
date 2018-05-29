@@ -3,6 +3,7 @@ package ru.alvisid.votingsystem.repository.datajpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.repository.UsersRepository;
 
@@ -17,6 +18,7 @@ public class DataJpaUsersRepositoryImpl implements UsersRepository {
     CrudUsersRepository crudRepository;
 
     @Override
+    @Transactional
     public User save(User user) {
         if (!user.isNew() && Objects.isNull(get(user.getId()))) {
             return null;

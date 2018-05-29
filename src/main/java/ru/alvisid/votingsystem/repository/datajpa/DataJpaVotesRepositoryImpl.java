@@ -3,6 +3,7 @@ package ru.alvisid.votingsystem.repository.datajpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.alvisid.votingsystem.model.Vote;
 import ru.alvisid.votingsystem.repository.VotesRepository;
 
@@ -19,6 +20,7 @@ public class DataJpaVotesRepositoryImpl implements VotesRepository {
     CrudVotesRepository crudRepository;
 
     @Override
+    @Transactional
     public Vote save(Vote vote) {
         if (!vote.isNew() && Objects.isNull(get(vote.getId()))) {
             return null;

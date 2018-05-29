@@ -3,6 +3,7 @@ package ru.alvisid.votingsystem.repository.datajpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.repository.MenusRepository;
 
@@ -19,6 +20,7 @@ public class DataJpaMenusRepositoryImpl implements MenusRepository {
     CrudMenusRepository crudRepository;
 
     @Override
+    @Transactional
     public Menu save(Menu menu) {
         if (!menu.isNew() && Objects.isNull(get(menu.getId()))) {
             return null;
