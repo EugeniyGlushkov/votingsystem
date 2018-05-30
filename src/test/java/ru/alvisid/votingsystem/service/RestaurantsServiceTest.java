@@ -28,35 +28,6 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class RestaurantsServiceTest extends AbstractServiceTest {
-    private static final Logger log = getLogger("result");
-
-    private static StringBuilder results = new StringBuilder();
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    @Rule
-    public Stopwatch stopwatch = new Stopwatch() {
-        @Override
-        protected void finished(long nanos, Description description) {
-            String result = String.format("\n%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
-            results.append(result);
-            log.info(result + " ms\n");
-        }
-    };
-
-    static {
-        SLF4JBridgeHandler.install();
-    }
-
-    @AfterClass
-    public static void printResult() {
-        log.info("\n---------------------------------" +
-                "\nTest                 Duration, ms" +
-                "\n---------------------------------" +
-                results +
-                "\n---------------------------------");
-    }
 
     @Autowired
     private RestaurantsService service;

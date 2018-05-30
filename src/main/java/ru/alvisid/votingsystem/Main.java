@@ -29,25 +29,21 @@ public class Main {
             System.out.println(list.get(i++) + " " + list.get(i++) + " " + list.get(i++) + " " + list.get(i++));
         }*/
 
-        System.out.println("love you");
-        System.out.println("  <3  <3");
-        for (int i = 4; i <= 5; i++) {
-            for (int j = 5; j > i; j--) {
-                System.out.printf(" ");
-            }
-            for (int j = 1; j <= i; j++) {
-                System.out.printf("<3");
-            }
-            System.out.println();
-        }
-        for (int i = 4; i >= 1; i--) {
-            for (int j = 4; j >= i; j--) {
-                System.out.printf(" ");
-            }
-            for (int j = i; j >= 1; j--) {
-                System.out.printf("<3");
-            }
-            System.out.println();
-        }
+        String time = "Время по МСК 18:20 Время в США: 04:53 Время в ОАЭ: 01:27";
+        String[] times = time.split("\\s*[А-Яа-я\\s:]*\\s+");
+
+        String mskTime = times[1];
+        String usaTime = times[2];
+        String oaeTime = times[3];
+
+        System.out.println(mskTime);
+        System.out.println(usaTime);
+        System.out.println(oaeTime);
+
+        //18:20
+        //04:53
+        //01:27
     }
+
+
 }
