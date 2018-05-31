@@ -24,6 +24,7 @@ import static ru.alvisid.votingsystem.TestData.TestData.*;
 import ru.alvisid.votingsystem.model.Restaurant;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -91,5 +92,11 @@ public class RestaurantsServiceTest extends AbstractServiceTest {
     public void getAll() {
         List<Restaurant> actualRestaurants = service.getAll();
         assertMatch(actualRestaurants, Arrays.asList(RESTAURANT_1, RESTAURANT_2, RESTAURANT_3));
+    }
+
+    @Test
+    public void testValidation() throws Exception {
+        validateRootCause(() -> service.create(new Restaurant(null,"Q")), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Restaurant(null,null)), ConstraintViolationException.class);
     }
 }

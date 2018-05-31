@@ -1,6 +1,7 @@
 package ru.alvisid.votingsystem.service;
 
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -18,7 +19,9 @@ import ru.alvisid.votingsystem.TimingRules;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.slf4j.LoggerFactory.getLogger;
+import static ru.alvisid.votingsystem.util.ValidationUtil.getRootCause;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -38,5 +41,15 @@ public abstract class AbstractServiceTest {
 
     static {
         SLF4JBridgeHandler.install();
+    }
+
+    //  Check root cause in JUnit: https://github.com/junit-team/junit4/pull/778
+    public <T extends Throwable> void validateRootCause(Runnable runnable, Class<T> exceptionClass) {
+        try {
+            runnable.run();
+            Assert.fail("Expected " + exceptionClass.getName());
+        } catch (Exception e) {
+            Assert.assertThat(getRootCause(e), instanceOf(exceptionClass));
+        }
     }
 }
