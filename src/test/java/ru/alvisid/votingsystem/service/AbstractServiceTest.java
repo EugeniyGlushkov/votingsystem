@@ -1,8 +1,10 @@
 package ru.alvisid.votingsystem.service;
 
 import org.junit.AfterClass;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.ExternalResource;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
@@ -12,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
+import ru.alvisid.votingsystem.TimingRules;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,34 +27,16 @@ import static org.slf4j.LoggerFactory.getLogger;
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public abstract class AbstractServiceTest {
+    @ClassRule
+    public static ExternalResource summary = TimingRules.SUMMARY;
 
-    private static final Logger log = getLogger("result");
-
-    private static StringBuilder results = new StringBuilder();
+    @Rule
+    public Stopwatch stopwatch = TimingRules.STOPWATCH;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @Rule
-    public Stopwatch stopwatch = new Stopwatch() {
-        @Override
-        protected void finished(long nanos, Description description) {
-            String result = String.format("%-95s %7d", description.getDisplayName(), TimeUnit.NANOSECONDS.toMillis(nanos));
-            results.append(result).append('\n');
-            log.info(result + " ms\n");
-        }
-    };
-
     static {
         SLF4JBridgeHandler.install();
-    }
-
-    @AfterClass
-    public static void printResult() {
-        log.info("\n-------------------------------------------------------------------------------------------------------" +
-                "\nTest                                                                                       Duration, ms" +
-                "\n-------------------------------------------------------------------------------------------------------\n" +
-                results +
-                "\n-------------------------------------------------------------------------------------------------------\n");
     }
 }
