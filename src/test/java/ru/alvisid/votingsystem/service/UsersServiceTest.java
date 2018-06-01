@@ -19,11 +19,14 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.alvisid.votingsystem.TestData.TestData;
 import ru.alvisid.votingsystem.model.Menu;
+import ru.alvisid.votingsystem.model.Role;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -95,5 +98,20 @@ public class UsersServiceTest extends AbstractServiceTest {
     @Test
     public void getAll() {
         assertMatch(service.getAll(), Arrays.asList(USER_1, USER_3, USER_2)/*, "votes"*/);
+    }
+
+    @Test
+    public void testValidation() {
+        validateRootCause(() -> service.create(new User(null, Role.ROLE_USER))
+                , ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User("qqqqqqqqqqwwwwwwwwww" +
+                        "qqqqqqqqqqwwwwwwwwww" +
+                        "qqqqqqqqqqwwwwwwwwww" +
+                        "qqqqqqqqqqwwwwwwwwww" +
+                        "qqqqqqqqqqwwwwwwwwww" +
+                        "a", Role.ROLE_USER))
+                , ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null, "Marco", new HashSet <Role>(), null))
+                , ConstraintViolationException.class);
     }
 }

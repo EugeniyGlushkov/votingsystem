@@ -26,6 +26,7 @@ import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.model.Vote;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -80,13 +81,13 @@ public class MenusServiceTest extends AbstractServiceTest {
     //Ignoring "votes" because in expected menu_3 field votes is null? but in actual menu_3 field voted is empty list
     @Test
     public void getAll() {
-        List<Menu> all = service.getAll();
+        List <Menu> all = service.getAll();
         assertMatch(all, Arrays.asList(MENU_1, MENU_2, MENU_4, MENU_3)/*, "votes"*/);
     }
 
     @Test
     public void getBeetwen() {
-        List<Menu> menusBeetwen = service.getBetween(MENU_1.getDate().minusDays(1), MENU_2.getDate().plusDays(1));
+        List <Menu> menusBeetwen = service.getBetween(MENU_1.getDate().minusDays(1), MENU_2.getDate().plusDays(1));
         assertMatch(menusBeetwen, Arrays.asList(MENU_1, MENU_2)/*, "votes"*/);
     }
 
@@ -98,5 +99,17 @@ public class MenusServiceTest extends AbstractServiceTest {
     @Test
     public void getAllByRestaurantId() {
         assertMatch(service.getAllByRestaurantId(RESTAURANT_1.getId()), Arrays.asList(MENU_1, MENU_4));
+    }
+
+    @Test
+    public void testValidation() {
+        validateRootCause(() -> service.create(new Menu(null, LocalDate.now(), new HashMap <String, Float>()))
+                , ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Menu(RESTAURANT_1, null, new HashMap <String, Float>()))
+                , ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Menu(RESTAURANT_1, LocalDate.now(), null))
+                , ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Menu(null, RESTAURANT_1, LocalDate.now(), new HashMap <String, Float>(), null))
+                , ConstraintViolationException.class);
     }
 }

@@ -96,7 +96,16 @@ public class RestaurantsServiceTest extends AbstractServiceTest {
 
     @Test
     public void testValidation() throws Exception {
-        validateRootCause(() -> service.create(new Restaurant(null,"Q")), ConstraintViolationException.class);
-        validateRootCause(() -> service.create(new Restaurant(null,null)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Restaurant(null,"Q"))
+                , ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Restaurant(null,null))
+                , ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Restaurant(null,"qqqqqqqqqqwwwwwwwwww" +
+                "qqqqqqqqqqwwwwwwwwww" +
+                "qqqqqqqqqqwwwwwwwwww" +
+                "qqqqqqqqqqwwwwwwwwww" +
+                "qqqqqqqqqqwwwwwwwwww" +
+                "a"))
+                , ConstraintViolationException.class);
     }
 }

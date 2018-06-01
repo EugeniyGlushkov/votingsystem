@@ -43,9 +43,11 @@ public class Menu extends AbsractBaseEntity {
     @CollectionTable(name = "prices", joinColumns = @JoinColumn(name = "menu_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"menu_id", "dish"}, name = "prices_idx"))
     @OrderBy("dish")
+    @NotNull
     private Map <String, Float> price;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
+    @NotNull
     private Set<Vote> votes;
 
     public Menu() {
@@ -53,16 +55,11 @@ public class Menu extends AbsractBaseEntity {
     }
 
     public Menu(Restaurant restaurant, LocalDate date, Map <String, Float> price) {
-        this.restaurant = restaurant;
-        this.date = date;
-        this.price = price;
+        this(null, restaurant, date, price);
     }
 
     public Menu(Integer id, Restaurant restaurant, LocalDate date, Map <String, Float> menu) {
-        super(id);
-        this.restaurant = restaurant;
-        this.date = date;
-        this.price = menu;
+        this(id, restaurant, date, menu, new HashSet <Vote>());
     }
 
     public Menu(Integer id, Restaurant restaurant, LocalDate date, Map <String, Float> price, Set <Vote> votes) {

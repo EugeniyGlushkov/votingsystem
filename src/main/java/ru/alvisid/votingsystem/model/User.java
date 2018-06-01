@@ -3,7 +3,9 @@ package ru.alvisid.votingsystem.model;
 import org.hibernate.annotations.IndexColumn;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ public class User extends AbstractNamedEntity {
     private Set <Role> roles;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @NotNull
     private Set<Vote> votes;
 
     public User(){
@@ -34,8 +37,7 @@ public class User extends AbstractNamedEntity {
     }
 
     public User(String name, Set <Role> roles) {
-        super(name);
-        this.roles = roles;
+        this(null, name, roles);
     }
 
     public User(String name, Role role, Role... roles) {
@@ -43,8 +45,7 @@ public class User extends AbstractNamedEntity {
     }
 
     public User(Integer id, String name, Set <Role> roles) {
-        super(id, name);
-        this.roles = roles;
+        this(id, name, roles, new HashSet <Vote>());
     }
 
     public User(Integer id, String name, Set <Role> roles, Set<Vote> votes) {
