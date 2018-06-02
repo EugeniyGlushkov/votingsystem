@@ -1,14 +1,17 @@
 package ru.alvisid.votingsystem.model;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.internal.util.stereotypes.Immutable;
 import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -34,6 +37,7 @@ public class Menu extends AbsractBaseEntity {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurants_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Restaurant restaurant;
 

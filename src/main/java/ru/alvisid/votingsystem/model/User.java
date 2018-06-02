@@ -1,5 +1,6 @@
 package ru.alvisid.votingsystem.model;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.IndexColumn;
@@ -30,6 +31,7 @@ public class User extends AbstractNamedEntity {
             uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_idx"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
     private Set <Role> roles;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
