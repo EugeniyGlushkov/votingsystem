@@ -21,6 +21,7 @@ import ru.alvisid.votingsystem.TestData.TestData;
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.model.Role;
 import ru.alvisid.votingsystem.model.User;
+import ru.alvisid.votingsystem.repository.JpaUtil;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
@@ -40,8 +41,9 @@ public class UsersServiceTest extends AbstractServiceTest {
     @Autowired
     private CacheManager cacheManager;
 
-    @Before
+    @Override
     public void setUp() throws Exception {
+        super.setUp();
         cacheManager.getCache("users").clear();
     }
 
@@ -67,13 +69,6 @@ public class UsersServiceTest extends AbstractServiceTest {
         User updatedUser = new User(USER_1);
         updatedUser.setId(MENU_2.getId());
         service.update(updatedUser);
-    }
-
-    @Test
-    public void get() {
-        User expectedUser = USER_1;
-        User actualUser = service.get(expectedUser.getId());
-        assertMatch(actualUser, expectedUser/*, "votes"*/);
     }
 
     @Test
@@ -113,5 +108,12 @@ public class UsersServiceTest extends AbstractServiceTest {
                 , ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "Marco", new HashSet <Role>(), null))
                 , ConstraintViolationException.class);
+    }
+
+    @Test
+    public void get() {
+        User expectedUser = USER_1;
+        User actualUser = service.get(expectedUser.getId());
+        assertMatch(actualUser, expectedUser/*, "votes"*/);
     }
 }

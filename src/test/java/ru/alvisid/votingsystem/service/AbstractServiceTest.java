@@ -1,9 +1,6 @@
 package ru.alvisid.votingsystem.service;
 
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.ClassRule;
-import org.junit.Rule;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.ExternalResource;
 import org.junit.rules.Stopwatch;
@@ -11,11 +8,13 @@ import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.bridge.SLF4JBridgeHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.alvisid.votingsystem.TimingRules;
+import ru.alvisid.votingsystem.repository.JpaUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,6 +40,14 @@ public abstract class AbstractServiceTest {
 
     static {
         SLF4JBridgeHandler.install();
+    }
+
+    @Autowired
+    protected JpaUtil jpaUtil;
+
+    @Before
+    public void setUp() throws Exception {
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     //  Check root cause in JUnit: https://github.com/junit-team/junit4/pull/778

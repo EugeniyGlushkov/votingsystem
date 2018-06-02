@@ -1,5 +1,7 @@
 package ru.alvisid.votingsystem.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.internal.util.stereotypes.Immutable;
@@ -12,6 +14,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
 
+
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 //@SuppressWarnings("JpaQlInspection")//https://jazzy.id.au/2008/10/30/list_of_suppresswarnings_arguments.html
 @NamedQueries({
         @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Menu m WHERE m.id=:id"),
@@ -27,6 +31,7 @@ public class Menu extends AbsractBaseEntity {
     public static final String ALL_SORTED = "Menu.getAllSorted";
     public static final String ALL_BEETWEN = "Menu.getAllBeetwen";
 
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurants_id")
     @NotNull

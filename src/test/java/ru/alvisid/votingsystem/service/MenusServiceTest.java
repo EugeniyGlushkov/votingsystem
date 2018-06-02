@@ -1,10 +1,7 @@
 package ru.alvisid.votingsystem.service;
 
 import org.hibernate.collection.internal.PersistentBag;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
@@ -24,6 +21,7 @@ import static ru.alvisid.votingsystem.TestData.TestData.*;
 
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.model.Vote;
+import ru.alvisid.votingsystem.repository.JpaUtil;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
@@ -55,7 +53,7 @@ public class MenusServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() {
-        Menu expectedMenu = new Menu(MENU_2);
+        Menu expectedMenu = new Menu(MENU_1);
         Menu actualMenu = service.get(expectedMenu.getId());
         assertMatch(actualMenu, expectedMenu/*, "votes"*/);
     }
@@ -93,7 +91,7 @@ public class MenusServiceTest extends AbstractServiceTest {
 
     @Test
     public void getPriceByID() {
-        assertMatch(service.getPriceById(MENU_2.getId()), service.getPriceById(MENU_2.getId()));
+        assertMatch(service.getPriceById(MENU_1.getId()), service.getPriceById(MENU_1.getId()));
     }
 
     @Test

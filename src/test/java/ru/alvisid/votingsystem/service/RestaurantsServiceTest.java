@@ -22,6 +22,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 import static ru.alvisid.votingsystem.TestData.TestData.*;
 
 import ru.alvisid.votingsystem.model.Restaurant;
+import ru.alvisid.votingsystem.repository.JpaUtil;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
@@ -36,8 +37,9 @@ public class RestaurantsServiceTest extends AbstractServiceTest {
     @Autowired
     private CacheManager cacheManager;
 
-    @Before
+    @Override
     public void setUp() throws Exception {
+        super.setUp();
         cacheManager.getCache("restaurants").clear();
     }
 

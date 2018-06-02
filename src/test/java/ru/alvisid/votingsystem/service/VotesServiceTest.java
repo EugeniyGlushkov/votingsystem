@@ -2,6 +2,7 @@ package ru.alvisid.votingsystem.service;
 
 import ch.qos.logback.core.util.TimeUtil;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -21,6 +22,7 @@ import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.model.Role;
 import ru.alvisid.votingsystem.model.User;
 import ru.alvisid.votingsystem.model.Vote;
+import ru.alvisid.votingsystem.repository.JpaUtil;
 import ru.alvisid.votingsystem.util.DateTimeUtil;
 import ru.alvisid.votingsystem.util.VoteUtils;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
@@ -90,7 +92,6 @@ public class VotesServiceTest extends AbstractServiceTest {
     public void get() {
         Vote expectedVote = VOTE_2;
         Vote actualVote = service.get(expectedVote.getId());
-        System.out.println(actualVote);
         assertMatch(actualVote, expectedVote/*, "user", "menu"*/);
     }
 
