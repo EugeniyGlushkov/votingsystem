@@ -3,6 +3,7 @@ package ru.alvisid.votingsystem.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alvisid.votingsystem.model.Vote;
+import ru.alvisid.votingsystem.repository.MenusRepository;
 import ru.alvisid.votingsystem.repository.VotesRepository;
 import ru.alvisid.votingsystem.service.VotesService;
 import ru.alvisid.votingsystem.util.DateTimeUtil;
@@ -19,20 +20,23 @@ public class VotesServiceImpl implements VotesService {
 
     private VotesRepository repository;
 
+    private MenusRepository menusRepository;
+
     @Autowired
-    public VotesServiceImpl(VotesRepository repository) {
+    public VotesServiceImpl(VotesRepository repository, MenusRepository menusRepository) {
         this.repository = repository;
+        this.menusRepository = menusRepository;
     }
 
     @Override
-    public Vote create(Vote vote) {
-        return repository.save(vote);
+    public Vote create(Vote vote, int userId, int menuId) {
+        return repository.save(vote, userId, menuId);
     }
 
     @Override
-    public void update(Vote vote) throws OverTimeException, NotFoundException {
-        checkOverTimeVout(DateTimeUtil.OVER_TIME, vote.getMenu().getDate(), "You can not change your vote.");
-        checkNotFound(repository.save(vote), "id=" + vote.getId());
+    public void update(Vote vote, int userId, int menuId) throws OverTimeException, NotFoundException {
+        checkOverTimeVout(DateTimeUtil.OVER_TIME, menusRepository.get(menuId).getDate(), "You can not change your vote.");
+        checkNotFound(repository.save(vote, userId, menuId), "id=" + vote.getId());
     }
 
     @Override

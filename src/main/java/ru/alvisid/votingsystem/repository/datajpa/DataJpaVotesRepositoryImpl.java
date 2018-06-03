@@ -17,40 +17,48 @@ public class DataJpaVotesRepositoryImpl implements VotesRepository {
     private static final Sort SORT_DATE_USER = new Sort(Sort.Direction.ASC, "menu.date", "user.name");
 
     @Autowired
-    CrudVotesRepository crudRepository;
+    private CrudVotesRepository crudVotesRepository;
+
+    @Autowired
+    private CrudUsersRepository crudUsersRepository;
+
+    @Autowired
+    private CrudMenusRepository crudMenusRepository;
 
     @Override
     @Transactional
-    public Vote save(Vote vote) {
+    public Vote save(Vote vote, int userId, int menuId) {
         if (!vote.isNew() && Objects.isNull(get(vote.getId()))) {
             return null;
         }
 
-        return crudRepository.save(vote);
+        vote.setUser(crudUsersRepository.getOne(userId));
+        vote.setMenu(crudMenusRepository.getOne(menuId));
+        return crudVotesRepository.save(vote);
     }
 
     @Override
     public boolean delete(int id) {
-        return crudRepository.delete(id) != 0;
+        return crudVotesRepository.delete(id) != 0;
     }
 
     @Override
     public Vote get(int id) {
-        return crudRepository.findById(id).orElse(null);
+        return crudVotesRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Vote> getAll() {
-        return crudRepository.findAll(SORT_DATE_RESTAURANT_USER);
+        return crudVotesRepository.findAll(SORT_DATE_RESTAURANT_USER);
     }
 
     @Override
     public List<Vote> getAllByUserId(int userId) {
-        return crudRepository.findAllByUserId(userId, SORT_DATE_RESTAURANT);
+        return crudVotesRepository.findAllByUserId(userId, SORT_DATE_RESTAURANT);
     }
 
     @Override
     public List<Vote> getAllByRestaurantId(int restaurantId) {
-        return crudRepository.findAllByRestaurantId(restaurantId, SORT_DATE_USER);
+        return crudVotesRepository.findAllByRestaurantId(restaurantId, SORT_DATE_USER);
     }
 }

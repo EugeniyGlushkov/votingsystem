@@ -16,17 +16,17 @@ public class InMemoryVoutsRepository implements VotesRepository {
     public Map <Integer, Map <Integer, Vote>> votesRepository = new ConcurrentHashMap <>();
 
     @Override
-    public Vote save(Vote vote) {
+    public Vote save(Vote vote, int userId, int restaurantId) {
         log.info("add {}", vote);
-        int userId = vote.getUser().getId();
+        int usId = vote.getUser().getId();
         int menuId = vote.getMenu().getId();
 
-        Map <Integer, Vote> votesByUsId = votesRepository.get(userId);
+        Map <Integer, Vote> votesByUsId = votesRepository.get(usId);
 
         if (votesByUsId == null) {
             Map <Integer, Vote> menuIdVotes = new ConcurrentHashMap <>();
             menuIdVotes.put(menuId, vote);
-            votesRepository.put(userId, menuIdVotes);
+            votesRepository.put(usId, menuIdVotes);
             return vote;
         } else {
             votesByUsId.put(menuId, vote);

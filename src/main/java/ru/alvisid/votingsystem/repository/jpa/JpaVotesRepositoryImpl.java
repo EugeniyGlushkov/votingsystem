@@ -19,7 +19,7 @@ public class JpaVotesRepositoryImpl implements VotesRepository {
 
     @Override
     @Transactional
-    public Vote save(Vote vote) {
+    public Vote save(Vote vote, int userId, int restaurantId) {
         if (vote.isNew()) {
             em.persist(vote);
             return vote;

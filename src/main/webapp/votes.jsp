@@ -8,6 +8,17 @@
 <body>
 <h3><a href="index.html">Home</a></h3>
 <h2>Votes</h2>
+<form method="post" action="votes">
+    <dl>
+        <dt>From Date:</dt>
+        <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
+    </dl>
+    <dl>
+        <dt>To Date:</dt>
+        <dd><input type="date" name="endDate" value="${param.endDate}"></dd>
+    </dl>
+    <button type="submit">Filter</button><button type="reset">Reset filter</button>
+</form>
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>
@@ -20,9 +31,9 @@
     <c:forEach items="${votes}" var="vote">
         <jsp:useBean id="vote" scope="page" type="ru.alvisid.votingsystem.to.RestaurantVotes"/>
         <tr>
-            <fmt:parseDate value="${vote.date}" pattern="yyyy-MM-dd" var="parsedDate" type="both" />
+            <fmt:parseDate value="${vote.date}" pattern="yyyy-MM-dd" var="parsedDate" type="both"/>
             <td>
-                <fmt:formatDate pattern="dd.MM.yyyy" value="${ parsedDate }" />
+                <fmt:formatDate pattern="dd.MM.yyyy" value="${parsedDate}"/>
             </td>
             <td>${vote.restaurantName}</td>
             <td>${vote.totalVotesForRestaurantADay}</td>
