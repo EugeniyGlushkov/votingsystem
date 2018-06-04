@@ -1,10 +1,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Java Enterprise (Topjava)</title>
+    <title>Java Enterprise (VotingSystem)</title>
 </head>
 <body>
-<h3>Проект <a href="https://github.com/JavaWebinar/topjava" target="_blank">Java Enterprise (Topjava)</a></h3>
+<h3>Votin system (результаты голосований)</h3>
 <hr>
 <ul>
     <li><a href="votes">Votes</a></li>

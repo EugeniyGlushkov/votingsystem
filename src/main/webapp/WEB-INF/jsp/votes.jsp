@@ -6,8 +6,8 @@
     <title>Votes</title>
 </head>
 <body>
-<h3><a href="index.html">Home</a></h3>
-<h2>Votes</h2>
+<h3><a href="../../index.jsp">Home</a></h3>
+<h2>Votes (голосование)</h2>
 <form method="post" action="votes">
     <dl>
         <dt>From Date:</dt>

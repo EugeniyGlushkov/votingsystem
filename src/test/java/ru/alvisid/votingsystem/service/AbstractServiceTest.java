@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -28,6 +29,7 @@ import static ru.alvisid.votingsystem.util.ValidationUtil.getRootCause;
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@ActiveProfiles({"datajpa", "hsqldb"})
 public abstract class AbstractServiceTest {
     @ClassRule
     public static ExternalResource summary = TimingRules.SUMMARY;
