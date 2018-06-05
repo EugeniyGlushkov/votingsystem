@@ -38,14 +38,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-servlet-api:8.5.29" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.0.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.0.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-web:5.0.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.0.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.0.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.0.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.hibernate:hibernate-jcache:5.2.15.Final" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.25" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: ch.qos.logback:logback-classic:1.2.3" level="project" />

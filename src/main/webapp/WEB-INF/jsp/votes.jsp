@@ -9,7 +9,7 @@
     <title>Votes</title>
 </head>
 <body>
-<h3><a href="../../index.jsp"><fmt:message key="app.home"/></a></h3>
+<h3><a href="${pageContext.request.contextPath}/"><fmt:message key="app.home"/></a></h3>
 <h2><fmt:message key="vote.title"/></h2>
 <form method="post" action="votes">
     <dl>
