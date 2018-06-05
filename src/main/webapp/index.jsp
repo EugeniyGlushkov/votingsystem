@@ -1,14 +1,18 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setBundle basename="messages.app"/>
+
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Java Enterprise (VotingSystem)</title>
 </head>
 <body>
-<h3>Votin system (результаты голосований)</h3>
+<h3><fmt:message key="app.title"/> </h3>
 <hr>
 <ul>
-    <li><a href="votes">Votes</a></li>
-    <!--<li><a href="meals">Meals</a></li>-->
+    <li><a href="votes"><fmt:message key="vote.title"/></a></li>
 </ul>
 </body>
 </html>
