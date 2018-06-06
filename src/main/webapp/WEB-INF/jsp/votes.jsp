@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%--<fmt:setBundle basename="messages.app"/>--%>
 
@@ -9,26 +10,26 @@
     <title>Votes</title>
 </head>
 <body>
-<h3><a href="${pageContext.request.contextPath}/"><fmt:message key="app.home"/></a></h3>
-<h2><fmt:message key="vote.title"/></h2>
+<h3><a href="${pageContext.request.contextPath}/"><spring:message code="app.home"/></a></h3>
+<h2><spring:message code="vote.title"/></h2>
 <form method="post" action="votes">
     <dl>
-        <dt><fmt:message key="datefilter.from"/></dt>
+        <dt><spring:message code="datefilter.from"/></dt>
         <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
     </dl>
     <dl>
-        <dt><fmt:message key="datefilter.to"/></dt>
+        <dt><spring:message code="datefilter.to"/></dt>
         <dd><input type="date" name="endDate" value="${param.endDate}"></dd>
     </dl>
-    <button type="submit"><fmt:message key="filter.filter"/></button><button type="reset"><fmt:message key="filter.reset"/></button>
+    <button type="submit"><spring:message code="filter.filter"/></button><button type="reset"><spring:message code="filter.reset"/></button>
 </form>
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>
-        <th><fmt:message key="vote.date"/></th>
-        <th><fmt:message key="vote.restaurant"/></th>
-        <th><fmt:message key="vote.votesrest"/></th>
-        <th><fmt:message key="votes.total"/></th>
+        <th><spring:message code="vote.date"/></th>
+        <th><spring:message code="vote.restaurant"/></th>
+        <th><spring:message code="vote.votesrest"/></th>
+        <th><spring:message code="votes.total"/></th>
     </tr>
     </thead>
     <c:forEach items="${votes}" var="vote">

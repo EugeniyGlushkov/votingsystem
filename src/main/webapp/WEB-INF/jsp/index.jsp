@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%--<fmt:setBundle basename="messages.app"/>--%>
 
@@ -9,10 +9,10 @@
     <title>Java Enterprise (VotingSystem)</title>
 </head>
 <body>
-<h3><fmt:message key="app.title"/> </h3>
+<h3><spring:message code="app.title"/> </h3>
 <hr>
 <ul>
-    <li><a href="votes"><fmt:message key="vote.title"/></a></li>
+    <li><a href="votes"><spring:message code="vote.title"/></a></li>
 </ul>
 </body>
 </html>

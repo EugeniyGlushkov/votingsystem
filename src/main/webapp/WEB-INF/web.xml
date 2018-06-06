@@ -6,10 +6,6 @@
 
     <display-name>Votingsystem</display-name>
 
-    <!--<welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>-->
-
     <context-param>
         <param-name>spring.profiles.default</param-name>
         <param-value>hsqldb,datajpa</param-value>

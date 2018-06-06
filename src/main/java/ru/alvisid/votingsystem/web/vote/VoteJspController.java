@@ -64,15 +64,8 @@ public class VoteJspController {
         service.update(vote, userId, menuId);
     }
 
-    @GetMapping("/votes")
-    public String listVotes(Model model) {
-        log.info("getAll votes");
-        model.addAttribute("votes", VoteUtils.getRestaurantVotes(menusService.getAll()));
-        return "votes";
-    }
-
     @PostMapping("/votes")
-    public String filter(HttpServletRequest request) throws Exception{
+    public String filter(HttpServletRequest request) throws Exception {
         LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
         LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
         request.setAttribute("votes"
@@ -80,4 +73,9 @@ public class VoteJspController {
                         , orElse(endDate, DateTimeUtil.MAX_DATE))));
         return "votes";
     }
+
+    /*@GetMapping("/votes/filterreset")
+    public String filterReset() {
+        return "votes";
+    }*/
 }
