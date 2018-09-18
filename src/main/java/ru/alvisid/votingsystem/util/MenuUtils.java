@@ -24,21 +24,7 @@ public class MenuUtils {
         return zeroMenu;
     }*/
 
-    public static List <RestaurantVotes> getRestaurantVotes(List <Menu> menus) {
-        Map <LocalDate, Integer> voutesADay = new HashMap <>();
 
-        menus.forEach(menu -> voutesADay.merge(menu.getDate(), Objects.isNull(menu.getVotes()) ? 0 : menu.getVotes().size(), Integer::sum));
-
-        return menus.stream()
-                .map(menu -> new RestaurantVotes(
-                        menu.getId(),
-                        menu.getRestaurant().getId(),
-                        menu.getRestaurant().getName(),
-                        menu.getDate(),
-                        Objects.isNull(menu.getVotes()) ? 0 : menu.getVotes().size(),
-                        voutesADay.get(menu.getDate())
-                )).collect(Collectors.toList());
-    }
 
     public static PriceTransfer getPriceForTransfer(Menu menu) {
         return new PriceTransfer(menu.getRestaurant().getName(), menu.getDate(), menu.getMenu());

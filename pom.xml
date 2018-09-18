@@ -21,6 +21,56 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20.1</version>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                </configuration>
+            </plugin>
+
+            <!--  http://stackoverflow.com/questions/4305935/is-it-possible-to-supply-tomcat6s-context-xml-file-via-the-maven-cargo-plugin#4417945 -->
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.6.7</version>
+                <configuration>
+                    <container>
+                        <containerId>tomcat8x</containerId>
+                        <systemProperties>
+                            <file.encoding>UTF-8</file.encoding>
+                            <spring.profiles.active>tomcat,datajpa</spring.profiles.active>
+                        </systemProperties>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.hsqldb</groupId>
+                                <artifactId>hsqldb</artifactId>
+                                <version>${hsqldb.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </container>
+                    <configuration>
+                        <configfiles>
+                            <configfile>
+                                <file>src/main/resources/tomcat/context.xml</file>
+                                <todir>conf/Catalina/localhost/</todir>
+                                <tofile>context.xml.default</tofile>
+                            </configfile>
+                        </configfiles>
+                    </configuration>
+                    <deployables>
+                        <deployable>
+                            <groupId>ru.alvisid</groupId>
+                            <artifactId>votingsystem</artifactId>
+                            <type>war</type>
+                            <properties>
+                                <context>${project.build.finalName}</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -35,6 +85,7 @@
 
         <!-- Spring -->
         <spring.version>5.0.4.RELEASE</spring.version>
+        <spring-data-jpa.version>2.0.7.RELEASE</spring-data-jpa.version>
 
         <!--    Tests  -->
         <junit.version>4.12</junit.version>
@@ -43,6 +94,17 @@
         <!--ORM-->
         <hibernate.version>5.2.15.Final</hibernate.version>
         <hibernate.validator.version>6.0.8.Final</hibernate.validator.version>
+        <javax-el.version>3.0.1-b10</javax-el.version>
+
+        <!--Pool-->
+        <tomcat.version>8.5.29</tomcat.version>
+
+        <!--Tools-->
+        <ehcache.version>3.5.2</ehcache.version>
+        <javax.cache.version>1.1.0</javax.cache.version>
+
+        <!--DB-->
+        <hsqldb.version>2.4.0</hsqldb.version>
     </properties>
 
     <dependencies>
@@ -78,7 +140,7 @@
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
             <exclusions>
                 <exclusion>
@@ -90,9 +152,9 @@
 
         <!--Web-->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>${tomcat.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -102,17 +164,29 @@
             <version>1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!--DataBase-->
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>2.3.4</version>
+            <version>${hsqldb.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
         </dependency>
 
         <!--Test-->
@@ -150,17 +224,56 @@
             <version>${hibernate.validator.version}</version>
         </dependency>
 
+        <!--http://hibernate.org/validator/documentation/getting-started/#unified-expression-language-el-->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-            <version>1.7.25</version>
-            <scope>test</scope>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${javax-el.version}</version>
+            <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <scope>runtime</scope>
+            <version>${ehcache.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>${javax.cache.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jcache</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!--Pool-->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+
+        <!--Tools-->
+
     </dependencies>
 
     <profiles>
     </profiles>
 
     <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 </project>

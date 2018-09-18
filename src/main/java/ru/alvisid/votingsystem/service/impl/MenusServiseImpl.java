@@ -54,6 +54,11 @@ public class MenusServiseImpl implements MenusService {
     }
 
     @Override
+    public List <Menu> getAllByRestaurantId(int id) {
+        return repository.getAllByRestaurantId(id);
+    }
+
+    @Override
     public Map<String, Float> getPriceById(int menuId) throws NotFoundException {
         return get(menuId).getMenu();
     }

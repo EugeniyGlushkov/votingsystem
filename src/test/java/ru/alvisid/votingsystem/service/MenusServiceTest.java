@@ -1,10 +1,7 @@
 package ru.alvisid.votingsystem.service;
 
 import org.hibernate.collection.internal.PersistentBag;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
@@ -24,49 +21,15 @@ import static ru.alvisid.votingsystem.TestData.TestData.*;
 
 import ru.alvisid.votingsystem.model.Menu;
 import ru.alvisid.votingsystem.model.Vote;
+import ru.alvisid.votingsystem.repository.JpaUtil;
 import ru.alvisid.votingsystem.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@RunWith(SpringRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class MenusServiceTest {
-
-    private static final Logger log = getLogger("result");
-
-    private static StringBuilder results = new StringBuilder();
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    @Rule
-    public Stopwatch stopwatch = new Stopwatch() {
-        @Override
-        protected void finished(long nanos, Description description) {
-            String result = String.format("\n%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
-            results.append(result);
-            log.info(result + " ms\n");
-        }
-    };
-
-    static {
-        SLF4JBridgeHandler.install();
-    }
-
-    @AfterClass
-    public static void printResult() {
-        log.info("\n---------------------------------" +
-                "\nTest                 Duration, ms" +
-                "\n---------------------------------" +
-                results +
-                "\n---------------------------------");
-    }
+public class MenusServiceTest extends AbstractServiceTest {
 
     @Autowired
     private MenusService service;
@@ -90,7 +53,7 @@ public class MenusServiceTest {
 
     @Test
     public void get() {
-        Menu expectedMenu = new Menu(MENU_2);
+        Menu expectedMenu = new Menu(MENU_1);
         Menu actualMenu = service.get(expectedMenu.getId());
         assertMatch(actualMenu, expectedMenu/*, "votes"*/);
     }
@@ -128,6 +91,23 @@ public class MenusServiceTest {
 
     @Test
     public void getPriceByID() {
-        assertMatch(service.getPriceById(MENU_2.getId()), service.getPriceById(MENU_2.getId()));
+        assertMatch(service.getPriceById(MENU_1.getId()), service.getPriceById(MENU_1.getId()));
+    }
+
+    @Test
+    public void getAllByRestaurantId() {
+        assertMatch(service.getAllByRestaurantId(RESTAURANT_1.getId()), Arrays.asList(MENU_1, MENU_4));
+    }
+
+    @Test
+    public void testValidation() {
+        validateRootCause(() -> service.create(new Menu(null, LocalDate.now(), new HashMap <String, Float>()))
+                , ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Menu(RESTAURANT_1, null, new HashMap <String, Float>()))
+                , ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Menu(RESTAURANT_1, LocalDate.now(), null))
+                , ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Menu(null, RESTAURANT_1, LocalDate.now(), new HashMap <String, Float>(), null))
+                , ConstraintViolationException.class);
     }
 }

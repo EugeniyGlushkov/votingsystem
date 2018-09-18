@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface VotesRepository {
     // added vote
-    Vote save(Vote vote);
+    Vote save(Vote vote, int userId, int menuId);
 
     //false if not found
     boolean delete( int id);

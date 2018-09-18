@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface VotesService {
 
-    Vote create(Vote vote);
+    Vote create(Vote vote, int userId, int menuId);
 
-    void update(Vote vote) throws OverTimeException;
+    void update(Vote vote, int userId, int menuId) throws OverTimeException;
 
     Vote get(int id) throws NotFoundException;
 

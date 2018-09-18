@@ -1,21 +1,29 @@
 package ru.alvisid.votingsystem.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 import org.hibernate.validator.internal.util.stereotypes.Immutable;
 import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
 
+
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//@SuppressWarnings("JpaQlInspection")//https://jazzy.id.au/2008/10/30/list_of_suppresswarnings_arguments.html
 @NamedQueries({
         @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Menu m WHERE m.id=:id"),
         @NamedQuery(name = Menu.ALL_SORTED, query = "SELECT m FROM Menu m ORDER BY m.date, m.restaurant.name"),
-        @NamedQuery(name = Menu.ALL_BEETWEN, query = "SELECT m FROM Menu m WHERE m.date>=?1 AND m.date<=?2")
+        @NamedQuery(name = Menu.ALL_BEETWEN, query = "SELECT m FROM Menu m WHERE m.date>=?1 AND m.date<=?2 ORDER BY m.date, m.restaurant.name")
 })
 @Entity
 @Table(name = "menus",
@@ -26,8 +34,10 @@ public class Menu extends AbsractBaseEntity {
     public static final String ALL_SORTED = "Menu.getAllSorted";
     public static final String ALL_BEETWEN = "Menu.getAllBeetwen";
 
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurants_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Restaurant restaurant;
 
@@ -42,9 +52,11 @@ public class Menu extends AbsractBaseEntity {
     @CollectionTable(name = "prices", joinColumns = @JoinColumn(name = "menu_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"menu_id", "dish"}, name = "prices_idx"))
     @OrderBy("dish")
+    @NotNull
     private Map <String, Float> price;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
+    @NotNull
     private Set<Vote> votes;
 
     public Menu() {
@@ -52,16 +64,11 @@ public class Menu extends AbsractBaseEntity {
     }
 
     public Menu(Restaurant restaurant, LocalDate date, Map <String, Float> price) {
-        this.restaurant = restaurant;
-        this.date = date;
-        this.price = price;
+        this(null, restaurant, date, price);
     }
 
     public Menu(Integer id, Restaurant restaurant, LocalDate date, Map <String, Float> menu) {
-        super(id);
-        this.restaurant = restaurant;
-        this.date = date;
-        this.price = menu;
+        this(id, restaurant, date, menu, new HashSet <Vote>());
     }
 
     public Menu(Integer id, Restaurant restaurant, LocalDate date, Map <String, Float> price, Set <Vote> votes) {

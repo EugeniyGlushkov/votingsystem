@@ -10,7 +10,7 @@ import java.util.List;
 public class JdbcVotesRepositoryImpl implements VotesRepository {
 
     @Override
-    public Vote save(Vote vote) {
+    public Vote save(Vote vote, int userId, int restaurantId) {
         return null;
     }
 

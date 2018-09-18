@@ -2,7 +2,7 @@ package ru.alvisid.votingsystem;
 
 public class AuthorizedUser {
 
-    private static int id = 100007;
+    private static int id = 100001;
 
     public static int id() {
         return id;

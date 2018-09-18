@@ -1,5 +1,7 @@
 package ru.alvisid.votingsystem.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -7,13 +9,15 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NamedQueries({
         @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id"),
         //del
         /*@NamedQuery(name = Vote.DELETE_ALL_WITH_USER_ID, query = "DELETE FROM Vote v WHERE v.user.id=:userId"),
         @NamedQuery(name = Vote.DELETE_ALL_WITH_MENU_ID, query = "DELETE FROM Vote v WHERE v.menu.id=:menuId"),*/
         @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v ORDER BY v.menu.date, v.menu.restaurant, v.user.name"),
-        @NamedQuery(name = Vote.ALL_BY_USER_ID, query = "select v FROM Vote v WHERE v.user.id=:userId ORDER BY v.menu.date, v.menu.restaurant"),
+        @NamedQuery(name = Vote.ALL_BY_USER_ID, query = "SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.menu.date, v.menu.restaurant"),
         @NamedQuery(name = Vote.ALL_BY_RESTAURANT_ID, query = "select v FROM Vote v " +
                 "WHERE v.menu.restaurant.id=:restaurantId ORDER BY v.user.name")
 })
