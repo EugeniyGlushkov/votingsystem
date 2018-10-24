@@ -14,5 +14,4 @@ import java.util.concurrent.TimeUnit;
 
 //del
 public class Main {
-    //test
 }
