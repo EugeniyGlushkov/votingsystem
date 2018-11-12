@@ -119,6 +119,7 @@ public class Vote{
         return id != null ? id : 0;
     }
 
+    //del
     /*@Override
     public boolean equals(Object o) {
         *//*Menu expectedMenu = new Menu(((Vote)o).getMenu());
